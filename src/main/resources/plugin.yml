@@ -1,0 +1,19 @@
+name: McOne-SkyPvP
+version: 2.3
+author: TwinsterHD
+main: de.Dominik.SkyPvP.Main.Main
+commands:
+     kit:
+     kits:
+     head:
+     setspawnshop:
+     setspawnvote:
+     setspawnkits:
+     set:
+     heal:
+     feed:
+     ec:
+     wb:
+     spawn:
+     shop:
+     random:

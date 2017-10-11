@@ -22,7 +22,7 @@ public class PlayerJoinEvent_EVENT implements Listener{
 	  	      
         }
         
-        SpawnManager_CMD.teleportTopawn(p);
+        SpawnManager_CMD.teleportToSpawn(p);
        
        // e.setJoinMessage(Main.cfg.getString("SkyPvP.Server-Prefix").replaceAll("&", "§").replaceAll(">", "»") + " " + Main.cfg.getString("SkyPvP.Join").replaceAll("&", "§").replaceAll(">", "»").replaceAll("%Player%", p.getName()));
   	        

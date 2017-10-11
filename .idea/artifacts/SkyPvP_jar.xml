@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" build-on-make="true" name="SkyPvP:jar">
+    <output-path>$PROJECT_DIR$/../../../Minecraft/localhost - server/Skypvp/plugins</output-path>
+    <root id="archive" name="SkyPvP.jar">
+      <element id="module-output" name="SkyPvP" />
+    </root>
+  </artifact>
+</component>

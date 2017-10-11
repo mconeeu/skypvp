@@ -20,7 +20,7 @@ import de.Dominik.BukkitCoreSystem.API.CoinsAPI;
 import net.minecraft.server.v1_8_R3.EntityPlayer;
 import net.minecraft.server.v1_8_R3.PacketPlayInClientCommand;
 
-import static de.Dominik.SkyPvP.Main.Main.stats;
+import static de.Dominik.BukkitCoreSystem.Main.Main.statsSkypvp;
 
 public class Kill_LISTENER implements Listener {
 private HashMap< Player, Player > lastHit = new HashMap<>();
@@ -85,7 +85,7 @@ public static Plugin plugin;
 					 }
 
                    //Tode werden dem Spieler Hinzugefügt (1)
-				   stats.addDeaths(p.getUniqueId().toString(), p.getName(), Integer.valueOf(1));
+				   statsSkypvp.addDeaths(p.getUniqueId().toString(), p.getName(), Integer.valueOf(1));
 				   
 				   //Scoreboard wird für denn Spieler gesetzt (p)
     	    	   Scoreboard_LISTENER.setScoreboard1(p);
@@ -109,7 +109,7 @@ public static Plugin plugin;
 						 CoinsAPI.removeCoins(p, Integer.valueOf(3)); 
 					 }
     	    	   //Tod wird dem Spieler hinzugefügt
-				   stats.addDeaths(p.getUniqueId().toString(), p.getName(), Integer.valueOf(1));
+				   statsSkypvp.addDeaths(p.getUniqueId().toString(), p.getName(), Integer.valueOf(1));
     	    	   
     	    	   //Scoreboard wird für denn Spieler gesetzt (p)
     	    	   Scoreboard_LISTENER.setScoreboard1(p);
@@ -148,7 +148,7 @@ public static Plugin plugin;
 				   CoinsAPI.addCoins(k, Integer.valueOf(3));
 
 				   //Kills werden dem Killer Hinzugefügt (1)
-				   stats.addKills(k.getUniqueId().toString(), k.getName(), Integer.valueOf(1));
+				   statsSkypvp.addKills(k.getUniqueId().toString(), k.getName(), Integer.valueOf(1));
 	    	    	   
 				   //Scorebaord wird für denn Killer Gesetzt (k)
 				   Scoreboard_LISTENER.setScoreboard1(k);

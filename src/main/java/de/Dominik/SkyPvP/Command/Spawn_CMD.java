@@ -23,7 +23,7 @@ public boolean onCommand(CommandSender sender, Command cmd, String label, String
   Bukkit.getScheduler().scheduleSyncDelayedTask(Main.main, new Runnable(){
       public void run(){
     	  if (Listener_LISTENER.cooldownlist.contains(p)){
-        	  SpawnManager_CMD.teleportTopawn(p);
+        	  SpawnManager_CMD.teleportToSpawn(p);
             Listener_LISTENER.cooldownlist.remove(p);
           }
     	  

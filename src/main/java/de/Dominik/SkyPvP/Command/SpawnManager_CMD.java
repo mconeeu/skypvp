@@ -47,7 +47,7 @@ public class SpawnManager_CMD implements CommandExecutor {
 		return false;
     }
     
-    public static void teleportTopawn(Player p) {
+    public static void teleportToSpawn(Player p) {
         File file = new File("plugins//McOne-SkyPvP//spawns.yml");
         YamlConfiguration cfg = YamlConfiguration.loadConfiguration((File)file);
         String w = cfg.getString("Spawn.WeltName");

@@ -13,14 +13,14 @@ import org.bukkit.scoreboard.Team;
 import de.Dominik.BukkitCoreSystem.API.CoinsAPI;
 import de.Dominik.SkyPvP.Main.Main;
 
-import static de.Dominik.SkyPvP.Main.Main.stats;
+import static de.Dominik.BukkitCoreSystem.Main.Main.statsSkypvp;
 
 public class Scoreboard_LISTENER implements Listener {
 	
     public static void setScoreboard1(Player p) {
   	   
-  	   int kills = stats.getKills(p.getUniqueId().toString(), p.getName());
-  	   int tode = stats.getDeaths(p.getUniqueId().toString(), p.getName());
+  	   int kills = statsSkypvp.getKills(p.getUniqueId().toString(), p.getName());
+  	   int tode = statsSkypvp.getDeaths(p.getUniqueId().toString(), p.getName());
   	   int coins = CoinsAPI.getCoins(p);
 
        Scoreboard board = Bukkit.getScoreboardManager().getNewScoreboard();

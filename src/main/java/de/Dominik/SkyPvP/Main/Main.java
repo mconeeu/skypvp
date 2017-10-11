@@ -50,7 +50,6 @@ public class Main extends JavaPlugin{
     public static String Output;
 
     private static Main instance;
-    public static StatsAPI stats = new StatsAPI("Skypvp");
     
     public static File f = new File("plugins/McOne-SkyPvP", "config.yml");
     public static FileConfiguration cfg = YamlConfiguration.loadConfiguration(f);
@@ -158,11 +157,11 @@ public class Main extends JavaPlugin{
 	    getConfig().addDefault("SkyPvP.Quit", "&f%Player% &7hat den &9SkyPvP-Server &7verlassen");
 	    getConfig().addDefault("SkyPvP.ScoreBoard-1", "&3&lMCONE.EU");
 	    getConfig().addDefault("SkyPvP.ScoreBoard-2", "&8> &7Kills:");
-	    getConfig().addDefault("SkyPvP.ScoreBoard-3", " &2");
+	    getConfig().addDefault("SkyPvP.ScoreBoard-3", " &9");
 	    getConfig().addDefault("SkyPvP.ScoreBoard-4", "&8> &7Tode:");
 	    getConfig().addDefault("SkyPvP.ScoreBoard-5", " &c");
 	    getConfig().addDefault("SkyPvP.ScoreBoard-6", "&8> &7Coins:");
-	    getConfig().addDefault("SkyPvP.ScoreBoard-7", " &9");
+	    getConfig().addDefault("SkyPvP.ScoreBoard-7", " &f");
 	    getConfig().addDefault("SkyPvP.ScoreBoard-8", "&8> &7Event");
 	    getConfig().addDefault("SkyPvP.ScoreBoard-9", " &8&oNichts geplant");
 	    
