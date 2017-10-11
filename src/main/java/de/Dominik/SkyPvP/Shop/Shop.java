@@ -1,4 +1,4 @@
-package me.SkyPvP.Shop.de;
+package de.Dominik.SkyPvP.Shop;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Sound;

@@ -1,12 +1,11 @@
-package me.SkyPvP.Command.de;
+package de.Dominik.SkyPvP.Command;
 
+import de.Dominik.SkyPvP.Main.Main;
 import org.bukkit.Effect;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-
-import me.SkyPvP.Main.de.Main;
 
 public class Heal_CMD implements CommandExecutor{
 	  

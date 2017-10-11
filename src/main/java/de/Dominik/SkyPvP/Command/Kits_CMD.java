@@ -1,5 +1,6 @@
-package me.SkyPvP.Command.de;
+package de.Dominik.SkyPvP.Command;
 
+import de.Dominik.SkyPvP.Main.Main;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.command.Command;
@@ -10,9 +11,6 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.plugin.Plugin;
-
-import me.SkyPvP.Main.de.Main;
-
 
 public class Kits_CMD implements CommandExecutor {
 private Plugin plugin;

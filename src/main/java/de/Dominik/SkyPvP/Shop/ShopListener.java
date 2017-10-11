@@ -1,5 +1,8 @@
-package me.SkyPvP.Shop.de;
+package de.Dominik.SkyPvP.Shop;
 
+import de.Dominik.SkyPvP.API.API;
+import de.Dominik.SkyPvP.Listener.Scoreboard_LISTENER;
+import de.Dominik.SkyPvP.Main.Main;
 import org.bukkit.Bukkit;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
@@ -9,9 +12,6 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
 
 import de.Dominik.BukkitCoreSystem.API.CoinsAPI;
-import me.SkyPvP.API.de.API;
-import me.SkyPvP.Listener.de.Scoreboard_LISTENER;
-import me.SkyPvP.Main.de.Main;
 
 
 public class ShopListener implements Listener{

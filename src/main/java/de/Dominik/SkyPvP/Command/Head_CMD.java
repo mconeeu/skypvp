@@ -1,15 +1,13 @@
-package me.SkyPvP.Command.de;
+package de.Dominik.SkyPvP.Command;
 
+import de.Dominik.SkyPvP.Main.Main;
 import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
-import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.SkullMeta;
-
-import me.SkyPvP.Main.de.Main;
 
 public class Head_CMD implements CommandExecutor {
 	

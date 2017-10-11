@@ -11,15 +11,16 @@ import org.bukkit.scoreboard.Scoreboard;
 import org.bukkit.scoreboard.Team;
 
 import de.Dominik.BukkitCoreSystem.API.CoinsAPI;
-import de.Dominik.BukkitCoreSystem.API.StatsAPI;
 import de.Dominik.SkyPvP.Main.Main;
+
+import static de.Dominik.SkyPvP.Main.Main.stats;
 
 public class Scoreboard_LISTENER implements Listener {
 	
     public static void setScoreboard1(Player p) {
   	   
-  	   int kills = StatsAPI.getKills(p.getUniqueId().toString(), p.getName());
-  	   int tode = StatsAPI.getDeaths(p.getUniqueId().toString(), p.getName());
+  	   int kills = stats.getKills(p.getUniqueId().toString(), p.getName());
+  	   int tode = stats.getDeaths(p.getUniqueId().toString(), p.getName());
   	   int coins = CoinsAPI.getCoins(p);
 
        Scoreboard board = Bukkit.getScoreboardManager().getNewScoreboard();

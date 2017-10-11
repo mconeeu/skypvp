@@ -1,5 +1,7 @@
-package me.SkyPvP.Event.de;
+package de.Dominik.SkyPvP.Event;
 
+import de.Dominik.SkyPvP.Command.SpawnManager_CMD;
+import de.Dominik.SkyPvP.Listener.Scoreboard_LISTENER;
 import org.bukkit.Bukkit;
 import org.bukkit.Effect;
 import org.bukkit.Sound;
@@ -7,10 +9,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
-
-import me.SkyPvP.Command.de.SpawnManager_CMD;
-import me.SkyPvP.Listener.de.Scoreboard_LISTENER;
-import me.SkyPvP.Main.de.Main;
 
 public class PlayerJoinEvent_EVENT implements Listener{
 

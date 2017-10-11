@@ -1,21 +1,16 @@
-package me.SkyPvP.Command.de;
+package de.Dominik.SkyPvP.Command;
 
+import de.Dominik.SkyPvP.Main.Main;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
-import org.bukkit.Sound;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.inventory.Inventory;
-import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.plugin.Plugin;
-
-import me.SkyPvP.Listener.de.Listener_LISTENER;
-import me.SkyPvP.Main.de.Main;
 
 
 public class Kit_CMD implements CommandExecutor {

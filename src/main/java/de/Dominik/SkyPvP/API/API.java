@@ -1,4 +1,4 @@
-package me.SkyPvP.API.de;
+package de.Dominik.SkyPvP.API;
 
 
 import java.lang.reflect.Field;

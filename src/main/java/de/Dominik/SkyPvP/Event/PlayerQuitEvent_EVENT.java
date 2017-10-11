@@ -1,12 +1,11 @@
-package me.SkyPvP.Event.de;
+package de.Dominik.SkyPvP.Event;
 
+import de.Dominik.SkyPvP.Main.Main;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerQuitEvent;
-
-import me.SkyPvP.Main.de.Main;
 
 public class PlayerQuitEvent_EVENT implements Listener{
 	

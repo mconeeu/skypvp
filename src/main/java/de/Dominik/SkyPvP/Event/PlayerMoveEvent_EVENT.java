@@ -1,5 +1,7 @@
-package me.SkyPvP.Event.de;
+package de.Dominik.SkyPvP.Event;
 
+import de.Dominik.SkyPvP.Listener.Listener_LISTENER;
+import de.Dominik.SkyPvP.Main.Main;
 import org.bukkit.Effect;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -9,9 +11,6 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.util.Vector;
-
-import me.SkyPvP.Listener.de.Listener_LISTENER;
-import me.SkyPvP.Main.de.Main;
 
 public class PlayerMoveEvent_EVENT implements Listener{
 

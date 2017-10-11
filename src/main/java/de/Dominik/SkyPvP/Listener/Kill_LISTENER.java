@@ -1,6 +1,7 @@
 package de.Dominik.SkyPvP.Listener;
 import java.util.HashMap;
 
+import de.Dominik.SkyPvP.Main.Main;
 import org.bukkit.Bukkit;
 import org.bukkit.Effect;
 import org.bukkit.Material;
@@ -16,10 +17,11 @@ import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.plugin.Plugin;
 
 import de.Dominik.BukkitCoreSystem.API.CoinsAPI;
-import de.Dominik.BukkitCoreSystem.API.StatsAPI;
 import net.minecraft.server.v1_8_R3.EntityPlayer;
 import net.minecraft.server.v1_8_R3.PacketPlayInClientCommand;
-     
+
+import static de.Dominik.SkyPvP.Main.Main.stats;
+
 public class Kill_LISTENER implements Listener {
 private HashMap< Player, Player > lastHit = new HashMap<>();
 public static Plugin plugin;
@@ -83,7 +85,7 @@ public static Plugin plugin;
 					 }
 
                    //Tode werden dem Spieler Hinzugefügt (1)
-				   StatsAPI.addDeaths(p.getUniqueId().toString(), p.getName(), Integer.valueOf(1));
+				   stats.addDeaths(p.getUniqueId().toString(), p.getName(), Integer.valueOf(1));
 				   
 				   //Scoreboard wird für denn Spieler gesetzt (p)
     	    	   Scoreboard_LISTENER.setScoreboard1(p);
@@ -107,7 +109,7 @@ public static Plugin plugin;
 						 CoinsAPI.removeCoins(p, Integer.valueOf(3)); 
 					 }
     	    	   //Tod wird dem Spieler hinzugefügt
-    	    	   StatsAPI.addDeaths(p.getUniqueId().toString(), p.getName(), Integer.valueOf(1));
+				   stats.addDeaths(p.getUniqueId().toString(), p.getName(), Integer.valueOf(1));
     	    	   
     	    	   //Scoreboard wird für denn Spieler gesetzt (p)
     	    	   Scoreboard_LISTENER.setScoreboard1(p);
@@ -124,7 +126,7 @@ public static Plugin plugin;
 						 CoinsAPI.removeCoins(p, Integer.valueOf(3)); 
 					 }
                    //Tode werden dem Spieler Hinzugefügt (1)
-				   StatsAPI.addDeaths(p.getUniqueId().toString(), p.getName(), Integer.valueOf(1));
+ 					stats.addDeaths(p.getUniqueId().toString(), p.getName(), Integer.valueOf(1));
 				   Bukkit.broadcastMessage("§c//Tode werden dem Spieler Hinzugefügt (1)-2");
 				   
 				   //Scoreboard wird für denn Spieler gesetzt (p)
@@ -134,7 +136,7 @@ public static Plugin plugin;
     	    	   CoinsAPI.addCoins(k, Integer.valueOf(3));
 
     	    	   //Kills werden dem Killer Hinzugefügt (1)
-    	    	   StatsAPI.addKills(k.getUniqueId().toString(), k.getName(), Integer.valueOf(1));
+ 					stats.addKills(k.getUniqueId().toString(), k.getName(), Integer.valueOf(1));
     	    	   
     	    	   //Scorebaord wird für denn Killer Gesetzt (k)
     	    	   Scoreboard_LISTENER.setScoreboard1(k);
@@ -142,15 +144,14 @@ public static Plugin plugin;
 */
     	       if(p instanceof Player){
 
-					 //Coins werden dem Killer Hinzugefügt (3)
-	    	    	   CoinsAPI.addCoins(k, Integer.valueOf(3));
+				 	//Coins werden dem Killer Hinzugefügt (3)
+				   CoinsAPI.addCoins(k, Integer.valueOf(3));
 
-	    	    	   //Kills werden dem Killer Hinzugefügt (1)
-	    	    	   StatsAPI.addKills(k.getUniqueId().toString(), k.getName(), Integer.valueOf(1));
+				   //Kills werden dem Killer Hinzugefügt (1)
+				   stats.addKills(k.getUniqueId().toString(), k.getName(), Integer.valueOf(1));
 	    	    	   
-	    	    	   //Scorebaord wird für denn Killer Gesetzt (k)
-	    	    	   Scoreboard_LISTENER.setScoreboard1(k);
-	    	    	   
+				   //Scorebaord wird für denn Killer Gesetzt (k)
+				   Scoreboard_LISTENER.setScoreboard1(k);
     	    	   
     	    	   p.sendMessage(Main.cfg.getString("SkyPvP.Server-Prefix").replaceAll("&", "§").replaceAll(">", "»") + " §7Du wurdest von §6" + k.getDisplayName() + " §7getötet");
     	       }

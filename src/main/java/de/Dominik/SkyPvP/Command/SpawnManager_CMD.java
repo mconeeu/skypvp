@@ -1,7 +1,9 @@
-package me.SkyPvP.Command.de;
+package de.Dominik.SkyPvP.Command;
 
 
 import java.io.File;
+
+import de.Dominik.SkyPvP.Main.Main;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.command.Command;
@@ -9,8 +11,6 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
-
-import me.SkyPvP.Main.de.Main;
 
 public class SpawnManager_CMD implements CommandExecutor {
     public boolean onCommand(CommandSender sender, Command cmd, String arg2, String[] args) {

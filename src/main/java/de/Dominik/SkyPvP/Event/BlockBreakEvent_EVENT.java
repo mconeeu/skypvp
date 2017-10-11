@@ -1,4 +1,4 @@
-package me.SkyPvP.Event.de;
+package de.Dominik.SkyPvP.Event;
 
 import org.bukkit.GameMode;
 import org.bukkit.entity.Player;

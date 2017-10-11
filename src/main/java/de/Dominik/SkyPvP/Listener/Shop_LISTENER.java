@@ -1,4 +1,4 @@
-package me.SkyPvP.Listener.de;
+package de.Dominik.SkyPvP.Listener;
 
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Villager;

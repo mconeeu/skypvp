@@ -3,6 +3,7 @@ package de.Dominik.SkyPvP.Main;
 import java.io.File;
 import java.io.IOException;
 
+import de.Dominik.BukkitCoreSystem.API.StatsAPI;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -19,8 +20,8 @@ import de.Dominik.SkyPvP.Command.Kits_CMD;
 import de.Dominik.SkyPvP.Command.Random_CMD;
 import de.Dominik.SkyPvP.Command.SetSpawnKits_CMD;
 import de.Dominik.SkyPvP.Command.SetSpawnShop_CMD;
-import de.Dominik.SkyPvP.Command.SpawnManager_CMD;
 import de.Dominik.SkyPvP.Command.Spawn_CMD;
+import de.Dominik.SkyPvP.Command.SpawnManager_CMD;
 import de.Dominik.SkyPvP.Command.Wokrbench_CMD;
 import de.Dominik.SkyPvP.Event.BlockBreakEvent_EVENT;
 import de.Dominik.SkyPvP.Event.BlockPlaceEvent_EVENT;
@@ -49,6 +50,7 @@ public class Main extends JavaPlugin{
     public static String Output;
 
     private static Main instance;
+    public static StatsAPI stats = new StatsAPI("Skypvp");
     
     public static File f = new File("plugins/McOne-SkyPvP", "config.yml");
     public static FileConfiguration cfg = YamlConfiguration.loadConfiguration(f);
