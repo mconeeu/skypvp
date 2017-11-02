@@ -1,7 +1,8 @@
-name: McOne-SkyPvP
+name: MCONE-SkyPvP
 version: 2.3
 author: TwinsterHD
-main: de.Dominik.SkyPvP.Main.Main
+main: de.Dominik.SkyPvP.Main
+depend: [MCONE-BukkitCoreSystem]
 commands:
      kit:
      kits:

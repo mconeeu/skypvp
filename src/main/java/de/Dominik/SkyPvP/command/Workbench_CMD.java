@@ -1,0 +1,29 @@
+package de.Dominik.SkyPvP.command;
+
+import de.Dominik.SkyPvP.Main;
+import org.bukkit.Sound;
+import org.bukkit.command.Command;
+import org.bukkit.command.CommandExecutor;
+import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
+
+public class Workbench_CMD implements CommandExecutor{
+
+	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
+		if(!(sender instanceof Player)) {
+			sender.sendMessage(Main.config.getConfigValue("System-Prefix") + Main.config.getConfigValue("System-Konsolen-Sender"));
+			return true;
+		}	
+		
+		Player p = (Player) sender;
+		 if (cmd.getName().equalsIgnoreCase("wb")){
+		    	if(p.hasPermission("SkyPvP.wb") || p.hasPermission("SkyPvP.*") || p.hasPermission("System.*")){
+		    		p.openWorkbench(null, true);
+		    		p.playSound(p.getLocation(), Sound.LEVEL_UP, 2.0F, 1.0F);
+		    	}else{
+		    		p.sendMessage(Main.config.getConfigValue("System-Prefix") + Main.config.getConfigValue("System-No-Perm"));
+		    	}
+		    }
+		return false;
+	}
+}
