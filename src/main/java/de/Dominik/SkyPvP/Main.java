@@ -3,11 +3,13 @@ package de.Dominik.SkyPvP;
 import de.Dominik.BukkitCoreSystem.mysql.MySQL_Config;
 import de.Dominik.SkyPvP.command.*;
 import de.Dominik.SkyPvP.event.*;
-import de.Dominik.SkyPvP.inventory.ShopItem;
-import de.Dominik.SkyPvP.util.ScoreboardManager;
+import de.Dominik.SkyPvP.scoreboard.Scoreboard;
+import de.Dominik.SkyPvP.scoreboard.ScoreboardManager;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.scoreboard.DisplaySlot;
+import org.bukkit.scoreboard.Objective;
 
 import java.util.ArrayList;
 
@@ -35,6 +37,11 @@ public class Main extends JavaPlugin{
         registerEvents();
 
         Bukkit.getServer().getConsoleSender().sendMessage(MainPrefix + "§aVersion §f" + this.getDescription().getVersion() + "§a wurde aktiviert...");
+
+		for (Player p : Bukkit.getOnlinePlayers()) {
+			//for Players who are already on server (reload)
+			new Scoreboard(p);
+		}
     }
 
     public void onDisable(){
@@ -45,8 +52,6 @@ public class Main extends JavaPlugin{
     	getCommand("ec").setExecutor(new Endechest_CMD());
     	getCommand("shop").setExecutor(new Shop_CMD());
     	getCommand("wb").setExecutor(new Workbench_CMD());
-    	getCommand("heal").setExecutor(new Heal_CMD());
-    	getCommand("feed").setExecutor(new Feed_CMD());
     	getCommand("kit").setExecutor(new Kit_CMD());
     	getCommand("kits").setExecutor(new Kit_CMD());
     	getCommand("setspawnshop").setExecutor(new SetSpawnShop_CMD());
@@ -79,8 +84,8 @@ public class Main extends JavaPlugin{
 	    config.insertMySQLConfig("System-Prefix", "&8[&7&l!&8] &9SkyPvP &8» ");
 	    config.insertMySQLConfig("System-No-Perm", "&4Du hast keine Berechtigung für diesen Befehl");
 	    config.insertMySQLConfig("System-Konsolen-Sender", "&7Nur ein &cSpieler &7Kann diesen Befehl ausführen!");
-		config.insertMySQLConfig("System-Join", "&f%Player% &7hat den &9SkyPvP-Server &7betreten");
-		config.insertMySQLConfig("System-Quit", "&f%Player% &7hat den &9SkyPvP-Server &7verlassen");
+		config.insertMySQLConfig("System-Join", "&f%Player% &7betritt &9SkyPvP§7.");
+		config.insertMySQLConfig("System-Quit", "&f%Player% &7verlässt &9SkyPvP§7.");
 		config.insertMySQLConfig("System-ItemFrame", "&8» &9&lSkyPvP &7Free Items");
 
         //Locations

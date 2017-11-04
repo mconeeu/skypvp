@@ -16,14 +16,12 @@ public class Workbench_CMD implements CommandExecutor{
 		}	
 		
 		Player p = (Player) sender;
-		 if (cmd.getName().equalsIgnoreCase("wb")){
-		    	if(p.hasPermission("SkyPvP.wb") || p.hasPermission("SkyPvP.*") || p.hasPermission("System.*")){
-		    		p.openWorkbench(null, true);
-		    		p.playSound(p.getLocation(), Sound.LEVEL_UP, 2.0F, 1.0F);
-		    	}else{
-		    		p.sendMessage(Main.config.getConfigValue("System-Prefix") + Main.config.getConfigValue("System-No-Perm"));
-		    	}
-		    }
+        if (cmd.getName().equalsIgnoreCase("wb")){
+            p.openWorkbench(null, true);
+            p.playSound(p.getLocation(), Sound.CHICKEN_EGG_POP, 1, 1);
+
+        }
+
 		return false;
 	}
 }

@@ -2,8 +2,7 @@ package de.Dominik.SkyPvP.event;
 
 import de.Dominik.BukkitCoreSystem.util.LocationFactory;
 import de.Dominik.SkyPvP.Main;
-import de.Dominik.SkyPvP.util.ScoreboardManager;
-import org.bukkit.Bukkit;
+import de.Dominik.SkyPvP.scoreboard.Scoreboard;
 import org.bukkit.Effect;
 import org.bukkit.Location;
 import org.bukkit.Sound;
@@ -18,9 +17,7 @@ public class PlayerJoin_Event implements Listener{
     public void on(PlayerJoinEvent e) {
         Player p = e.getPlayer();
     
-        for (Player all : Bukkit.getOnlinePlayers()){
-	  	      ScoreboardManager.setScoreboard(all);
-        }
+        new Scoreboard(p);
 
         Location spawn = LocationFactory.getConfigLocation(Main.config, "Location-Spawn");
 
@@ -30,10 +27,8 @@ public class PlayerJoin_Event implements Listener{
             p.sendMessage(Main.config.getConfigValue("System-Prefix") + "§4Der Spawn wurde noch nicht gesetzt!");
         }
        
-       // e.setJoinMessage(Main.config.getConfigValue("System-Prefix") + Main.config.getConfigValue("System-Join").replaceAll("%Player%", p.getName()));
-  	        
-  	        // Vector v = p.getLocation().getDirection().multiply(2.0D).setY(1.0D);
-  	        // p.setVelocity(v);
+        e.setJoinMessage(Main.config.getConfigValue("System-Prefix") + Main.config.getConfigValue("System-Join").replaceAll("%Player%", p.getName()));
+
         p.playSound(p.getLocation(), Sound.LEVEL_UP, 2.0F, 1.0F);
         p.getPlayer().playEffect(p.getPlayer().getLocation(), Effect.ENDER_SIGNAL, 10);
     }

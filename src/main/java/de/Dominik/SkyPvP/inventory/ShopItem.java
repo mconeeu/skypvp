@@ -14,9 +14,9 @@ public enum ShopItem {
 
     schwerter(ItemManager.createItem(Material.DIAMOND_SWORD, 0, 1, "§cSchwerter", new ArrayList<>(Collections.singletonList("§8» §7Abteil mit Schwertern.")), true), 0),
     boegen(ItemManager.createItem(Material.BOW, 0, 1, "§cBögen", new ArrayList<>(Collections.singletonList("§8» §7Abteil mit Bögen.")), true), 0),
-    ruestung(ItemManager.createItem(Material.DIAMOND_CHESTPLATE, 0, 1, "§cExtras", new ArrayList<>(Collections.singletonList("§8» §7Abteil mit extra Items.")), true), 0),
-    extras(ItemManager.createItem(Material.NETHER_STAR, 0, 1, "§cExtras", true), 0),
-    spezial(ItemManager.createItem(Material.TNT, 0, 1, "§cSpezial", true), 0),
+    ruestung(ItemManager.createItem(Material.DIAMOND_CHESTPLATE, 0, 1, "§cRüstung", new ArrayList<>(Collections.singletonList("§8» §7Abteil mit Rüstung.")), true), 0),
+    extras(ItemManager.createItem(Material.NETHER_STAR, 0, 1, "§cExtras", new ArrayList<>(Collections.singletonList("§8» §7Abteil mit Extras.")), true), 0),
+    spezial(ItemManager.createItem(Material.TNT, 0, 1, "§cSpezial", new ArrayList<>(Collections.singletonList("§8» §7Abteil mit Spezial Items.")), true), 0),
 
     schwert1(ItemManager.createEnchantedItem(Material.DIAMOND_SWORD, new HashMap<Enchantment, Integer>(){{put(Enchantment.DAMAGE_ALL, 1);}}, 0, 1, "§cSchwert 1", new ArrayList<>(Collections.singletonList("§8» §7Kosten: §e10 Coins")), false), 10),
     schwert2(ItemManager.createEnchantedItem(Material.DIAMOND_SWORD, new HashMap<Enchantment, Integer>(){{put(Enchantment.DAMAGE_ALL, 2);}}, 0, 1, "§cSchwert 2", new ArrayList<>(Collections.singletonList("§8» §7Kosten: §e15 Coins")), false), 15),

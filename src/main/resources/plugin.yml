@@ -11,8 +11,6 @@ commands:
      setspawnvote:
      setspawnkits:
      set:
-     heal:
-     feed:
      ec:
      wb:
      spawn:

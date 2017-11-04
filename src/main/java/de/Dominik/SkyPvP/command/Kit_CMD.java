@@ -2,8 +2,10 @@ package de.Dominik.SkyPvP.command;
 
 import de.Dominik.BukkitCoreSystem.util.ItemManager;
 import de.Dominik.SkyPvP.Main;
+import de.Dominik.SkyPvP.inventory.KitInventory;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
+import org.bukkit.Sound;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -26,18 +28,8 @@ private Plugin plugin;
 			return true;
 		} else if (cmd.getName().equalsIgnoreCase("kit") || cmd.getName().equalsIgnoreCase("kits")) {
 		    if (args.length == 0){
-				Inventory inv = Bukkit.getServer().createInventory(null, 27, "§8Wähle dein Kit");
-
-                for (int i = 0; i <= 26; i++) {
-                    inv.setItem(i, ItemManager.createItem(Material.STAINED_GLASS_PANE, 7, 1, "§8//§oMCONE§8//", true));
-                }
-
-				inv.setItem(10, ItemManager.createItem(Material.STONE_SWORD, 0, 1, "§7Kit §8Spieler", true));
-				inv.setItem(12, ItemManager.createItem(Material.DIAMOND_SWORD, 0, 1, "§7Kit §3Diamond", true));
-                inv.setItem(14, ItemManager.createItem(Material.EMERALD, 0, 1, "§7Kit §2Emerald", true));
-                inv.setItem(16, ItemManager.createItem(Material.IRON_INGOT, 0, 1, "§7Kit §dPlatin", true));
-
-                p.openInventory(inv);
+				new KitInventory(p);
+				p.playSound(p.getLocation(), Sound.CHICKEN_EGG_POP, 1, 1);
 		    } else {
 		        p.sendMessage(Main.config.getConfigValue("System-Prefix") + "§cBitte nutze den Command /kit");
 		    }

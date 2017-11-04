@@ -13,16 +13,13 @@ public class Endechest_CMD implements CommandExecutor{
 		if(!(sender instanceof Player)) {
 			sender.sendMessage(Main.config.getConfigValue("System-Prefix") + Main.config.getConfigValue("System-Konsolen-Sender"));
 			return true;
-		}	
+		}
+
 		Player p = (Player) sender;
-		 if (cmd.getName().equalsIgnoreCase("ec")){
-		    	if(p.hasPermission("skypvp.ec") || p.hasPermission("skypvp.*") || p.hasPermission("system.*")){
-		    		p.openInventory(p.getEnderChest());
-		    		p.playSound(p.getLocation(), Sound.LEVEL_UP, 2.0F, 1.0F);
-		    	}else{
-		    		p.sendMessage(Main.config.getConfigValue("System-Prefix") + Main.config.getConfigValue("System-No-Perm"));
-		    	}
-		    }
+		if (cmd.getName().equalsIgnoreCase("ec")){
+			p.openInventory(p.getEnderChest());
+            p.playSound(p.getLocation(), Sound.CHICKEN_EGG_POP, 1, 1);
+		}
 		return false;
 	}
 }

@@ -18,7 +18,8 @@ public  class SetSpawnKits_CMD implements CommandExecutor {
 			if(sender == null) {
 				Bukkit.getConsoleSender().sendMessage(Main.config.getConfigValue("System-Prefix") + Main.config.getConfigValue("System-Konsolen-Sender"));
 				return true;
-			}	
+			}
+
 			if(p.hasPermission("skypvp.setkits") || p.hasPermission("skypvp.*") || p.hasPermission("system.*")) {
 				Villager i = (Villager) p.getWorld().spawnCreature(p.getLocation(), EntityType.VILLAGER);
 				i.setCustomName("§9SkyPvP §8» §cKits");
