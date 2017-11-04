@@ -42,18 +42,18 @@ public class Scoreboard {
         this.o.setDisplaySlot(DisplaySlot.SIDEBAR);
         this.o.setDisplayName(Main.config.getConfigValue("ScoreBoard-1"));
 
-        this.scores.put(Main.config.getConfigValue("ScoreBoard-2"), 11);
+        this.o.getScore(Main.config.getConfigValue("ScoreBoard-2")).setScore(11);
         this.scores.put(Main.config.getConfigValue("ScoreBoard-3")+ kills, 10);
-        this.scores.put("§1", 9);
-        this.scores.put(Main.config.getConfigValue("ScoreBoard-4"), 8);
+        this.o.getScore("§1").setScore(9);
+        this.o.getScore(Main.config.getConfigValue("ScoreBoard-4")).setScore(8);
         this.scores.put(Main.config.getConfigValue("ScoreBoard-5") + tode, 7);
-        this.scores.put("§2", 6);
-        this.scores.put(Main.config.getConfigValue("ScoreBoard-6"), 5);
+        this.o.getScore("§2").setScore(6);
+        this.o.getScore(Main.config.getConfigValue("ScoreBoard-6")).setScore(5);
         this.scores.put(Main.config.getConfigValue("ScoreBoard-7")+ coins, 4);
-        this.scores.put("§3", 3);
-        this.scores.put(Main.config.getConfigValue("ScoreBoard-8"), 2);
+        this.o.getScore("§3").setScore(3);
+        this.o.getScore(Main.config.getConfigValue("ScoreBoard-8")).setScore(2);
         this.scores.put(Main.config.getConfigValue("ScoreBoard-9"), 1);
-        this.scores.put("§4", 0);
+        this.o.getScore("§4").setScore(0);
 
         for (HashMap.Entry<String, Integer> entry : this.scores.entrySet()) {
             String s = entry.getKey();
@@ -66,9 +66,10 @@ public class Scoreboard {
     }
 
     void updateScoreboard() {
-        int kills = statsSkypvp.getKills(p.getUniqueId().toString(), p.getName());
-        int tode = statsSkypvp.getDeaths(p.getUniqueId().toString(), p.getName());
-        int coins = CoinsAPI.getCoins(p);
+        String _10 = Main.config.getConfigValue("ScoreBoard-3")+statsSkypvp.getKills(p.getUniqueId().toString(), p.getName());
+        String _7 = Main.config.getConfigValue("ScoreBoard-5")+statsSkypvp.getDeaths(p.getUniqueId().toString(), p.getName());
+        String _4 = Main.config.getConfigValue("ScoreBoard-7")+CoinsAPI.getCoins(p);
+        String _1 = Main.config.getLiveConfigValue("ScoreBoard-9");
 
         for (HashMap.Entry<String, Integer> entry : this.scores.entrySet()) {
             String s = entry.getKey();
@@ -76,18 +77,10 @@ public class Scoreboard {
         }
         this.scores = new HashMap<>();
 
-        this.scores.put(Main.config.getConfigValue("ScoreBoard-2"), 11);
-        this.scores.put(Main.config.getConfigValue("ScoreBoard-3")+ kills, 10);
-        this.scores.put("§1", 9);
-        this.scores.put(Main.config.getConfigValue("ScoreBoard-4"), 8);
-        this.scores.put(Main.config.getConfigValue("ScoreBoard-5") + tode, 7);
-        this.scores.put("§2", 6);
-        this.scores.put(Main.config.getConfigValue("ScoreBoard-6"), 5);
-        this.scores.put(Main.config.getConfigValue("ScoreBoard-7")+ coins, 4);
-        this.scores.put("§3", 3);
-        this.scores.put(Main.config.getConfigValue("ScoreBoard-8"), 2);
-        this.scores.put(Main.config.getConfigValue("ScoreBoard-9"), 1);
-        this.scores.put("§4", 0);
+        this.scores.put(_10, 10);
+        this.scores.put(_7, 7);
+        this.scores.put(_4, 4);
+        this.scores.put(_1, 1);
 
         for (HashMap.Entry<String, Integer> entry : this.scores.entrySet()) {
             String s = entry.getKey();
