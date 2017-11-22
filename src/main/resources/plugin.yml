@@ -3,16 +3,31 @@ version: 2.3
 author: TwinsterHD
 main: de.Dominik.SkyPvP.Main
 depend: [MCONE-BukkitCoreSystem]
+
 commands:
-     kit:
-     kits:
-     head:
-     setspawnshop:
-     setspawnvote:
-     setspawnkits:
-     set:
-     ec:
-     wb:
-     spawn:
-     shop:
-     random:
+  kit:
+    aliases: kit
+    description: Changes own Kit
+  ec:
+    description: Opens players enderchest
+  wb:
+    description: Opens players workbench
+  spawn:
+    description: Teleports to spawn
+  shop:
+    description: Opens Shop inventory
+  random:
+    description: Pick random winner
+    permission: skypvp.random
+
+permissions:
+  skypvp:
+    description: Main Permission
+    children:
+      skypvp.spawn:
+        description: Teleport to Spawn
+        children:
+          skypvp.spawn.set:
+            description: Allows to set several spawns
+      skypvp.random:
+        description: Allows to pick a random winner

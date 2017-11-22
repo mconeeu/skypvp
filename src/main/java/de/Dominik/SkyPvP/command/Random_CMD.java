@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2017 Dominik L., Rufus Maiwald and the MC ONE Minecraftnetwork. All rights reserved
+ * You are not allowed to decompile the code
+ */
+
 package de.Dominik.SkyPvP.command;
 
 import java.util.Random;
@@ -11,7 +16,7 @@ import org.bukkit.entity.Player;
 
 
 public class Random_CMD implements CommandExecutor{
-	
+
     public boolean onCommand(CommandSender sender, Command cmd, String arg2, String[] arg3){
         Player p = (Player)sender;
 

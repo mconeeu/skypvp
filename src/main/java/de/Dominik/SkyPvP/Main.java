@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2017 Dominik L., Rufus Maiwald and the MC ONE Minecraftnetwork. All rights reserved
+ * You are not allowed to decompile the code
+ */
+
 package de.Dominik.SkyPvP;
 
 import de.Dominik.BukkitCoreSystem.mysql.MySQL_Config;
@@ -8,8 +13,6 @@ import de.Dominik.SkyPvP.scoreboard.ScoreboardManager;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.bukkit.scoreboard.DisplaySlot;
-import org.bukkit.scoreboard.Objective;
 
 import java.util.ArrayList;
 
@@ -53,9 +56,6 @@ public class Main extends JavaPlugin{
     	getCommand("shop").setExecutor(new Shop_CMD());
     	getCommand("wb").setExecutor(new Workbench_CMD());
     	getCommand("kit").setExecutor(new Kit_CMD());
-    	getCommand("kits").setExecutor(new Kit_CMD());
-    	getCommand("setspawnshop").setExecutor(new SetSpawnShop_CMD());
-    	getCommand("setspawnkits").setExecutor(new SetSpawnKits_CMD());
     	getCommand("spawn").setExecutor(new Spawn_CMD());
     	getCommand("random").setExecutor(new Random_CMD());
     }
