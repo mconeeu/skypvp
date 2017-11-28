@@ -15,7 +15,7 @@ import org.bukkit.inventory.Inventory;
 
 public class ShopInventory {
 
-    public ShopInventory(Player p) {
+    public static void open(Player p) {
         Inventory inv = Bukkit.createInventory(p, 27, "§9§lSkyPvP §8» §fShop");
 
         for (int i = 0; i <= 26; i++) {

@@ -28,7 +28,7 @@ private Plugin plugin;
 			return true;
 		} else if (cmd.getName().equalsIgnoreCase("kit") || cmd.getName().equalsIgnoreCase("kits")) {
 		    if (args.length == 0){
-				new KitInventory(p);
+				KitInventory.open(p);
 				p.playSound(p.getLocation(), Sound.CHICKEN_EGG_POP, 1, 1);
 		    } else {
 		        p.sendMessage(Main.config.getConfigValue("System-Prefix") + "§cBitte nutze den Command /kit");

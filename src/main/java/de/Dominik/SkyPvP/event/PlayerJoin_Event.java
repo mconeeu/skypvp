@@ -7,7 +7,7 @@ package de.Dominik.SkyPvP.event;
 
 import de.Dominik.BukkitCoreSystem.util.LocationFactory;
 import de.Dominik.SkyPvP.Main;
-import de.Dominik.SkyPvP.scoreboard.Scoreboard;
+import de.Dominik.SkyPvP.util.Scoreboard;
 import org.bukkit.Effect;
 import org.bukkit.Location;
 import org.bukkit.Sound;
@@ -22,7 +22,7 @@ public class PlayerJoin_Event implements Listener{
     public void on(PlayerJoinEvent e) {
         Player p = e.getPlayer();
     
-        new Scoreboard(p);
+        Scoreboard.setObjective(p);
 
         Location spawn = LocationFactory.getConfigLocation(Main.config, "Location-Spawn");
 

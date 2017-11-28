@@ -44,9 +44,9 @@ public class PlayerDeath_Event implements Listener {
 
             if(k != null){
                 int coins = CoinsAPI.getCoins(p);
-                if(coins >= 3){
+                if(coins >= 2){
                     //Coins werden dem Spieler Angezogen (3)
-                    CoinsAPI.removeCoins(p, 3);
+                    CoinsAPI.removeCoins(p, 2);
                 }
 
                 //Tode werden dem Spieler Hinzugefügt (1)
@@ -58,7 +58,7 @@ public class PlayerDeath_Event implements Listener {
                 checkLevel(i, k);
 
                 //Coins werden dem Killer Hinzugefügt (3)
-                CoinsAPI.addCoins(k, 3);
+                CoinsAPI.addCoins(k, 5);
 
                 //Kills werden dem Killer Hinzugefügt (1)
                 statsSkypvp.addKills(k.getUniqueId().toString(), k.getName(), 1);

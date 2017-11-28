@@ -31,3 +31,5 @@ permissions:
             description: Allows to set several spawns
       skypvp.random:
         description: Allows to pick a random winner
+      skypvp.kit:
+        description:

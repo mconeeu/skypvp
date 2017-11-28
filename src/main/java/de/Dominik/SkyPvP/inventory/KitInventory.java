@@ -19,7 +19,7 @@ import java.util.HashMap;
 
 public class KitInventory {
 
-    public KitInventory(Player p) {
+    public static void open(Player p) {
         Inventory inv = Bukkit.getServer().createInventory(null, 27, "§8Wähle dein Kit");
 
         for (int i = 0; i <= 26; i++) {

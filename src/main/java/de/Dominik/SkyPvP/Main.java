@@ -8,8 +8,7 @@ package de.Dominik.SkyPvP;
 import de.Dominik.BukkitCoreSystem.mysql.MySQL_Config;
 import de.Dominik.SkyPvP.command.*;
 import de.Dominik.SkyPvP.event.*;
-import de.Dominik.SkyPvP.scoreboard.Scoreboard;
-import de.Dominik.SkyPvP.scoreboard.ScoreboardManager;
+import de.Dominik.SkyPvP.util.Scoreboard;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -33,7 +32,7 @@ public class Main extends JavaPlugin{
         registerMySQLConfig();
 
         Bukkit.getServer().getConsoleSender().sendMessage(MainPrefix + "§aScoreboard Manager gestartet");
-        new ScoreboardManager();
+        Scoreboard.startUpdateScoreboardScheduler();
 
         Bukkit.getServer().getConsoleSender().sendMessage(MainPrefix + "§aEvents und Befehle werden registriert");
         registerCommands();
@@ -43,7 +42,7 @@ public class Main extends JavaPlugin{
 
 		for (Player p : Bukkit.getOnlinePlayers()) {
 			//for Players who are already on server (reload)
-			new Scoreboard(p);
+			Scoreboard.setObjective(p);
 		}
     }
 

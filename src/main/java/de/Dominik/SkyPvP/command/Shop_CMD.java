@@ -20,7 +20,7 @@ public class Shop_CMD implements CommandExecutor {
 
         if(sender != null){
             if(cmd.getName().equalsIgnoreCase("shop")){
-                new ShopInventory(p);
+                ShopInventory.open(p);
                 p.playSound(p.getLocation(), Sound.CHICKEN_EGG_POP, 1, 1);
             }
         }

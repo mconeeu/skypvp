@@ -32,35 +32,31 @@ public class InventoryClick_Event implements Listener {
 	public void on(InventoryClickEvent e){
         Player p = (Player)e.getWhoClicked();
 
-        if((e.getRawSlot() < e.getInventory().getSize()) && (e.getCurrentItem() != null) && (!e.getInventory().getTitle().contains("Free Items"))){
+        if((e.getRawSlot() < e.getInventory().getSize()) && (e.getCurrentItem() != null) && (!e.getInventory().getTitle().contains("Free Items")) && (!e.getInventory().getTitle().contains(""))){
             e.setCancelled(true);
 
-            try{
-                if (e.getClickedInventory().getTitle().equalsIgnoreCase("§8Wähle dein Kit")){
-                    KitInventory.click(e, p);
-                } else if (e.getInventory().getName().equalsIgnoreCase("§9§lSkyPvP §8» §fShop")) {
-                    ShopInventory.click(e, p);
-                } else if (
-                        e.getInventory().getName().equalsIgnoreCase("§f§lShop §8- §cWaffen") ||
-                        e.getInventory().getName().equalsIgnoreCase("§f§lShop §8- §cBögen") ||
-                        e.getInventory().getName().equalsIgnoreCase("§f§lShop §8- §cRüstung") ||
-                        e.getInventory().getName().equalsIgnoreCase("§f§lShop §8- §cExtras") ||
-                        e.getInventory().getName().equalsIgnoreCase("§f§lShop §8- §cSpezial")
-                        ) {
+            if (e.getClickedInventory().getTitle().equalsIgnoreCase("§8Wähle dein Kit")){
+                KitInventory.click(e, p);
+            } else if (e.getInventory().getName().equalsIgnoreCase("§9§lSkyPvP §8» §fShop")) {
+                ShopInventory.click(e, p);
+            } else if (
+                    e.getInventory().getName().equalsIgnoreCase("§f§lShop §8- §cWaffen") ||
+                    e.getInventory().getName().equalsIgnoreCase("§f§lShop §8- §cBögen") ||
+                    e.getInventory().getName().equalsIgnoreCase("§f§lShop §8- §cRüstung") ||
+                    e.getInventory().getName().equalsIgnoreCase("§f§lShop §8- §cExtras") ||
+                    e.getInventory().getName().equalsIgnoreCase("§f§lShop §8- §cSpezial")
+                    ) {
 
-                    if (e.getCurrentItem().getItemMeta().getDisplayName().equals("§7§l↩ Zurück")) {
-                        p.playSound(p.getLocation(), Sound.NOTE_BASS, 1.0F, 1.0F);
-                        new ShopInventory(p);
-                    }
+                if (e.getCurrentItem().getItemMeta().getDisplayName().equals("§7§l↩ Zurück")) {
+                    p.playSound(p.getLocation(), Sound.NOTE_BASS, 1.0F, 1.0F);
+                    ShopInventory.open(p);
+                }
 
-                    for (ShopItem item : ShopItem.values()) {
-                        if (e.getCurrentItem().equals(item.getItem())) {
-                            buyShopItem(p, item);
-                        }
+                for (ShopItem item : ShopItem.values()) {
+                    if (e.getCurrentItem().equals(item.getItem())) {
+                        buyShopItem(p, item);
                     }
                 }
-            }catch (Exception e1){
-                e1.printStackTrace();
             }
         }
 	}
