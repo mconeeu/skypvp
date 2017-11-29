@@ -10,6 +10,7 @@ import de.Dominik.SkyPvP.command.*;
 import de.Dominik.SkyPvP.event.*;
 import de.Dominik.SkyPvP.util.Scoreboard;
 import org.bukkit.Bukkit;
+import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -38,12 +39,11 @@ public class Main extends JavaPlugin{
         registerCommands();
         registerEvents();
 
-        Bukkit.getServer().getConsoleSender().sendMessage(MainPrefix + "§aVersion §f" + this.getDescription().getVersion() + "§a wurde aktiviert...");
-
-		for (Player p : Bukkit.getOnlinePlayers()) {
-			//for Players who are already on server (reload)
-			Scoreboard.setObjective(p);
+		for (World w : Bukkit.getServer().getWorlds()) {
+			w.setAutoSave(false);
 		}
+
+        Bukkit.getServer().getConsoleSender().sendMessage(MainPrefix + "§aVersion §f" + this.getDescription().getVersion() + "§a wurde aktiviert...");
     }
 
     public void onDisable(){

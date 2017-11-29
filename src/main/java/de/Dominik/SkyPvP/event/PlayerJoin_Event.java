@@ -21,8 +21,6 @@ public class PlayerJoin_Event implements Listener{
 	@EventHandler
     public void on(PlayerJoinEvent e) {
         Player p = e.getPlayer();
-    
-        Scoreboard.setObjective(p);
 
         Location spawn = LocationFactory.getConfigLocation(Main.config, "Location-Spawn");
 
@@ -33,6 +31,8 @@ public class PlayerJoin_Event implements Listener{
         }
        
         e.setJoinMessage(Main.config.getConfigValue("System-Prefix") + Main.config.getConfigValue("System-Join").replaceAll("%Player%", p.getName()));
+
+        Scoreboard.setObjective(p);
 
         p.playSound(p.getLocation(), Sound.LEVEL_UP, 2.0F, 1.0F);
         p.getPlayer().playEffect(p.getPlayer().getLocation(), Effect.ENDER_SIGNAL, 10);

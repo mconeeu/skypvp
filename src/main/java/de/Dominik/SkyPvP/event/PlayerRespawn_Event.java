@@ -24,7 +24,6 @@ public class PlayerRespawn_Event implements Listener{
     public void on(PlayerRespawnEvent e) {
         Player p = e.getPlayer();
 
-
         p.getInventory().clear();
 
         p.getInventory().setItem(0, ItemManager.createEnchantedItem(Material.STONE_SWORD, new HashMap<Enchantment, Integer>(){{put(Enchantment.DAMAGE_ALL, 1); put(Enchantment.DURABILITY, 1);}}, 0, 1, "", false));
@@ -39,7 +38,6 @@ public class PlayerRespawn_Event implements Listener{
         p.getInventory().setBoots(ItemManager.createEnchantedItem(Material.CHAINMAIL_BOOTS, new HashMap<Enchantment, Integer>(){{put(Enchantment.PROTECTION_ENVIRONMENTAL, 1); put(Enchantment.DURABILITY, 1);}}, 0, 1, "", false));
 
         p.sendMessage(Main.config.getConfigValue("System-Prefix") + "§2Du hast das §aStandart §2Kit bekommen!");
-
 
 
         Location respawnLocation = LocationFactory.getConfigLocation(Main.config, "Location-Spawn");

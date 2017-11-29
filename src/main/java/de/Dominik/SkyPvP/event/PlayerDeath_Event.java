@@ -27,21 +27,20 @@ public class PlayerDeath_Event implements Listener {
 
     @EventHandler
     public void on(PlayerDeathEvent e) {
-        try{
-            Player p = e.getEntity();
-            Player k = p.getKiller();
-            lastHit.put(k, p);
+        Player p = e.getEntity();
+        Player k = p.getKiller();
+        lastHit.put(k, p);
 
-            EntityPlayer en = ((CraftPlayer) p).getHandle();
-            en.getLastDamager();
+        EntityPlayer en = ((CraftPlayer) p).getHandle();
+        en.getLastDamager();
 
-            e.setDeathMessage(null);
-            e.getDrops().clear();
-            respawn(p, 1);
-            p.setLevel(0);
+        e.setDeathMessage(null);
+        e.getDrops().clear();
+        p.setLevel(0);
+        ((CraftPlayer)p).getHandle().playerConnection.a(new PacketPlayInClientCommand(PacketPlayInClientCommand.EnumClientCommand.PERFORM_RESPAWN));
+        p.playSound(p.getLocation(), Sound.VILLAGER_HIT, 1.0F, 1.0F);
 
-            p.playSound(p.getLocation(), Sound.VILLAGER_HIT, 1.0F, 1.0F);
-
+        Bukkit.getScheduler().runTaskAsynchronously(Main.getInstance(), () -> {
             if(k != null){
                 int coins = CoinsAPI.getCoins(p);
                 if(coins >= 2){
@@ -64,7 +63,6 @@ public class PlayerDeath_Event implements Listener {
                 statsSkypvp.addKills(k.getUniqueId().toString(), k.getName(), 1);
 
                 p.sendMessage(Main.config.getConfigValue("System-Prefix") + "§7Du wurdest von §6" + k.getDisplayName() + " §7getötet");
-
                 k.sendMessage(Main.config.getConfigValue("System-Prefix") + "§7Du hast §6" + p.getDisplayName() + " §7getötet");
 
             } else {
@@ -83,9 +81,7 @@ public class PlayerDeath_Event implements Listener {
                 lastHit.get(p);
                 lastHit.remove(p);
             }
-        }catch(NullPointerException e1){
-            e1.printStackTrace();
-        }
+        });
     }
 
     private void checkLevel(int i, Player p){
@@ -134,12 +130,6 @@ public class PlayerDeath_Event implements Listener {
         if (i == 60) {
             Bukkit.broadcastMessage(Main.config.getConfigValue("System-Prefix") + "§e" + p.getName() + " §6hat eine §c60er §6Killstreak!");
         }
-    }
-
-    private void respawn(final Player player, int Time) {
-        Bukkit.getScheduler().runTaskLater(Main.getInstance(), () -> (
-                (CraftPlayer)player).getHandle().playerConnection.a(new PacketPlayInClientCommand(PacketPlayInClientCommand.EnumClientCommand.PERFORM_RESPAWN)
-        ), Time);
     }
 
 }

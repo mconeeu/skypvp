@@ -27,7 +27,6 @@ public class Spawn_CMD implements CommandExecutor{
                 return true;
             }
 
-            Main.cooldownlist.add(p);
             p.sendMessage(Main.config.getConfigValue("System-Prefix") + "§7Du wirst in §c5 §7Sekunden Teleportiert... §4Bewege dich nicht!");
 
             Bukkit.getScheduler().scheduleSyncDelayedTask(Main.getInstance(), () -> {

@@ -13,6 +13,8 @@ import org.bukkit.scoreboard.DisplaySlot;
 import org.bukkit.scoreboard.Objective;
 import org.bukkit.scoreboard.Team;
 
+import java.util.Collection;
+
 import static de.Dominik.BukkitCoreSystem.Main.statsSkypvp;
 
 public class Scoreboard {
@@ -69,28 +71,32 @@ public class Scoreboard {
 
     public static void startUpdateScoreboardScheduler() {
         Bukkit.getScheduler().runTaskTimer(Main.getInstance(), () -> {
-            boolean eventChamged = false;
-            String newEvent = Main.config.getLiveConfigValue("ScoreBoard-9");
-            if (!event.equals(newEvent)) eventChamged = true;
+            Collection<? extends Player> online = Bukkit.getOnlinePlayers();
 
-            for(Player p : Bukkit.getOnlinePlayers()) {
-                org.bukkit.scoreboard.Scoreboard sb = p.getScoreboard();
-                sb.getObjective(DisplaySlot.SIDEBAR).setDisplayName(Main.config.getLiveConfigValue("ScoreBoard-1"));
+            Bukkit.getScheduler().runTaskAsynchronously(Main.getInstance(), () -> {
+                boolean eventChamged = false;
+                String newEvent = Main.config.getLiveConfigValue("ScoreBoard-9");
+                if (!event.equals(newEvent)) eventChamged = true;
 
-                sb.getTeam("kills").setPrefix(Main.config.getConfigValue("ScoreBoard-3")+statsSkypvp.getKills(p.getUniqueId().toString(), p.getName()));
-                sb.getTeam("deaths").setPrefix(Main.config.getConfigValue("ScoreBoard-5")+statsSkypvp.getDeaths(p.getUniqueId().toString(), p.getName()));
-                sb.getTeam("coins").setPrefix(Main.config.getConfigValue("ScoreBoard-7")+CoinsAPI.getCoins(p));
+                for(Player p : online) {
+                    org.bukkit.scoreboard.Scoreboard sb = p.getScoreboard();
+                    sb.getObjective(DisplaySlot.SIDEBAR).setDisplayName(Main.config.getLiveConfigValue("ScoreBoard-1"));
 
-                String event = Main.config.getLiveConfigValue("ScoreBoard-9");
-                if (eventChamged) {
-                    sb.resetScores(event);
-                    sb.getObjective(DisplaySlot.SIDEBAR).getScore(event).setScore(2);
+                    sb.getTeam("kills").setPrefix(Main.config.getConfigValue("ScoreBoard-3") + statsSkypvp.getKills(p.getUniqueId().toString(), p.getName()));
+                    sb.getTeam("deaths").setPrefix(Main.config.getConfigValue("ScoreBoard-5") + statsSkypvp.getDeaths(p.getUniqueId().toString(), p.getName()));
+                    sb.getTeam("coins").setPrefix(Main.config.getConfigValue("ScoreBoard-7") + CoinsAPI.getCoins(p));
+
+                    String event = Main.config.getLiveConfigValue("ScoreBoard-9");
+                    if (eventChamged) {
+                        sb.resetScores(event);
+                        sb.getObjective(DisplaySlot.SIDEBAR).getScore(event).setScore(2);
+                    }
+
+                    p.setScoreboard(sb);
                 }
 
-                p.setScoreboard(sb);
-            }
-
-            event = newEvent;
+                event = newEvent;
+            });
         }, 100L, 20L);
     }
 }
