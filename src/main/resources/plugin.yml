@@ -1,13 +1,13 @@
 name: MCONE-SkyPvP
 version: 2.3
 author: TwinsterHD
-main: de.Dominik.SkyPvP.Main
+main: Main
 depend: [MCONE-BukkitCoreSystem]
 
 commands:
   kit:
     aliases: kit
-    description: Changes own Kit
+    description: Changes own KitManager
   ec:
     description: Opens players enderchest
   wb:
@@ -32,4 +32,11 @@ permissions:
       skypvp.random:
         description: Allows to pick a random winner
       skypvp.kit:
-        description:
+        description: Allows to get all KitManager
+        children:
+          skypvp.kit.iron:
+            description: Iron Kit
+          skypvp.kit.diamond:
+            description: Diamond Kit
+          skypvp.kit.emerald:
+            description: Emerald Kit
