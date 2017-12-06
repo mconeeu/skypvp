@@ -3,7 +3,7 @@
  * You are not allowed to decompile the code
  */
 
-package eu.mcone.skypvp.event;
+package eu.mcone.skypvp.listener;
 
 import eu.mcone.bukkitcoresystem.api.CoinsAPI;
 import eu.mcone.skypvp.Main;
@@ -19,9 +19,9 @@ import org.bukkit.event.entity.PlayerDeathEvent;
 
 import java.util.HashMap;
 
-import static eu.mcone.bukkitcoresystem.Main.statsSkypvp;
+import static eu.mcone.bukkitcoresystem.CoreSystem.statsSkypvp;
 
-public class PlayerDeath_Event implements Listener {
+public class PlayerDeath implements Listener {
 
     private static HashMap<Player, Player> lastHit = new HashMap<>();
 
@@ -41,14 +41,14 @@ public class PlayerDeath_Event implements Listener {
         p.playSound(p.getLocation(), Sound.VILLAGER_HIT, 1.0F, 1.0F);
 
         if(k != null){
-            int coins = CoinsAPI.getCoins(p);
+            int coins = CoinsAPI.getCoins(p.getUniqueId());
             if(coins >= 2){
                 //Coins werden dem Spieler Angezogen (3)
-                CoinsAPI.removeCoins(p, 2);
+                CoinsAPI.removeCoins(p.getUniqueId(), 2);
             }
 
             //Tode werden dem Spieler Hinzugefügt (1)
-            statsSkypvp.addDeaths(p.getUniqueId().toString(), p.getName(), 1);
+            statsSkypvp.addDeaths(p.getUniqueId(), 1);
 
             int i = k.getLevel();
             i++;
@@ -56,22 +56,22 @@ public class PlayerDeath_Event implements Listener {
             checkLevel(i, k);
 
             //Coins werden dem Killer Hinzugefügt (3)
-            CoinsAPI.addCoins(k, 5);
+            CoinsAPI.addCoins(k.getUniqueId(), 5);
 
             //Kills werden dem Killer Hinzugefügt (1)
-            statsSkypvp.addKills(k.getUniqueId().toString(), k.getName(), 1);
+            statsSkypvp.addKills(k.getUniqueId(), 1);
 
             p.sendMessage(Main.config.getConfigValue("System-Prefix") + "§7Du wurdest von §6" + k.getDisplayName() + " §7getötet §8[§c-2 Coins§8]");
             k.sendMessage(Main.config.getConfigValue("System-Prefix") + "§7Du hast §6" + p.getDisplayName() + " §7getötet §8[§a+5 Coins§8]");
 
         } else {
-            int coins = CoinsAPI.getCoins(p);
+            int coins = CoinsAPI.getCoins(p.getUniqueId());
             if(coins >= 3){
                 //Coins werden dem Spieler Angezogen (3)
-                CoinsAPI.removeCoins(p, 3);
+                CoinsAPI.removeCoins(p.getUniqueId(), 3);
             }
             //Tod wird dem Spieler hinzugefügt
-            statsSkypvp.addDeaths(p.getUniqueId().toString(), p.getName(), 1);
+            statsSkypvp.addDeaths(p.getUniqueId(), 1);
 
             p.sendMessage(Main.config.getConfigValue("System-Prefix") + "§7Du bist gestorben §8[§c-3 Coins§8]");
         }
@@ -88,7 +88,7 @@ public class PlayerDeath_Event implements Listener {
             Bukkit.broadcastMessage(Main.config.getConfigValue("System-Prefix") + "§e" + p.getName() + " §6hat eine §c3er §6Killstreak!");
             p.sendMessage(Main.config.getConfigValue("System-Prefix") + "§eDu hast 10 coins erhalten!");
             //Coins werden dem Spieler Hinzugefügt (10)
-            CoinsAPI.addCoins(p, 10);
+            CoinsAPI.addCoins(p.getUniqueId(), 10);
 
         }
 

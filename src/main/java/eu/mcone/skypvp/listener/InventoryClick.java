@@ -3,7 +3,7 @@
  * You are not allowed to decompile the code
  */
 
-package eu.mcone.skypvp.event;
+package eu.mcone.skypvp.listener;
 
 import eu.mcone.bukkitcoresystem.api.CoinsAPI;
 import eu.mcone.bukkitcoresystem.api.TitleAPI;
@@ -17,7 +17,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
 
-public class InventoryClick_Event implements Listener {
+public class InventoryClick implements Listener {
 	  
 	@EventHandler
 	public void on(InventoryClickEvent e){
@@ -56,13 +56,13 @@ public class InventoryClick_Event implements Listener {
 	}
 
     private void buyShopItem(Player p, ShopItem item){
-        int futCoins = CoinsAPI.getCoins(p) - item.getCoins();
+        int futCoins = CoinsAPI.getCoins(p.getUniqueId()) - item.getCoins();
         if (futCoins <= -1){
             p.closeInventory();
             p.playSound(p.getLocation(), Sound.NOTE_BASS, 1.0F, 1.0F);
             TitleAPI.sendTitle(p, "§c§l×", "§7Du hast nicht genügend §fCoins§7!", 1, 2, 1);
         } else {
-            CoinsAPI.removeCoins(p, item.getCoins());
+            CoinsAPI.removeCoins(p.getUniqueId(), item.getCoins());
             p.getInventory().addItem(ShopItem.schwert1.getItem());
             p.closeInventory();
             p.playSound(p.getLocation(), Sound.LEVEL_UP, 10F, 10F);

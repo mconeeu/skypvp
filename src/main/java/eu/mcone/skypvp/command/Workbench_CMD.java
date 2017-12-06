@@ -21,12 +21,9 @@ public class Workbench_CMD implements CommandExecutor{
 		}	
 		
 		Player p = (Player) sender;
-        if (cmd.getName().equalsIgnoreCase("wb")){
-            p.openWorkbench(null, true);
-            p.playSound(p.getLocation(), Sound.CHICKEN_EGG_POP, 1, 1);
+		p.openWorkbench(null, true);
+		p.playSound(p.getLocation(), Sound.CHICKEN_EGG_POP, 1, 1);
 
-        }
-
-		return false;
+		return true;
 	}
 }

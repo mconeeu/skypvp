@@ -5,6 +5,7 @@
 
 package eu.mcone.skypvp.kit;
 
+import eu.mcone.bukkitcoresystem.CoreSystem;
 import eu.mcone.bukkitcoresystem.api.CoinsAPI;
 import eu.mcone.bukkitcoresystem.mysql.MySQL;
 import eu.mcone.bukkitcoresystem.util.ItemManager;
@@ -37,7 +38,7 @@ public class KitManager {
         asyncRunnable = new BukkitRunnable() {
             @Override
             public void run() {
-                ResultSet rs = eu.mcone.bukkitcoresystem.Main.mysql1.getResult("SELECT * FROM skypvp_kits");
+                ResultSet rs = CoreSystem.mysql1.getResult("SELECT * FROM skypvp_kits");
                 buyedKits.clear();
 
                 try {
@@ -57,6 +58,8 @@ public class KitManager {
     }
 
     public void setKit(Player p, Kit kit) {
+        System.out.println("Trying to set kit "+kit.getName()+" for Player "+p.getName());
+
         if (!hasKit(p, kit)){
             p.sendMessage(Main.config.getConfigValue("System-Prefix") + "§4Du besitzt dieses Kit nicht!");
         } else if (kits.containsKey(p.getUniqueId()) && kits.get(p.getUniqueId()).contains(kit)) {
@@ -219,8 +222,8 @@ public class KitManager {
         if ((kits.containsKey(p.getUniqueId()) && kits.get(p.getUniqueId()).contains(kit)) || hasKit(p, kit)) {
             p.sendMessage("§4Du besitzt dieses Kit bereits!");
         } else {
-            if ((CoinsAPI.getCoins(p) - kit.getCoins()) >= 0) {
-                CoinsAPI.removeCoins(p, kit.getCoins());
+            if ((CoinsAPI.getCoins(p.getUniqueId()) - kit.getCoins()) >= 0) {
+                CoinsAPI.removeCoins(p.getUniqueId(), kit.getCoins());
                 mysql.update("INSERT IGNORE INTO `skypvp_kits` (`id`, `uuid`, `kit`, `timestamp`) VALUES (NULL, '" + p.getUniqueId() + "', '" + kit.getID() + "', " + (System.currentTimeMillis() / 1000L) + ");");
                 buyedKits.getOrDefault(p, new ArrayList<>()).add(kit);
 

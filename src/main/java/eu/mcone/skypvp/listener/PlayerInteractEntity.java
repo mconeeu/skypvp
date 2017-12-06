@@ -3,7 +3,7 @@
  * You are not allowed to decompile the code
  */
 
-package eu.mcone.skypvp.event;
+package eu.mcone.skypvp.listener;
 
 import eu.mcone.skypvp.Main;
 import org.bukkit.Bukkit;
@@ -17,7 +17,7 @@ import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
-public class PlayerInteractEntity_Event implements Listener {
+public class PlayerInteractEntity implements Listener {
 
     @EventHandler
     public void on(PlayerInteractEntityEvent e){

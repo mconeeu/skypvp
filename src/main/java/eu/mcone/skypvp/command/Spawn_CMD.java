@@ -19,14 +19,13 @@ import org.bukkit.entity.Villager;
 public class Spawn_CMD implements CommandExecutor{
 	
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args){
+        if(!(sender instanceof Player)) {
+            sender.sendMessage(Main.config.getConfigValue("System-Prefix") + Main.config.getConfigValue("System-Konsolen-Sender"));
+            return true;
+        }
         final Player p = (Player)sender;
 
         if (args.length == 0) {
-            if(sender == null) {
-                Bukkit.getConsoleSender().sendMessage(Main.config.getConfigValue("System-Prefix") + Main.config.getConfigValue("System-Konsolen-Sender"));
-                return true;
-            }
-
             p.sendMessage(Main.config.getConfigValue("System-Prefix") + "§7Du wirst in §c3 §7Sekunden Teleportiert... §4Bewege dich nicht!");
             Main.cooldownlist.add(p);
 

@@ -21,10 +21,8 @@ public class Endechest_CMD implements CommandExecutor{
 		}
 
 		Player p = (Player) sender;
-		if (cmd.getName().equalsIgnoreCase("ec")){
-			p.openInventory(p.getEnderChest());
-            p.playSound(p.getLocation(), Sound.CHICKEN_EGG_POP, 1, 1);
-		}
-		return false;
+		p.openInventory(p.getEnderChest());
+		p.playSound(p.getLocation(), Sound.CHICKEN_EGG_POP, 1, 1);
+		return true;
 	}
 }

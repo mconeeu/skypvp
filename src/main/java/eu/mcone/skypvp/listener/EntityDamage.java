@@ -3,14 +3,14 @@
  * You are not allowed to decompile the code
  */
 
-package eu.mcone.skypvp.event;
+package eu.mcone.skypvp.listener;
 
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageEvent;
 
-public class EntityDamage_Event implements Listener {
+public class EntityDamage implements Listener {
 
     @EventHandler
     public void on(EntityDamageEvent event){

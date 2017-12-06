@@ -1,16 +1,18 @@
 name: MCONE-SkyPvP
 version: 2.3
 author: TwinsterHD
-main: Main
+main: eu.mcone.skypvp.Main
 depend: [MCONE-BukkitCoreSystem]
 
 commands:
   kit:
     aliases: kit
     description: Changes own KitManager
-  ec:
+  enderchest:
+    aliases: ec
     description: Opens players enderchest
-  wb:
+  workbench:
+    aliases: wb
     description: Opens players workbench
   spawn:
     description: Teleports to spawn

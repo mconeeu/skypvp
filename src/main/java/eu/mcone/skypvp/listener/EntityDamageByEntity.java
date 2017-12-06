@@ -3,7 +3,7 @@
  * You are not allowed to decompile the code
  */
 
-package eu.mcone.skypvp.event;
+package eu.mcone.skypvp.listener;
 
 import eu.mcone.skypvp.Main;
 import org.bukkit.Effect;
@@ -14,7 +14,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 
-public class EntityDamageByEntity_Event implements Listener {
+public class EntityDamageByEntity implements Listener {
 
     @EventHandler
     public void on(EntityDamageByEntityEvent e) {

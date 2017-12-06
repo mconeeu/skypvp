@@ -21,22 +21,19 @@ private Plugin plugin;
 
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-		Player p = (Player)sender;
-
-		if(sender == null) {
-			Bukkit.getConsoleSender().sendMessage(Main.config.getConfigValue("System-Prefix") + Main.config.getConfigValue("System-Konsolen-Sender"));
+		if(!(sender instanceof Player)) {
+			sender.sendMessage(Main.config.getConfigValue("System-Prefix") + Main.config.getConfigValue("System-Konsolen-Sender"));
 			return true;
-		} else if (cmd.getName().equalsIgnoreCase("kit") || cmd.getName().equalsIgnoreCase("kits")) {
-		    if (args.length == 0){
-				KitInventory.open(p);
-				p.playSound(p.getLocation(), Sound.CHICKEN_EGG_POP, 1, 1);
-		    } else {
-		        p.sendMessage(Main.config.getConfigValue("System-Prefix") + "§cBitte nutze den Command /kit");
-		    }
+		}
 
-		    return false;
-        }
+		Player p = (Player)sender;
+		if (args.length == 0){
+			KitInventory.open(p);
+			p.playSound(p.getLocation(), Sound.CHICKEN_EGG_POP, 1, 1);
+		} else {
+			p.sendMessage(Main.config.getConfigValue("System-Prefix") + "§cBitte nutze den Command /kit");
+		}
 
-		return false;
+		return true;
 	}
 }

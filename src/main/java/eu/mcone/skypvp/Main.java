@@ -5,17 +5,22 @@
 
 package eu.mcone.skypvp;
 
-import eu.mcone.bukkitcoresystem.mysql.MySQL_Config;
+import eu.mcone.bukkitcoresystem.CoreSystem;
+import eu.mcone.bukkitcoresystem.config.MySQL_Config;
+import eu.mcone.bukkitcoresystem.event.CoinsChangeEvent;
+import eu.mcone.bukkitcoresystem.player.CorePlayer;
 import eu.mcone.skypvp.kit.KitManager;
-import eu.mcone.skypvp.util.Scoreboard;
 import eu.mcone.skypvp.command.*;
-import eu.mcone.skypvp.event.*;
+import eu.mcone.skypvp.listener.*;
+import eu.mcone.skypvp.util.Objective;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.ArrayList;
+
+import static org.bukkit.Bukkit.getPluginManager;
 
 
 public class Main extends JavaPlugin{
@@ -26,19 +31,16 @@ public class Main extends JavaPlugin{
 
     private static String MainPrefix = "§8[§9SkyPvP§8] ";
 	public static ArrayList<Player> cooldownlist = new ArrayList<>();
-    
+
     public void onEnable() {
         instance = this;
 
         Bukkit.getServer().getConsoleSender().sendMessage(MainPrefix + "§aMySQL Config wird initiiert...");
-        config = new MySQL_Config(eu.mcone.bukkitcoresystem.Main.mysql3, "Skypvp", 1000);
+        config = new MySQL_Config(CoreSystem.mysql3, "Skypvp", 1000);
         registerMySQLConfig();
 
-        Bukkit.getServer().getConsoleSender().sendMessage(MainPrefix + "§aScoreboard Manager gestartet...");
-        Scoreboard.startUpdateScoreboardScheduler();
-
 		Bukkit.getServer().getConsoleSender().sendMessage(MainPrefix + "§aKit Manager wird initiiert...");
-		kits = new KitManager(eu.mcone.bukkitcoresystem.Main.mysql1);
+		kits = new KitManager(CoreSystem.mysql1);
 		kits.createMySQLTable();
 
         Bukkit.getServer().getConsoleSender().sendMessage(MainPrefix + "§aEvents und Befehle werden registriert...");
@@ -50,6 +52,10 @@ public class Main extends JavaPlugin{
 		}
 
         Bukkit.getServer().getConsoleSender().sendMessage(MainPrefix + "§aVersion §f" + this.getDescription().getVersion() + "§a wurde aktiviert...");
+
+		for (CorePlayer p : CoreSystem.getOnlineCorePlayers()) {
+		    new Objective(p);
+        }
     }
 
     public void onDisable(){
@@ -67,19 +73,20 @@ public class Main extends JavaPlugin{
     }
 
     private void registerEvents() {
-		Bukkit.getPluginManager().registerEvents(new BlockBreak_Event(),this);
-		Bukkit.getPluginManager().registerEvents(new BlockPlace_Event(),this);
-        Bukkit.getPluginManager().registerEvents(new EntityDamage_Event(),this);
-        Bukkit.getPluginManager().registerEvents(new EntityDamageByEntity_Event(),this);
-        Bukkit.getPluginManager().registerEvents(new InventoryClick_Event(),this);
-        Bukkit.getPluginManager().registerEvents(new PlayerBedEnter_Event(),this);
-        Bukkit.getPluginManager().registerEvents(new PlayerDeath_Event(),this);
-        Bukkit.getPluginManager().registerEvents(new PlayerInteractEntity_Event(),this);
-        Bukkit.getPluginManager().registerEvents(new PlayerJoin_Event(),this);
-        Bukkit.getPluginManager().registerEvents(new PlayerMove_Event(),this);
-        Bukkit.getPluginManager().registerEvents(new PlayerQuit_Event(),this);
-        Bukkit.getPluginManager().registerEvents(new PlayerRespawn_Event(),this);
-        Bukkit.getPluginManager().registerEvents(new WeatherChange_Event(),this);
+		Bukkit.getPluginManager().registerEvents(new BlockBreak(),this);
+		Bukkit.getPluginManager().registerEvents(new BlockPlace(),this);
+        Bukkit.getPluginManager().registerEvents(new CoinsChange(), this);
+        Bukkit.getPluginManager().registerEvents(new EntityDamage(),this);
+        Bukkit.getPluginManager().registerEvents(new EntityDamageByEntity(),this);
+        Bukkit.getPluginManager().registerEvents(new InventoryClick(),this);
+        Bukkit.getPluginManager().registerEvents(new PlayerBedEnter(),this);
+        Bukkit.getPluginManager().registerEvents(new PlayerDeath(),this);
+        Bukkit.getPluginManager().registerEvents(new PlayerInteractEntity(),this);
+        Bukkit.getPluginManager().registerEvents(new PlayerJoin(),this);
+        Bukkit.getPluginManager().registerEvents(new PlayerMove(),this);
+        Bukkit.getPluginManager().registerEvents(new PlayerQuit(),this);
+        Bukkit.getPluginManager().registerEvents(new PlayerRespawn(),this);
+        Bukkit.getPluginManager().registerEvents(new WeatherChange(),this);
     }
 
 	private void registerMySQLConfig(){

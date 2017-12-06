@@ -3,7 +3,7 @@
  * You are not allowed to decompile the code
  */
 
-package eu.mcone.skypvp.event;
+package eu.mcone.skypvp.listener;
 
 import eu.mcone.skypvp.Main;
 import org.bukkit.Effect;
@@ -16,7 +16,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.util.Vector;
 
-public class PlayerMove_Event implements Listener{
+public class PlayerMove implements Listener{
 
 	@EventHandler
     public void on(PlayerMoveEvent e) {

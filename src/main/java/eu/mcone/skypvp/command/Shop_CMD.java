@@ -5,6 +5,7 @@
 
 package eu.mcone.skypvp.command;
 
+import eu.mcone.skypvp.Main;
 import eu.mcone.skypvp.inventory.ShopInventory;
 import org.bukkit.Sound;
 import org.bukkit.command.Command;
@@ -16,16 +17,16 @@ public class Shop_CMD implements CommandExecutor {
 
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-        Player p = (Player) sender;
-
-        if(sender != null){
-            if(cmd.getName().equalsIgnoreCase("shop")){
-                ShopInventory.open(p);
-                p.playSound(p.getLocation(), Sound.CHICKEN_EGG_POP, 1, 1);
-            }
+        if(!(sender instanceof Player)) {
+            sender.sendMessage(Main.config.getConfigValue("System-Prefix") + Main.config.getConfigValue("System-Konsolen-Sender"));
+            return true;
         }
 
-        return false;
+        Player p = (Player) sender;
+        ShopInventory.open(p);
+        p.playSound(p.getLocation(), Sound.CHICKEN_EGG_POP, 1, 1);
+
+        return true;
     }
 
 }

@@ -3,12 +3,13 @@
  * You are not allowed to decompile the code
  */
 
-package eu.mcone.skypvp.event;
+package eu.mcone.skypvp.listener;
 
+import eu.mcone.bukkitcoresystem.CoreSystem;
 import eu.mcone.bukkitcoresystem.util.LocationFactory;
 import eu.mcone.skypvp.Main;
 import eu.mcone.skypvp.kit.Kit;
-import eu.mcone.skypvp.util.Scoreboard;
+import eu.mcone.skypvp.util.Objective;
 import org.bukkit.Effect;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
@@ -17,7 +18,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.inventory.ItemStack;
 
-public class PlayerJoin_Event implements Listener{
+public class PlayerJoin implements Listener{
 
 	@EventHandler
     public void on(PlayerJoinEvent e) {
@@ -32,7 +33,7 @@ public class PlayerJoin_Event implements Listener{
        
         e.setJoinMessage(Main.config.getConfigValue("System-Prefix") + Main.config.getConfigValue("System-Join").replaceAll("%Player%", p.getName()));
 
-        Scoreboard.setObjective(p);
+        new Objective(CoreSystem.getCorePlayer(p));
 
         if (hasEmptyInventory(p)) {
             p.sendMessage(Main.config.getConfigValue("System-Prefix") + "§7Du scheinst neu auf SkyPvP zu sein! Du bekommst das Standart-Kit!");

@@ -18,15 +18,19 @@ import org.bukkit.entity.Player;
 public class Random_CMD implements CommandExecutor{
 
     public boolean onCommand(CommandSender sender, Command cmd, String arg2, String[] arg3){
-        Player p = (Player)sender;
+        if(!(sender instanceof Player)) {
+            sender.sendMessage(Main.config.getConfigValue("System-Prefix") + Main.config.getConfigValue("System-Konsolen-Sender"));
+            return true;
+        }
 
-        if ((sender != null) && (cmd.getName().equalsIgnoreCase("random")) && (p.hasPermission("skypvp.random")) || (p.hasPermission("skypvp.*") || p.hasPermission("system.*"))){
+        Player p = (Player)sender;
+        if (p.hasPermission("skypvp.random")){
             Integer Players = new Random().nextInt(Bukkit.getOnlinePlayers().size());
             Player randomplayer = (Player)Bukkit.getServer().getOnlinePlayers().toArray()[Players];
 
             Bukkit.broadcastMessage(Main.config.getConfigValue("System-Prefix") + "§7Der Spieler §f" + randomplayer.getName() + " §7hat gewonnen!");
         }
 
-        return false;
+        return true;
     }
 }
