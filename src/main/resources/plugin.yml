@@ -1,6 +1,6 @@
 name: MCONE-SkyPvP
 version: 2.3
-author: TwinsterHD
+author: Dominik Lippl
 main: eu.mcone.skypvp.Main
 depend: [MCONE-BukkitCoreSystem]
 
