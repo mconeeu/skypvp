@@ -17,7 +17,7 @@ import org.bukkit.inventory.Inventory;
 public class KitInventory {
 
     public static void open(Player p) {
-        Inventory inv = Bukkit.getServer().createInventory(null, 27, "§8Wähle dein KitManager");
+        Inventory inv = Bukkit.getServer().createInventory(null, 27, "§8Wähle dein Kit");
 
         for (int i = 0; i <= 26; i++) {
             inv.setItem(i, ItemManager.createItem(Material.STAINED_GLASS_PANE, 7, 1, "§8//§oMCONE§8//", true));

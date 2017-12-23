@@ -6,10 +6,12 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="MCONE-SkyPvP" />
         <module name="SkyPvP" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="MCONE-SkyPvP" target="1.8" />
       <module name="SkyPvP" target="1.8" />
     </bytecodeTargetLevel>
   </component>

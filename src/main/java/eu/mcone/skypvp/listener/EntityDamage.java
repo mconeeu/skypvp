@@ -5,25 +5,22 @@
 
 package eu.mcone.skypvp.listener;
 
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageEvent;
+import org.bukkit.event.player.PlayerItemBreakEvent;
+import org.bukkit.event.player.PlayerItemDamageEvent;
 
 public class EntityDamage implements Listener {
 
     @EventHandler
-    public void on(EntityDamageEvent event){
-        try{
-            if (!(event.getEntity() instanceof Player)) {
-                return;
-            }
-            if ((event.getCause().equals(EntityDamageEvent.DamageCause.FALL))){
-                event.setCancelled(true);
-            }
+    public void on(EntityDamageEvent e){
+        Entity entity = e.getEntity();
 
-        }catch(NullPointerException e1){
-            e1.printStackTrace();
+        if (entity instanceof Player) {
+            e.setCancelled(e.getCause().equals(EntityDamageEvent.DamageCause.FALL));
         }
     }
 

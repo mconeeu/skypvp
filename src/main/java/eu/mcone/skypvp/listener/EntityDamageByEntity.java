@@ -37,23 +37,9 @@ public class EntityDamageByEntity implements Listener {
                     e.setCancelled(true);
                 }
             }
-        } else if ((ent instanceof ItemFrame) && (byEnt instanceof Player)) {
+        } else if (ent instanceof ItemFrame && byEnt instanceof Player) {
             Player p = (Player) byEnt;
-            if (p.getGameMode() == GameMode.CREATIVE) {
-                e.setCancelled(false);
-            } else {
-                e.setCancelled(true);
-            }
-        } else if ((ent instanceof ItemFrame) && (byEnt instanceof Projectile)) {
-            Projectile x = (Projectile) e.getDamager();
-            if (x.getType() == EntityType.FISHING_HOOK) {
-                e.setCancelled(true);
-            }
-        } else if ((ent instanceof ItemFrame) && (byEnt != null)) {
-            Projectile x = (Projectile) e.getDamager();
-            if (x.getType() == EntityType.ARROW) {
-                e.setCancelled(true);
-            }
+            e.setCancelled(p.getGameMode() != GameMode.CREATIVE);
         }
     }
 

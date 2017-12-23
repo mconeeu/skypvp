@@ -43,11 +43,11 @@ public class PlayerDeath implements Listener {
         if(k != null){
             int coins = CoinsAPI.getCoins(p.getUniqueId());
             if(coins >= 2){
-                //Coins werden dem Spieler Angezogen (3)
+                //Coins werden dem Spieler Abgezogen
                 CoinsAPI.removeCoins(p.getUniqueId(), 2);
             }
 
-            //Tode werden dem Spieler Hinzugefügt (1)
+            //Tode werden dem Spieler Hinzugefügt
             statsSkypvp.addDeaths(p.getUniqueId(), 1);
 
             int i = k.getLevel();
@@ -55,19 +55,19 @@ public class PlayerDeath implements Listener {
             k.setLevel(i);
             checkLevel(i, k);
 
-            //Coins werden dem Killer Hinzugefügt (3)
+            //Coins werden dem Killer Hinzugefügt
             CoinsAPI.addCoins(k.getUniqueId(), 5);
 
             //Kills werden dem Killer Hinzugefügt (1)
             statsSkypvp.addKills(k.getUniqueId(), 1);
 
-            p.sendMessage(Main.config.getConfigValue("System-Prefix") + "§7Du wurdest von §6" + k.getDisplayName() + " §7getötet §8[§c-2 Coins§8]");
+            p.sendMessage(Main.config.getConfigValue("System-Prefix") + "§7Du wurdest von §6" + k.getDisplayName() + " §8[§c"+k.getHealthScale()+"♥§8] §7getötet §8[§c-2 Coins§8]");
             k.sendMessage(Main.config.getConfigValue("System-Prefix") + "§7Du hast §6" + p.getDisplayName() + " §7getötet §8[§a+5 Coins§8]");
 
         } else {
             int coins = CoinsAPI.getCoins(p.getUniqueId());
             if(coins >= 3){
-                //Coins werden dem Spieler Angezogen (3)
+                //Coins werden dem Spieler Abgezogen (3)
                 CoinsAPI.removeCoins(p.getUniqueId(), 3);
             }
             //Tod wird dem Spieler hinzugefügt

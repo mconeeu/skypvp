@@ -16,11 +16,6 @@ public class BlockBreak implements Listener{
 	@EventHandler
 	public void on(BlockBreakEvent e){
 		Player p = e.getPlayer();
-		
-		if(p.getGameMode() == GameMode.CREATIVE){
-			e.setCancelled(false);
-		} else {
-			e.setCancelled(true);
-		}
+		e.setCancelled(p.getGameMode() != GameMode.CREATIVE);
 	}
 }

@@ -8,7 +8,7 @@ package eu.mcone.skypvp.kit;
 import org.bukkit.Material;
 
 public enum Kit {
-    PLAYER(0, "§8Player-Kit", null, 0, Material.STONE_SWORD),
+    PLAYER(0, "§8Standart-Kit", null, 0, Material.STONE_SWORD),
     IRON(1, "§7Iron-Kit", "skypvp.kit.iron", 500, Material.IRON_SWORD),
     DIAMOND(2, "§bDiamond-Kit", "skypvp.kit.diamond", 1000, Material.DIAMOND_SWORD),
     EMERALD(3, "§aEmerald-Kit", "skypvp.kit.emerald", 10000, Material.EMERALD);

@@ -7,6 +7,7 @@ package eu.mcone.skypvp.listener;
 
 import eu.mcone.skypvp.Main;
 import org.bukkit.Bukkit;
+import org.bukkit.GameMode;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.ItemFrame;
 import org.bukkit.entity.Player;
@@ -36,17 +37,19 @@ public class PlayerInteractEntity implements Listener {
                 p.performCommand("kit");
             }
         } else if (ent instanceof ItemFrame){
-            ItemFrame itemframe = (ItemFrame) ent;
-            e.setCancelled(true);
-            openInventory(p, itemframe.getItem(), 10);
+            if (!p.getGameMode().equals(GameMode.CREATIVE)) {
+                ItemFrame itemframe = (ItemFrame) ent;
+                e.setCancelled(true);
+                openFreeItemsInventory(p, itemframe.getItem());
+            }
         }
 
     }
 
-    private void openInventory(Player p, ItemStack item, int anzahl){
+    private void openFreeItemsInventory(Player p, ItemStack item){
         Inventory inv = Bukkit.createInventory(null, 27, Main.config.getConfigValue("System-ItemFrame"));
         if (item.getMaxStackSize() > 1) {
-            item.setAmount(anzahl);
+            item.setAmount(10);
         }
         inv.setItem(13, item);
         p.openInventory(inv);

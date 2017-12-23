@@ -1,8 +1,8 @@
 <component name="ArtifactManager">
-  <artifact type="jar" build-on-make="true" name="SkyPvP:jar">
+  <artifact type="jar" build-on-make="true" name="MCONE-SkyPvP:jar">
     <output-path>$PROJECT_DIR$/../../../Minecraft/localhost - server/Skypvp/plugins</output-path>
     <root id="archive" name="SkyPvP.jar">
-      <element id="module-output" name="SkyPvP" />
+      <element id="module-output" name="MCONE-SkyPvP" />
     </root>
   </artifact>
 </component>

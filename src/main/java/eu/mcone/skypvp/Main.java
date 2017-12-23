@@ -47,10 +47,6 @@ public class Main extends JavaPlugin{
         registerCommands();
         registerEvents();
 
-		for (World w : Bukkit.getServer().getWorlds()) {
-			w.setAutoSave(false);
-		}
-
         Bukkit.getServer().getConsoleSender().sendMessage(MainPrefix + "§aVersion §f" + this.getDescription().getVersion() + "§a wurde aktiviert...");
 
 		for (CorePlayer p : CoreSystem.getOnlineCorePlayers()) {
@@ -73,20 +69,20 @@ public class Main extends JavaPlugin{
     }
 
     private void registerEvents() {
-		Bukkit.getPluginManager().registerEvents(new BlockBreak(),this);
-		Bukkit.getPluginManager().registerEvents(new BlockPlace(),this);
-        Bukkit.getPluginManager().registerEvents(new CoinsChange(), this);
-        Bukkit.getPluginManager().registerEvents(new EntityDamage(),this);
-        Bukkit.getPluginManager().registerEvents(new EntityDamageByEntity(),this);
-        Bukkit.getPluginManager().registerEvents(new InventoryClick(),this);
-        Bukkit.getPluginManager().registerEvents(new PlayerBedEnter(),this);
-        Bukkit.getPluginManager().registerEvents(new PlayerDeath(),this);
-        Bukkit.getPluginManager().registerEvents(new PlayerInteractEntity(),this);
-        Bukkit.getPluginManager().registerEvents(new PlayerJoin(),this);
-        Bukkit.getPluginManager().registerEvents(new PlayerMove(),this);
-        Bukkit.getPluginManager().registerEvents(new PlayerQuit(),this);
-        Bukkit.getPluginManager().registerEvents(new PlayerRespawn(),this);
-        Bukkit.getPluginManager().registerEvents(new WeatherChange(),this);
+		getPluginManager().registerEvents(new BlockBreak(),this);
+		getPluginManager().registerEvents(new BlockPlace(),this);
+        getPluginManager().registerEvents(new CoinsChange(), this);
+        getPluginManager().registerEvents(new EntityDamage(),this);
+        getPluginManager().registerEvents(new EntityDamageByEntity(),this);
+		getPluginManager().registerEvents(new HangingBreakByEntity(),this);
+        getPluginManager().registerEvents(new InventoryClick(),this);
+        getPluginManager().registerEvents(new PlayerBedEnter(),this);
+        getPluginManager().registerEvents(new PlayerDeath(),this);
+        getPluginManager().registerEvents(new PlayerInteractEntity(),this);
+        getPluginManager().registerEvents(new PlayerJoin(),this);
+        getPluginManager().registerEvents(new PlayerMove(),this);
+        getPluginManager().registerEvents(new PlayerQuit(),this);
+        getPluginManager().registerEvents(new PlayerRespawn(),this);
     }
 
 	private void registerMySQLConfig(){

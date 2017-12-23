@@ -58,8 +58,6 @@ public class KitManager {
     }
 
     public void setKit(Player p, Kit kit) {
-        System.out.println("Trying to set kit "+kit.getName()+" for Player "+p.getName());
-
         if (!hasKit(p, kit)){
             p.sendMessage(Main.config.getConfigValue("System-Prefix") + "§4Du besitzt dieses Kit nicht!");
         } else if (kits.containsKey(p.getUniqueId()) && kits.get(p.getUniqueId()).contains(kit)) {
