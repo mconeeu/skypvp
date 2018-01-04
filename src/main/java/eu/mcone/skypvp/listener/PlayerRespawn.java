@@ -28,6 +28,8 @@ public class PlayerRespawn implements Listener{
             p.sendMessage(Main.config.getConfigValue("System-Prefix") + "§4Du konntest nicht zum Spawn teleportiert werden, da der Spawn nicht eingespeichert ist!");
         }
 
+        p.setFireTicks(0);
+
         Bukkit.getScheduler().scheduleSyncDelayedTask(Main.getInstance(), () -> {
             p.getInventory().clear();
             Main.kits.resetKits(p);

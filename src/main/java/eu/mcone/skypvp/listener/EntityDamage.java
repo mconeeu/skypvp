@@ -17,10 +17,16 @@ public class EntityDamage implements Listener {
 
     @EventHandler
     public void on(EntityDamageEvent e){
-        Entity entity = e.getEntity();
+        Entity ent = e.getEntity();
 
-        if (entity instanceof Player) {
-            e.setCancelled(e.getCause().equals(EntityDamageEvent.DamageCause.FALL));
+        if (ent instanceof Player) {
+            if (e.getCause().equals(EntityDamageEvent.DamageCause.FALL)) {
+                e.setCancelled(true);
+            }
+            if (ent.getLocation().getY() > 100) {
+                e.setCancelled(true);
+                ent.setFireTicks(0);
+            }
         }
     }
 

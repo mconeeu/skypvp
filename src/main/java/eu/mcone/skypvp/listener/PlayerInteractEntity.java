@@ -25,22 +25,18 @@ public class PlayerInteractEntity implements Listener {
         Player p = e.getPlayer();
         Entity ent = e.getRightClicked();
 
-        if(ent instanceof Villager) {
-            Villager i = (Villager) ent;
-            e.setCancelled(true);
-
-            if(i.getCustomName().equalsIgnoreCase("§9SkyPvP §8» §cShop")) {
-                i.setCustomNameVisible(true);
-                p.performCommand("shop");
-            } else if(i.getCustomName().equalsIgnoreCase("§9SkyPvP §8» §cKits")) {
-                i.setCustomNameVisible(true);
-                p.performCommand("kit");
-            }
-        } else if (ent instanceof ItemFrame){
+        if (ent instanceof ItemFrame){
             if (!p.getGameMode().equals(GameMode.CREATIVE)) {
                 ItemFrame itemframe = (ItemFrame) ent;
                 e.setCancelled(true);
                 openFreeItemsInventory(p, itemframe.getItem());
+            }
+        } else if (e.getRightClicked() instanceof Player) {
+            Player clicked = (Player) e.getRightClicked();
+            if (clicked.getDisplayName().equals("§8» §c§lShop")) {
+                p.performCommand("shop");
+            } else if (clicked.getDisplayName().equals("§8» §c§lKits")) {
+                p.performCommand("kit");
             }
         }
 

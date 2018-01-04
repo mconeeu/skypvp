@@ -24,7 +24,7 @@ public class InventoryClick implements Listener {
         Player p = (Player)e.getWhoClicked();
 
         if((e.getRawSlot() < e.getInventory().getSize()) && (e.getCurrentItem() != null)){
-            if (e.getClickedInventory().getTitle().equalsIgnoreCase("§8Wähle dein KitManager")){
+            if (e.getClickedInventory().getTitle().equalsIgnoreCase("§8Wähle dein Kit")){
                 e.setCancelled(true);
                 KitInventory.click(e, p);
             } else if (e.getInventory().getName().equalsIgnoreCase("§9§lSkyPvP §8» §fShop")) {

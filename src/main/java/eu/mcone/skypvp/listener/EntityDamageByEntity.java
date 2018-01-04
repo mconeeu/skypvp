@@ -21,25 +21,26 @@ public class EntityDamageByEntity implements Listener {
         Entity ent = e.getEntity();
         Entity byEnt = e.getDamager();
 
-        if (ent instanceof Player) {
-            if (ent.getLocation().getY() > 100) {
-                e.setCancelled(true);
-                byEnt.sendMessage(Main.config.getConfigValue("System-Prefix") + "§4Du darfst am Spawn nicht kämpfen!");
-            } else {
-                ent.getWorld().playEffect(ent.getLocation(), Effect.STEP_SOUND, Material.REDSTONE_BLOCK);
-            }
-        } else if (ent instanceof Villager){
-            e.setCancelled(true);
-
-            if (byEnt instanceof Projectile) {
-                Projectile x = (Projectile) e.getDamager();
-                if (x.getType() == EntityType.FISHING_HOOK) {
+        if (byEnt instanceof Player && !((Player) byEnt).getGameMode().equals(GameMode.CREATIVE)) {
+            if (ent instanceof Player) {
+                if (ent.getLocation().getY() > 100) {
                     e.setCancelled(true);
+                    byEnt.sendMessage(Main.config.getConfigValue("System-Prefix") + "§4Du darfst am Spawn nicht kämpfen!");
+                } else {
+                    ent.getWorld().playEffect(ent.getLocation(), Effect.STEP_SOUND, Material.REDSTONE_BLOCK);
                 }
+            } else if (ent instanceof Villager) {
+                e.setCancelled(true);
+
+                if (byEnt instanceof Projectile) {
+                    Projectile x = (Projectile) e.getDamager();
+                    if (x.getType() == EntityType.FISHING_HOOK) {
+                        e.setCancelled(true);
+                    }
+                }
+            } else if (ent instanceof ItemFrame) {
+                e.setCancelled(true);
             }
-        } else if (ent instanceof ItemFrame && byEnt instanceof Player) {
-            Player p = (Player) byEnt;
-            e.setCancelled(p.getGameMode() != GameMode.CREATIVE);
         }
     }
 

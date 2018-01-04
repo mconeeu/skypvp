@@ -61,7 +61,7 @@ public class PlayerDeath implements Listener {
             //Kills werden dem Killer Hinzugefügt (1)
             statsSkypvp.addKills(k.getUniqueId(), 1);
 
-            p.sendMessage(Main.config.getConfigValue("System-Prefix") + "§7Du wurdest von §6" + k.getDisplayName() + " §8[§c"+k.getHealthScale()+"♥§8] §7getötet §8[§c-2 Coins§8]");
+            p.sendMessage(Main.config.getConfigValue("System-Prefix") + "§7Du wurdest von §6" + k.getDisplayName() + " §8[§c"+Math.floor(k.getHealth()) / 2+"♥§8] §7getötet §8[§c-2 Coins§8]");
             k.sendMessage(Main.config.getConfigValue("System-Prefix") + "§7Du hast §6" + p.getDisplayName() + " §7getötet §8[§a+5 Coins§8]");
 
         } else {
@@ -86,47 +86,47 @@ public class PlayerDeath implements Listener {
 
         if (i == 3) {
             Bukkit.broadcastMessage(Main.config.getConfigValue("System-Prefix") + "§e" + p.getName() + " §6hat eine §c3er §6Killstreak!");
-            p.sendMessage(Main.config.getConfigValue("System-Prefix") + "§eDu hast 10 coins erhalten!");
+            p.sendMessage(Main.config.getConfigValue("System-Prefix") + "§2Du hast §a10 Coins§2 erhalten!");
             //Coins werden dem Spieler Hinzugefügt (10)
             CoinsAPI.addCoins(p.getUniqueId(), 10);
 
         }
 
         if (i == 5) {
-            Bukkit.broadcastMessage(Main.config.getConfigValue("System-Prefix") + "§e" + p.getName() + " §6hat eine §c5er §6Killstreak!");
+            Bukkit.broadcastMessage(Main.config.getConfigValue("System-Prefix") + "§f" + p.getName() + " §6hat eine §c5er §6Killstreak!");
         }
         if (i == 10) {
-            Bukkit.broadcastMessage(Main.config.getConfigValue("System-Prefix") + "§e" + p.getName() + " §6hat eine §c10er §6Killstreak!");
+            Bukkit.broadcastMessage(Main.config.getConfigValue("System-Prefix") + "§f" + p.getName() + " §6hat eine §c10er §6Killstreak!");
         }
         if (i == 15) {
-            Bukkit.broadcastMessage(Main.config.getConfigValue("System-Prefix") + "§e" + p.getName() + " §6hat eine §c15er §6Killstreak!");
+            Bukkit.broadcastMessage(Main.config.getConfigValue("System-Prefix") + "§f" + p.getName() + " §6hat eine §c15er §6Killstreak!");
         }
         if (i == 20) {
-            Bukkit.broadcastMessage(Main.config.getConfigValue("System-Prefix") + "§e" + p.getName() + " §6hat eine §c20er §6Killstreak!");
+            Bukkit.broadcastMessage(Main.config.getConfigValue("System-Prefix") + "§f" + p.getName() + " §6hat eine §c20er §6Killstreak!");
         }
         if (i == 25) {
-            Bukkit.broadcastMessage(Main.config.getConfigValue("System-Prefix") + "§e" + p.getName() + " §6hat eine §c25er §6Killstreak!");
+            Bukkit.broadcastMessage(Main.config.getConfigValue("System-Prefix") + "§f" + p.getName() + " §6hat eine §c25er §6Killstreak!");
         }
         if (i == 30) {
-            Bukkit.broadcastMessage(Main.config.getConfigValue("System-Prefix") + "§e" + p.getName() + " §6hat eine §c30er §6Killstreak!");
+            Bukkit.broadcastMessage(Main.config.getConfigValue("System-Prefix") + "§f" + p.getName() + " §6hat eine §c30er §6Killstreak!");
         }
         if (i == 35) {
-            Bukkit.broadcastMessage(Main.config.getConfigValue("System-Prefix") + "§e" + p.getName() + " §6hat eine §c35er §6Killstreak!");
+            Bukkit.broadcastMessage(Main.config.getConfigValue("System-Prefix") + "§f" + p.getName() + " §6hat eine §c35er §6Killstreak!");
         }
         if (i == 40) {
-            Bukkit.broadcastMessage(Main.config.getConfigValue("System-Prefix") + "§e" + p.getName() + " §6hat eine §c40er §6Killstreak!");
+            Bukkit.broadcastMessage(Main.config.getConfigValue("System-Prefix") + "§f" + p.getName() + " §6hat eine §c40er §6Killstreak!");
         }
         if (i == 45) {
-            Bukkit.broadcastMessage(Main.config.getConfigValue("System-Prefix") + "§e" + p.getName() + " §6hat eine §c45er §6Killstreak!");
+            Bukkit.broadcastMessage(Main.config.getConfigValue("System-Prefix") + "§f" + p.getName() + " §6hat eine §c45er §6Killstreak!");
         }
         if (i == 50) {
-            Bukkit.broadcastMessage(Main.config.getConfigValue("System-Prefix") + "§e" + p.getName() + " §6hat eine §c50er §6Killstreak!");
+            Bukkit.broadcastMessage(Main.config.getConfigValue("System-Prefix") + "§f" + p.getName() + " §6hat eine §c50er §6Killstreak!");
         }
         if (i == 55) {
-            Bukkit.broadcastMessage(Main.config.getConfigValue("System-Prefix") + "§e" + p.getName() + " §6hat eine §c55er §6Killstreak!");
+            Bukkit.broadcastMessage(Main.config.getConfigValue("System-Prefix") + "§f" + p.getName() + " §6hat eine §c55er §6Killstreak!");
         }
         if (i == 60) {
-            Bukkit.broadcastMessage(Main.config.getConfigValue("System-Prefix") + "§e" + p.getName() + " §6hat eine §c60er §6Killstreak!");
+            Bukkit.broadcastMessage(Main.config.getConfigValue("System-Prefix") + "§f" + p.getName() + " §6hat eine §c60er §6Killstreak!");
         }
     }
 

@@ -92,7 +92,7 @@ public class KitManager {
                     put(Enchantment.DURABILITY, 1);
                 }}, 0, 1, "", false));
             } else if (kit.equals(Kit.IRON)) {
-                if (p.hasPermission("skypvp.kit.iron")) {
+                if (hasKit(p, Kit.IRON)) {
                     p.getInventory().setItem(0, ItemManager.createEnchantedItem(Material.IRON_SWORD, new HashMap<Enchantment, Integer>() {{
                         put(Enchantment.DAMAGE_ALL, 1);
                         put(Enchantment.DURABILITY, 1);
@@ -121,11 +121,11 @@ public class KitManager {
                         put(Enchantment.DURABILITY, 1);
                     }}, 0, 1, "", false));
                 } else {
-                    p.sendMessage(Main.config.getConfigValue("System-Prefix") + "§4Du hast keine Berechtigung für das §cEisen-Kit");
+                    p.sendMessage(Main.config.getConfigValue("System-Prefix") + "§4Du besitzt das §cEisen-Kit §4nicht");
                     return;
                 }
             } else if (kit.equals(Kit.DIAMOND)) {
-                if (p.hasPermission("skypvp.kit.diamond")) {
+                if (hasKit(p, Kit.DIAMOND)) {
                     p.getInventory().setItem(0, ItemManager.createEnchantedItem(Material.IRON_SWORD, new HashMap<Enchantment, Integer>() {{
                         put(Enchantment.DAMAGE_ALL, 2);
                         put(Enchantment.DURABILITY, 1);
@@ -155,11 +155,11 @@ public class KitManager {
                         put(Enchantment.DURABILITY, 1);
                     }}, 0, 1, "", false));
                 } else {
-                    p.sendMessage(Main.config.getConfigValue("System-Prefix") + "§4Du hast keine Berechtigung für das §cDiamond-Kit");
+                    p.sendMessage(Main.config.getConfigValue("System-Prefix") + "§4Du besitzt das §cDiamond-Kit §4nicht");
                     return;
                 }
             } else if (kit.equals(Kit.EMERALD)) {
-                if (p.hasPermission("skypvp.kit.emerald")) {
+                if (hasKit(p, Kit.EMERALD)) {
                     p.getInventory().setItem(0, ItemManager.createEnchantedItem(Material.DIAMOND_SWORD, new HashMap<Enchantment, Integer>() {{
                         put(Enchantment.DAMAGE_ALL, 1);
                         put(Enchantment.DURABILITY, 1);
@@ -188,7 +188,7 @@ public class KitManager {
                         put(Enchantment.DURABILITY, 1);
                     }}, 0, 1, "", false));
                 } else {
-                    p.sendMessage(Main.config.getConfigValue("System-Prefix") + "§4Du hast keine Berechtigung für das §cEmerald-Kit");
+                    p.sendMessage(Main.config.getConfigValue("System-Prefix") + "§4Du besitzt das §cEmerald-Kit §4nicht");
                     return;
                 }
             }

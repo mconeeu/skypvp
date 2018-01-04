@@ -6,6 +6,8 @@
 package eu.mcone.skypvp;
 
 import eu.mcone.bukkitcoresystem.CoreSystem;
+import eu.mcone.bukkitcoresystem.api.NpcAPI;
+import eu.mcone.bukkitcoresystem.command.NpcCMD;
 import eu.mcone.bukkitcoresystem.config.MySQL_Config;
 import eu.mcone.bukkitcoresystem.event.CoinsChangeEvent;
 import eu.mcone.bukkitcoresystem.player.CorePlayer;
@@ -28,6 +30,7 @@ public class Main extends JavaPlugin{
     private static Main instance;
 	public static MySQL_Config config;
 	public static KitManager kits;
+	public static NpcAPI npc;
 
     private static String MainPrefix = "§8[§9SkyPvP§8] ";
 	public static ArrayList<Player> cooldownlist = new ArrayList<>();
@@ -43,6 +46,9 @@ public class Main extends JavaPlugin{
 		kits = new KitManager(CoreSystem.mysql1);
 		kits.createMySQLTable();
 
+		Bukkit.getServer().getConsoleSender().sendMessage(MainPrefix + "§aNPC-Manager wird gestartet");
+		npc = new NpcAPI(eu.mcone.bukkitcoresystem.CoreSystem.mysql1, "Skypvp");
+
         Bukkit.getServer().getConsoleSender().sendMessage(MainPrefix + "§aEvents und Befehle werden registriert...");
         registerCommands();
         registerEvents();
@@ -57,8 +63,9 @@ public class Main extends JavaPlugin{
     public void onDisable(){
         Bukkit.getServer().getConsoleSender().sendMessage(MainPrefix + "§cPlugin wurde deaktiviert!");
         kits.getAsyncRunnable().cancel();
+		npc.unsetNPCs();
     }
-    
+
     private void registerCommands() {
     	getCommand("ec").setExecutor(new Endechest_CMD());
     	getCommand("shop").setExecutor(new Shop_CMD());
@@ -66,6 +73,7 @@ public class Main extends JavaPlugin{
     	getCommand("kit").setExecutor(new Kit_CMD());
     	getCommand("spawn").setExecutor(new Spawn_CMD());
     	getCommand("random").setExecutor(new Random_CMD());
+		getCommand("npc").setExecutor(new NpcCMD(npc));
     }
 
     private void registerEvents() {
@@ -83,6 +91,7 @@ public class Main extends JavaPlugin{
         getPluginManager().registerEvents(new PlayerMove(),this);
         getPluginManager().registerEvents(new PlayerQuit(),this);
         getPluginManager().registerEvents(new PlayerRespawn(),this);
+		getPluginManager().registerEvents(new StatsChange(),this);
     }
 
 	private void registerMySQLConfig(){

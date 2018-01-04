@@ -18,9 +18,13 @@ commands:
     description: Teleports to spawn
   shop:
     description: Opens Shop inventory
+    aliases: s
   random:
     description: Pick random winner
     permission: skypvp.random
+  npc:
+      descirption: Spawnt einen NPC
+      permissions: system.bukkit.npc
 
 permissions:
   skypvp:

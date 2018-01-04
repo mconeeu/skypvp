@@ -22,21 +22,6 @@ public class PlayerMove implements Listener{
 	@EventHandler
     public void on(PlayerMoveEvent e) {
         Player p = e.getPlayer();
-        Location loc = p.getLocation();
-
-        /*
-        double x = p.getLocation().getX();
-        double y = p.getLocation().getY();
-        double z = p.getLocation().getZ();
-        Location loc1 = new Location(p.getLocation().getWorld(), x, y, z);
-
-        if (loc1.subtract(0.0, 0.5, 0.0).getBlock().getType().equals(Material.SPONGE)) {
-            Vector v = p.getLocation().getDirection().multiply(1.5).setY(1.2);
-            p.setVelocity(v);
-            p.playSound(p.getLocation(), Sound.CHICKEN_EGG_POP, 3.0f, 2.0f);
-            p.playEffect(p.getLocation(), Effect.ENDER_SIGNAL, 2);
-        }
-        */
 
 	    if (Main.cooldownlist.contains(p)){
 	    	Main.cooldownlist.remove(p);
