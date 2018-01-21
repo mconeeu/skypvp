@@ -20,6 +20,7 @@ public class PlayerRespawn implements Listener{
     @EventHandler
     public void on(PlayerRespawnEvent e) {
         final Player p = e.getPlayer();
+        Main.damager.put(p, null);
 
         Location respawnLocation = LocationFactory.getConfigLocation(Main.config, "Location-Spawn");
         if (respawnLocation != null) {

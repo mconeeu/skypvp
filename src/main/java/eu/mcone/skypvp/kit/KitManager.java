@@ -17,7 +17,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.scheduler.BukkitRunnable;
 
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.*;
 
@@ -38,20 +37,21 @@ public class KitManager {
         asyncRunnable = new BukkitRunnable() {
             @Override
             public void run() {
-                ResultSet rs = CoreSystem.mysql1.getResult("SELECT * FROM skypvp_kits");
-                buyedKits.clear();
+                CoreSystem.mysql1.select("SELECT * FROM skypvp_kits", rs -> {
+                    buyedKits.clear();
 
-                try {
-                    while (rs.next()) {
-                        UUID uuid = UUID.fromString(rs.getString("uuid"));
-                        ArrayList<Kit> kits = buyedKits.getOrDefault(uuid, new ArrayList<>());
+                    try {
+                        while (rs.next()) {
+                            UUID uuid = UUID.fromString(rs.getString("uuid"));
+                            ArrayList<Kit> kits = buyedKits.getOrDefault(uuid, new ArrayList<>());
 
-                        kits.add(Kit.getKitByID(rs.getInt("kit")));
-                        buyedKits.put(uuid, kits);
+                            kits.add(Kit.getKitByID(rs.getInt("kit")));
+                            buyedKits.put(uuid, kits);
+                        }
+                    } catch (SQLException e) {
+                        e.printStackTrace();
                     }
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
+                });
             }
         };
         asyncRunnable.runTaskTimerAsynchronously(Main.getInstance(), 100L, 100L);

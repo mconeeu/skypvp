@@ -63,7 +63,7 @@ public class InventoryClick implements Listener {
             TitleAPI.sendTitle(p, "§c§l×", "§7Du hast nicht genügend §fCoins§7!", 1, 2, 1);
         } else {
             CoinsAPI.removeCoins(p.getUniqueId(), item.getCoins());
-            p.getInventory().addItem(ShopItem.schwert1.getItem());
+            p.getInventory().addItem(item.getItem());
             p.closeInventory();
             p.playSound(p.getLocation(), Sound.LEVEL_UP, 10F, 10F);
             TitleAPI.sendTitle(p, "§a§l✓", "§7Du hast das Item §f" + item.getItem().getItemMeta().getDisplayName() + " §7gekauft!", 1, 2, 1);

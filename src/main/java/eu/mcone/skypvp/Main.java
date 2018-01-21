@@ -21,6 +21,9 @@ import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import static org.bukkit.Bukkit.getPluginManager;
 
@@ -33,7 +36,8 @@ public class Main extends JavaPlugin{
 	public static NpcAPI npc;
 
     private static String MainPrefix = "§8[§9SkyPvP§8] ";
-	public static ArrayList<Player> cooldownlist = new ArrayList<>();
+	public static List<Player> cooldownlist = new ArrayList<>();
+	public static Map<Player, Player> damager = new HashMap<>();
 
     public void onEnable() {
         instance = this;

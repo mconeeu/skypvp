@@ -23,6 +23,8 @@ public class EntityDamageByEntity implements Listener {
 
         if (byEnt instanceof Player && !((Player) byEnt).getGameMode().equals(GameMode.CREATIVE)) {
             if (ent instanceof Player) {
+                Main.damager.put((Player) ent, (Player) byEnt);
+
                 if (ent.getLocation().getY() > 100) {
                     e.setCancelled(true);
                     byEnt.sendMessage(Main.config.getConfigValue("System-Prefix") + "§4Du darfst am Spawn nicht kämpfen!");
@@ -40,6 +42,11 @@ public class EntityDamageByEntity implements Listener {
                 }
             } else if (ent instanceof ItemFrame) {
                 e.setCancelled(true);
+            }
+        } else if (byEnt.getType().equals(EntityType.ARROW)) {
+            Arrow arrow = (Arrow) byEnt;
+            if (arrow.getShooter() instanceof Player && ent instanceof Player) {
+                Main.damager.put((Player) ent, (Player) arrow.getShooter());
             }
         }
     }

@@ -17,27 +17,22 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.PlayerDeathEvent;
 
+import java.text.DecimalFormat;
 import java.util.HashMap;
 
 import static eu.mcone.bukkitcoresystem.CoreSystem.statsSkypvp;
 
 public class PlayerDeath implements Listener {
 
-    private static HashMap<Player, Player> lastHit = new HashMap<>();
-
     @EventHandler
     public void on(PlayerDeathEvent e) {
         Player p = e.getEntity();
-        Player k = p.getKiller();
-        lastHit.put(k, p);
-
-        EntityPlayer en = ((CraftPlayer) p).getHandle();
-        en.getLastDamager();
+        Player k = p.getKiller() != null ? p.getKiller() : Main.damager.getOrDefault(p, null);
 
         e.setDeathMessage(null);
         e.getDrops().clear();
         p.setLevel(0);
-        ((CraftPlayer)p).getHandle().playerConnection.a(new PacketPlayInClientCommand(PacketPlayInClientCommand.EnumClientCommand.PERFORM_RESPAWN));
+        p.spigot().respawn();
         p.playSound(p.getLocation(), Sound.VILLAGER_HIT, 1.0F, 1.0F);
 
         if(k != null){
@@ -61,7 +56,11 @@ public class PlayerDeath implements Listener {
             //Kills werden dem Killer Hinzugefügt (1)
             statsSkypvp.addKills(k.getUniqueId(), 1);
 
-            p.sendMessage(Main.config.getConfigValue("System-Prefix") + "§7Du wurdest von §6" + k.getDisplayName() + " §8[§c"+Math.floor(k.getHealth()) / 2+"♥§8] §7getötet §8[§c-2 Coins§8]");
+            DecimalFormat format = new DecimalFormat("#.#");
+            double health = k.getHealth() / k.getMaxHealth() * k.getHealthScale();
+            health /= 2.0D;
+
+            p.sendMessage(Main.config.getConfigValue("System-Prefix") + "§7Du wurdest von §6" + k.getDisplayName() + " §8[§c❤"+format.format(health)+"§8] §7getötet §8[§c-2 Coins§8]");
             k.sendMessage(Main.config.getConfigValue("System-Prefix") + "§7Du hast §6" + p.getDisplayName() + " §7getötet §8[§a+5 Coins§8]");
 
         } else {
@@ -74,11 +73,6 @@ public class PlayerDeath implements Listener {
             statsSkypvp.addDeaths(p.getUniqueId(), 1);
 
             p.sendMessage(Main.config.getConfigValue("System-Prefix") + "§7Du bist gestorben §8[§c-3 Coins§8]");
-        }
-
-        if(lastHit.containsKey(p)) {
-            lastHit.get(p);
-            lastHit.remove(p);
         }
     }
 

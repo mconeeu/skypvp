@@ -17,6 +17,7 @@ public class PlayerQuit implements Listener{
 	public void on(PlayerQuitEvent e){
 		Player p = e.getPlayer();
 		e.setQuitMessage(Main.config.getConfigValue("System-Prefix") + Main.config.getConfigValue("System-Quit").replaceAll("%Player%", p.getName()));
+		Main.npc.unsetNPCs(p);
 	}
 
 }

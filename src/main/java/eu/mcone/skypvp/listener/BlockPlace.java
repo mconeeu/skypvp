@@ -17,9 +17,7 @@ public class BlockPlace implements Listener{
 	public void on(BlockPlaceEvent e){
 		Player p = e.getPlayer();
 		
-		if(p.getGameMode() == GameMode.CREATIVE){
-			e.setCancelled(false);
-		} else {
+		if(!p.getGameMode().equals(GameMode.CREATIVE)){
 			e.setCancelled(true);
 		}
 	}

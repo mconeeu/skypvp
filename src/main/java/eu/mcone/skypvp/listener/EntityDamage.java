@@ -12,6 +12,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.player.PlayerItemBreakEvent;
 import org.bukkit.event.player.PlayerItemDamageEvent;
+import org.bukkit.event.player.PlayerLoginEvent;
 
 public class EntityDamage implements Listener {
 
@@ -20,9 +21,14 @@ public class EntityDamage implements Listener {
         Entity ent = e.getEntity();
 
         if (ent instanceof Player) {
+            Player p = (Player) ent;
+
             if (e.getCause().equals(EntityDamageEvent.DamageCause.FALL)) {
                 e.setCancelled(true);
+            } else if (e.getCause().equals(EntityDamageEvent.DamageCause.VOID)) {
+                p.setHealth(1);
             }
+
             if (ent.getLocation().getY() > 100) {
                 e.setCancelled(true);
                 ent.setFireTicks(0);
