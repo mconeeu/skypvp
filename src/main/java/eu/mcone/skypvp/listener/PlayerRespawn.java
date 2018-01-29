@@ -6,7 +6,7 @@
 package eu.mcone.skypvp.listener;
 
 import eu.mcone.bukkitcoresystem.util.LocationFactory;
-import eu.mcone.skypvp.Main;
+import eu.mcone.skypvp.SkyPvP;
 import eu.mcone.skypvp.kit.Kit;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -20,21 +20,21 @@ public class PlayerRespawn implements Listener{
     @EventHandler
     public void on(PlayerRespawnEvent e) {
         final Player p = e.getPlayer();
-        Main.damager.put(p, null);
+        SkyPvP.damager.put(p, null);
 
-        Location respawnLocation = LocationFactory.getConfigLocation(Main.config, "Location-Spawn");
+        Location respawnLocation = LocationFactory.getConfigLocation(SkyPvP.config, "Location-Spawn");
         if (respawnLocation != null) {
             e.setRespawnLocation(respawnLocation);
         } else {
-            p.sendMessage(Main.config.getConfigValue("System-Prefix") + "§4Du konntest nicht zum Spawn teleportiert werden, da der Spawn nicht eingespeichert ist!");
+            p.sendMessage(SkyPvP.config.getConfigValue("System-Prefix") + "§4Du konntest nicht zum Spawn teleportiert werden, da der Spawn nicht eingespeichert ist!");
         }
 
         p.setFireTicks(0);
 
-        Bukkit.getScheduler().scheduleSyncDelayedTask(Main.getInstance(), () -> {
+        Bukkit.getScheduler().scheduleSyncDelayedTask(SkyPvP.getInstance(), () -> {
             p.getInventory().clear();
-            Main.kits.resetKits(p);
-            Main.kits.setKit(p, Kit.PLAYER);
+            SkyPvP.kits.resetKits(p);
+            SkyPvP.kits.setKit(p, Kit.PLAYER);
         });
     }
 

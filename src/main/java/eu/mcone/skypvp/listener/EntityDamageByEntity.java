@@ -5,7 +5,7 @@
 
 package eu.mcone.skypvp.listener;
 
-import eu.mcone.skypvp.Main;
+import eu.mcone.skypvp.SkyPvP;
 import org.bukkit.Effect;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
@@ -23,11 +23,9 @@ public class EntityDamageByEntity implements Listener {
 
         if (byEnt instanceof Player && !((Player) byEnt).getGameMode().equals(GameMode.CREATIVE)) {
             if (ent instanceof Player) {
-                Main.damager.put((Player) ent, (Player) byEnt);
-
                 if (ent.getLocation().getY() > 100) {
                     e.setCancelled(true);
-                    byEnt.sendMessage(Main.config.getConfigValue("System-Prefix") + "§4Du darfst am Spawn nicht kämpfen!");
+                    byEnt.sendMessage(SkyPvP.config.getConfigValue("System-Prefix") + "§4Du darfst am Spawn nicht kämpfen!");
                 } else {
                     ent.getWorld().playEffect(ent.getLocation(), Effect.STEP_SOUND, Material.REDSTONE_BLOCK);
                 }
@@ -42,11 +40,6 @@ public class EntityDamageByEntity implements Listener {
                 }
             } else if (ent instanceof ItemFrame) {
                 e.setCancelled(true);
-            }
-        } else if (byEnt.getType().equals(EntityType.ARROW)) {
-            Arrow arrow = (Arrow) byEnt;
-            if (arrow.getShooter() instanceof Player && ent instanceof Player) {
-                Main.damager.put((Player) ent, (Player) arrow.getShooter());
             }
         }
     }

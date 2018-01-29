@@ -5,7 +5,7 @@
 
 package eu.mcone.skypvp.listener;
 
-import eu.mcone.skypvp.Main;
+import eu.mcone.skypvp.SkyPvP;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -16,8 +16,9 @@ public class PlayerQuit implements Listener{
 	@EventHandler
 	public void on(PlayerQuitEvent e){
 		Player p = e.getPlayer();
-		e.setQuitMessage(Main.config.getConfigValue("System-Prefix") + Main.config.getConfigValue("System-Quit").replaceAll("%Player%", p.getName()));
-		Main.npc.unsetNPCs(p);
+		p.setLevel(0);
+		e.setQuitMessage(SkyPvP.config.getConfigValue("System-Prefix") + SkyPvP.config.getConfigValue("System-Quit").replaceAll("%Player%", p.getName()));
+		SkyPvP.npc.unsetNPCs(p);
 	}
 
 }

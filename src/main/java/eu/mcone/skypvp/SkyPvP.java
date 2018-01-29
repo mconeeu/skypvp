@@ -9,35 +9,31 @@ import eu.mcone.bukkitcoresystem.CoreSystem;
 import eu.mcone.bukkitcoresystem.api.NpcAPI;
 import eu.mcone.bukkitcoresystem.command.NpcCMD;
 import eu.mcone.bukkitcoresystem.config.MySQL_Config;
-import eu.mcone.bukkitcoresystem.event.CoinsChangeEvent;
 import eu.mcone.bukkitcoresystem.player.CorePlayer;
+import eu.mcone.gameapi.api.StateAPI;
 import eu.mcone.skypvp.kit.KitManager;
 import eu.mcone.skypvp.command.*;
 import eu.mcone.skypvp.listener.*;
 import eu.mcone.skypvp.util.Objective;
 import org.bukkit.Bukkit;
-import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import static org.bukkit.Bukkit.getPluginManager;
 
 
-public class Main extends JavaPlugin{
+public class SkyPvP extends JavaPlugin{
 
-    private static Main instance;
+    private static SkyPvP instance;
 	public static MySQL_Config config;
 	public static KitManager kits;
 	public static NpcAPI npc;
 
     private static String MainPrefix = "§8[§9SkyPvP§8] ";
 	public static List<Player> cooldownlist = new ArrayList<>();
-	public static Map<Player, Player> damager = new HashMap<>();
+	public static Map<Player, Map<Long, UUID>> damager = new HashMap<>();
 
     public void onEnable() {
         instance = this;
@@ -58,9 +54,10 @@ public class Main extends JavaPlugin{
         registerEvents();
 
         Bukkit.getServer().getConsoleSender().sendMessage(MainPrefix + "§aVersion §f" + this.getDescription().getVersion() + "§a wurde aktiviert...");
+		StateAPI.setState(StateAPI.State.WAITING);
 
 		for (CorePlayer p : CoreSystem.getOnlineCorePlayers()) {
-		    new Objective(p);
+		    p.getScoreboard().setNewObjective(new Objective(p));
         }
     }
 
@@ -71,12 +68,12 @@ public class Main extends JavaPlugin{
     }
 
     private void registerCommands() {
-    	getCommand("ec").setExecutor(new Endechest_CMD());
-    	getCommand("shop").setExecutor(new Shop_CMD());
-    	getCommand("wb").setExecutor(new Workbench_CMD());
-    	getCommand("kit").setExecutor(new Kit_CMD());
-    	getCommand("spawn").setExecutor(new Spawn_CMD());
-    	getCommand("random").setExecutor(new Random_CMD());
+    	getCommand("ec").setExecutor(new EndechestCMD());
+    	getCommand("shop").setExecutor(new ShopCMD());
+    	getCommand("wb").setExecutor(new WorkbenchCMD());
+    	getCommand("kit").setExecutor(new KitCMD());
+    	getCommand("spawn").setExecutor(new SpawnCMD());
+    	getCommand("random").setExecutor(new RandomCMD());
 		getCommand("npc").setExecutor(new NpcCMD(npc));
     }
 
@@ -128,7 +125,7 @@ public class Main extends JavaPlugin{
 		config.store();
 	}
       
-	public static Main getInstance(){
+	public static SkyPvP getInstance(){
 	return instance;
 	}
 }

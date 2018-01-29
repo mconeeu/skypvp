@@ -6,26 +6,25 @@
 package eu.mcone.skypvp.command;
 
 import eu.mcone.bukkitcoresystem.CoreSystem;
-import eu.mcone.skypvp.Main;
+import eu.mcone.skypvp.SkyPvP;
 import org.bukkit.Sound;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-public class Endechest_CMD implements CommandExecutor{
+public class WorkbenchCMD implements CommandExecutor{
 
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 		if (sender instanceof Player) {
 			Player p = (Player) sender;
-			if (!CoreSystem.cooldown.canExecute(this.getClass(), p)) return true;
-			CoreSystem.cooldown.addPlayer(p.getUniqueId(), this.getClass());
+			if (!CoreSystem.getInstance().getCooldownSystem().canExecute(this.getClass(), p)) return true;
+			CoreSystem.getInstance().getCooldownSystem().addPlayer(p.getUniqueId(), this.getClass());
 
-			p.openInventory(p.getEnderChest());
+			p.openWorkbench(null, true);
 			p.playSound(p.getLocation(), Sound.CHICKEN_EGG_POP, 1, 1);
-			return true;
 		} else {
-			sender.sendMessage(Main.config.getConfigValue("System-Prefix") + Main.config.getConfigValue("System-Konsolen-Sender"));
+			sender.sendMessage(SkyPvP.config.getConfigValue("System-Prefix") + SkyPvP.config.getConfigValue("System-Konsolen-Sender"));
 		}
 		return true;
 	}

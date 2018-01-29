@@ -5,7 +5,7 @@
 
 package eu.mcone.skypvp.inventory;
 
-import eu.mcone.bukkitcoresystem.util.ItemManager;
+import eu.mcone.bukkitcoresystem.util.ItemFactory;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.Sound;
@@ -19,7 +19,7 @@ public class ShopInventory {
         Inventory inv = Bukkit.createInventory(p, 27, "§9§lSkyPvP §8» §fShop");
 
         for (int i = 0; i <= 26; i++) {
-            inv.setItem(i, ItemManager.createItem(Material.STAINED_GLASS_PANE, 7, 1, "§8//§oMCONE§8//", true));
+            inv.setItem(i, ItemFactory.createItem(Material.STAINED_GLASS_PANE, 7, 1, "§8//§oMCONE§8//", true));
         }
 
         inv.setItem(9, ShopItem.schwerter.getItem());
@@ -40,7 +40,7 @@ public class ShopInventory {
 
         if (e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase("§cSchwerter")) {
             for (int i = 0; i <= 35; i++) {
-                waffengui.setItem(i, ItemManager.createItem(Material.STAINED_GLASS_PANE, 7, 1, "§8//§oMCONE§8//", true));
+                waffengui.setItem(i, ItemFactory.createItem(Material.STAINED_GLASS_PANE, 7, 1, "§8//§oMCONE§8//", true));
             }
 
             waffengui.setItem(9, ShopItem.schwert1.getItem());
@@ -49,13 +49,13 @@ public class ShopInventory {
             waffengui.setItem(15, ShopItem.schwert4.getItem());
             waffengui.setItem(17, ShopItem.schwert5.getItem());
 
-            waffengui.setItem(31, ItemManager.createItem(Material.IRON_DOOR, 0, 1, "§7§l↩ Zurück", true));
+            waffengui.setItem(31, ItemFactory.createItem(Material.IRON_DOOR, 0, 1, "§7§l↩ Zurück", true));
 
             p.openInventory(waffengui);
             p.playSound(p.getLocation(), Sound.CHICKEN_EGG_POP, 1, 1);
         } else if (e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase("§cBögen")) {
             for (int i = 0; i <= 35; i++) {
-                boegengui.setItem(i, ItemManager.createItem(Material.STAINED_GLASS_PANE, 7, 1, "§8//§oMCONE§8//", true));
+                boegengui.setItem(i, ItemFactory.createItem(Material.STAINED_GLASS_PANE, 7, 1, "§8//§oMCONE§8//", true));
             }
 
             boegengui.setItem(9, ShopItem.bogen1.getItem());
@@ -64,13 +64,13 @@ public class ShopInventory {
             boegengui.setItem(15, ShopItem.bogen4.getItem());
             boegengui.setItem(17, ShopItem.bogen5.getItem());
 
-            boegengui.setItem(31, ItemManager.createItem(Material.IRON_DOOR, 0, 1, "§7§l↩ Zurück", true));
+            boegengui.setItem(31, ItemFactory.createItem(Material.IRON_DOOR, 0, 1, "§7§l↩ Zurück", true));
 
             p.openInventory(boegengui);
             p.playSound(p.getLocation(), Sound.CHICKEN_EGG_POP, 1, 1);
         } else if (e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase("§cRüstung")) {
             for (int i = 0; i <= 35; i++) {
-                ruestunggui.setItem(i, ItemManager.createItem(Material.STAINED_GLASS_PANE, 7, 1, "§8//§oMCONE§8//", true));
+                ruestunggui.setItem(i, ItemFactory.createItem(Material.STAINED_GLASS_PANE, 7, 1, "§8//§oMCONE§8//", true));
             }
 
             ruestunggui.setItem(3, ShopItem.helm1.getItem());
@@ -93,13 +93,13 @@ public class ShopInventory {
             ruestunggui.setItem(32, ShopItem.schuhe3.getItem());
             ruestunggui.setItem(33, ShopItem.schuhe4.getItem());
 
-            ruestunggui.setItem(27, ItemManager.createItem(Material.IRON_DOOR, 0, 1, "§7§l↩ Zurück", true));
+            ruestunggui.setItem(27, ItemFactory.createItem(Material.IRON_DOOR, 0, 1, "§7§l↩ Zurück", true));
 
             p.openInventory(ruestunggui);
             p.playSound(p.getLocation(), Sound.CHICKEN_EGG_POP, 1, 1);
         } else if (e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase("§cExtras")) {
             for (int i = 0; i <= 35; i++) {
-                extragui.setItem(i, ItemManager.createItem(Material.STAINED_GLASS_PANE, 7, 1, "§8//§oMCONE§8//", true));
+                extragui.setItem(i, ItemFactory.createItem(Material.STAINED_GLASS_PANE, 7, 1, "§8//§oMCONE§8//", true));
             }
 
             extragui.setItem(9, ShopItem.op1.getItem());
@@ -108,20 +108,20 @@ public class ShopInventory {
             extragui.setItem(15, ShopItem.op4.getItem());
             extragui.setItem(17, ShopItem.op5.getItem());
 
-            extragui.setItem(31, ItemManager.createItem(Material.IRON_DOOR, 0, 1, "§7§l↩ Zurück", true));
+            extragui.setItem(31, ItemFactory.createItem(Material.IRON_DOOR, 0, 1, "§7§l↩ Zurück", true));
 
             p.openInventory(extragui);
             p.playSound(p.getLocation(), Sound.CHICKEN_EGG_POP, 1, 1);
         } else if (e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase("§cSpezial")) {
             for (int i = 0; i <= 35; i++) {
-                spezialgui.setItem(i, ItemManager.createItem(Material.STAINED_GLASS_PANE, 7, 1, "§8//§oMCONE§8//", true));
+                spezialgui.setItem(i, ItemFactory.createItem(Material.STAINED_GLASS_PANE, 7, 1, "§8//§oMCONE§8//", true));
             }
 
             spezialgui.setItem(10, ShopItem.axt1.getItem());
             spezialgui.setItem(13, ShopItem.soup.getItem());
             spezialgui.setItem(16, ShopItem.axt2.getItem());
 
-            spezialgui.setItem(31, ItemManager.createItem(Material.IRON_DOOR, 0, 1, "§7§l↩ Zurück", true));
+            spezialgui.setItem(31, ItemFactory.createItem(Material.IRON_DOOR, 0, 1, "§7§l↩ Zurück", true));
 
             p.openInventory(spezialgui);
             p.playSound(p.getLocation(), Sound.CHICKEN_EGG_POP, 1, 1);

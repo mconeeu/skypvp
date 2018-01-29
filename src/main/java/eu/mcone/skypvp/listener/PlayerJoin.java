@@ -6,8 +6,9 @@
 package eu.mcone.skypvp.listener;
 
 import eu.mcone.bukkitcoresystem.CoreSystem;
+import eu.mcone.bukkitcoresystem.player.CorePlayer;
 import eu.mcone.bukkitcoresystem.util.LocationFactory;
-import eu.mcone.skypvp.Main;
+import eu.mcone.skypvp.SkyPvP;
 import eu.mcone.skypvp.kit.Kit;
 import eu.mcone.skypvp.util.Objective;
 import org.bukkit.Effect;
@@ -23,21 +24,23 @@ public class PlayerJoin implements Listener{
 	@EventHandler
     public void on(PlayerJoinEvent e) {
         Player p = e.getPlayer();
+        CorePlayer cp = CoreSystem.getCorePlayer(p);
 
-        Location spawn = LocationFactory.getConfigLocation(Main.config, "Location-Spawn");
+        p.setLevel(0);
+        Location spawn = LocationFactory.getConfigLocation(SkyPvP.config, "Location-Spawn");
         if (spawn != null) {
             p.teleport(spawn);
         } else if(p.hasPermission("group.admin")) {
-            p.sendMessage(Main.config.getConfigValue("System-Prefix") + "§4Der Spawn wurde noch nicht gesetzt!");
+            p.sendMessage(SkyPvP.config.getConfigValue("System-Prefix") + "§4Der Spawn wurde noch nicht gesetzt!");
         }
        
-        e.setJoinMessage(Main.config.getConfigValue("System-Prefix") + Main.config.getConfigValue("System-Join").replaceAll("%Player%", p.getName()));
+        e.setJoinMessage(SkyPvP.config.getConfigValue("System-Prefix") + SkyPvP.config.getConfigValue("System-Join").replaceAll("%Player%", p.getName()));
 
-        new Objective(CoreSystem.getCorePlayer(p));
+        cp.getScoreboard().setNewObjective(new Objective(cp));
 
         if (hasEmptyInventory(p)) {
-            p.sendMessage(Main.config.getConfigValue("System-Prefix") + "§7Du scheinst neu auf SkyPvP zu sein! Du bekommst das Standart-Kit!");
-            Main.kits.setKit(p, Kit.PLAYER);
+            p.sendMessage(SkyPvP.config.getConfigValue("System-Prefix") + "§7Du scheinst neu auf SkyPvP zu sein! Du bekommst das Standart-Kit!");
+            SkyPvP.kits.setKit(p, Kit.PLAYER);
         }
 
         p.getPlayer().playEffect(p.getPlayer().getLocation(), Effect.ENDER_SIGNAL, 10);
