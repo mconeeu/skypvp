@@ -1,15 +1,15 @@
 /*
- * Copyright (c) 2017 Dominik L., Rufus Maiwald and the MC ONE Minecraftnetwork. All rights reserved
+ * Copyright (c) 2017 -2018 Dominik L., Rufus Maiwald and the MC ONE Minecraftnetwork. All rights reserved
  * You are not allowed to decompile the code
  */
 
 package eu.mcone.skypvp;
 
-import eu.mcone.bukkitcoresystem.CoreSystem;
-import eu.mcone.bukkitcoresystem.api.NpcAPI;
-import eu.mcone.bukkitcoresystem.command.NpcCMD;
-import eu.mcone.bukkitcoresystem.config.MySQL_Config;
-import eu.mcone.bukkitcoresystem.player.CorePlayer;
+import eu.mcone.coresystem.bukkit.CoreSystem;
+import eu.mcone.coresystem.bukkit.command.NpcCMD;
+import eu.mcone.coresystem.bukkit.npc.NpcManager;
+import eu.mcone.coresystem.bukkit.player.CorePlayer;
+import eu.mcone.coresystem.lib.mysql.MySQL_Config;
 import eu.mcone.gameapi.api.StateAPI;
 import eu.mcone.skypvp.kit.KitManager;
 import eu.mcone.skypvp.command.*;
@@ -23,13 +23,12 @@ import java.util.*;
 
 import static org.bukkit.Bukkit.getPluginManager;
 
-
 public class SkyPvP extends JavaPlugin{
 
     private static SkyPvP instance;
 	public static MySQL_Config config;
 	public static KitManager kits;
-	public static NpcAPI npc;
+	public static NpcManager npc;
 
     private static String MainPrefix = "§8[§9SkyPvP§8] ";
 	public static List<Player> cooldownlist = new ArrayList<>();
@@ -47,7 +46,7 @@ public class SkyPvP extends JavaPlugin{
 		kits.createMySQLTable();
 
 		Bukkit.getServer().getConsoleSender().sendMessage(MainPrefix + "§aNPC-Manager wird gestartet");
-		npc = new NpcAPI(eu.mcone.bukkitcoresystem.CoreSystem.mysql1, "Skypvp");
+		npc = new NpcManager(CoreSystem.mysql1, "Skypvp");
 
         Bukkit.getServer().getConsoleSender().sendMessage(MainPrefix + "§aEvents und Befehle werden registriert...");
         registerCommands();

@@ -1,14 +1,13 @@
 /*
- * Copyright (c) 2017 Dominik L., Rufus Maiwald and the MC ONE Minecraftnetwork. All rights reserved
+ * Copyright (c) 2017 -2018 Dominik L., Rufus Maiwald and the MC ONE Minecraftnetwork. All rights reserved
  * You are not allowed to decompile the code
  */
 
 package eu.mcone.skypvp.kit;
 
-import eu.mcone.bukkitcoresystem.CoreSystem;
-import eu.mcone.bukkitcoresystem.api.CoinsAPI;
-import eu.mcone.bukkitcoresystem.mysql.MySQL;
-import eu.mcone.bukkitcoresystem.util.ItemFactory;
+import eu.mcone.coresystem.bukkit.api.CoinsAPI;
+import eu.mcone.coresystem.bukkit.util.ItemFactory;
+import eu.mcone.coresystem.lib.mysql.MySQL;
 import eu.mcone.skypvp.SkyPvP;
 import org.bukkit.Material;
 import org.bukkit.Sound;
@@ -37,7 +36,7 @@ public class KitManager {
         asyncRunnable = new BukkitRunnable() {
             @Override
             public void run() {
-                CoreSystem.mysql1.select("SELECT * FROM skypvp_kits", rs -> {
+                mysql.select("SELECT * FROM skypvp_kits", rs -> {
                     buyedKits.clear();
 
                     try {

@@ -1,12 +1,12 @@
 /*
- * Copyright (c) 2017 Dominik L., Rufus Maiwald and the MC ONE Minecraftnetwork. All rights reserved
+ * Copyright (c) 2017 -2018 Dominik L., Rufus Maiwald and the MC ONE Minecraftnetwork. All rights reserved
  * You are not allowed to decompile the code
  */
 
 package eu.mcone.skypvp.listener;
 
-import eu.mcone.bukkitcoresystem.api.CoinsAPI;
-import eu.mcone.bukkitcoresystem.api.TitleAPI;
+import eu.mcone.coresystem.bukkit.api.CoinsAPI;
+import eu.mcone.coresystem.bukkit.api.TitleAPI;
 import eu.mcone.skypvp.inventory.KitBuyInventory;
 import eu.mcone.skypvp.inventory.KitInventory;
 import eu.mcone.skypvp.inventory.ShopInventory;

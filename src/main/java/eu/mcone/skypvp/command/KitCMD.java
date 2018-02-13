@@ -1,11 +1,11 @@
 /*
- * Copyright (c) 2017 Dominik L., Rufus Maiwald and the MC ONE Minecraftnetwork. All rights reserved
+ * Copyright (c) 2017 -2018 Dominik L., Rufus Maiwald and the MC ONE Minecraftnetwork. All rights reserved
  * You are not allowed to decompile the code
  */
 
 package eu.mcone.skypvp.command;
 
-import eu.mcone.bukkitcoresystem.CoreSystem;
+import eu.mcone.coresystem.bukkit.CoreSystem;
 import eu.mcone.skypvp.SkyPvP;
 import eu.mcone.skypvp.inventory.KitInventory;
 import org.bukkit.Sound;
@@ -15,9 +15,9 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 
-
 public class KitCMD implements CommandExecutor {
-private Plugin plugin;
+
+	private Plugin plugin;
 
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {

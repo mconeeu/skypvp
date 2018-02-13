@@ -1,11 +1,11 @@
 /*
- * Copyright (c) 2017 Dominik L., Rufus Maiwald and the MC ONE Minecraftnetwork. All rights reserved
+ * Copyright (c) 2017 -2018 Dominik L., Rufus Maiwald and the MC ONE Minecraftnetwork. All rights reserved
  * You are not allowed to decompile the code
  */
 
 package eu.mcone.skypvp.listener;
 
-import eu.mcone.bukkitcoresystem.api.CoinsAPI;
+import eu.mcone.coresystem.bukkit.api.CoinsAPI;
 import eu.mcone.gameapi.GameAPI;
 import eu.mcone.skypvp.SkyPvP;
 import org.bukkit.Bukkit;
@@ -17,7 +17,7 @@ import org.bukkit.event.entity.PlayerDeathEvent;
 
 import java.text.DecimalFormat;
 
-import static eu.mcone.bukkitcoresystem.CoreSystem.statsSkypvp;
+import static eu.mcone.coresystem.bukkit.CoreSystem.statsSkypvp;
 
 public class PlayerDeath implements Listener {
 
@@ -49,6 +49,7 @@ public class PlayerDeath implements Listener {
             for (int streak : new int[]{3,5,10,15,20,25,30,35,40,50,55,60}) {
                 if (p.getLevel() == streak) {
                     Bukkit.broadcastMessage(SkyPvP.config.getConfigValue("System-Prefix") + "§f" + p.getName() + " §6hat eine §c"+streak+"er §6Killstreak!");
+                    break;
                 }
             }
 

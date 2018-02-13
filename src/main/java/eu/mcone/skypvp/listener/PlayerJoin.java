@@ -1,13 +1,13 @@
 /*
- * Copyright (c) 2017 Dominik L., Rufus Maiwald and the MC ONE Minecraftnetwork. All rights reserved
+ * Copyright (c) 2017 -2018 Dominik L., Rufus Maiwald and the MC ONE Minecraftnetwork. All rights reserved
  * You are not allowed to decompile the code
  */
 
 package eu.mcone.skypvp.listener;
 
-import eu.mcone.bukkitcoresystem.CoreSystem;
-import eu.mcone.bukkitcoresystem.player.CorePlayer;
-import eu.mcone.bukkitcoresystem.util.LocationFactory;
+import eu.mcone.coresystem.bukkit.CoreSystem;
+import eu.mcone.coresystem.bukkit.player.CorePlayer;
+import eu.mcone.coresystem.bukkit.util.LocationFactory;
 import eu.mcone.skypvp.SkyPvP;
 import eu.mcone.skypvp.kit.Kit;
 import eu.mcone.skypvp.util.Objective;

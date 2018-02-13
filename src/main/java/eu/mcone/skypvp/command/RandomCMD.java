@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2017 Dominik L., Rufus Maiwald and the MC ONE Minecraftnetwork. All rights reserved
+ * Copyright (c) 2017 -2018 Dominik L., Rufus Maiwald and the MC ONE Minecraftnetwork. All rights reserved
  * You are not allowed to decompile the code
  */
 
@@ -7,14 +7,13 @@ package eu.mcone.skypvp.command;
 
 import java.util.Random;
 
-import eu.mcone.bukkitcoresystem.CoreSystem;
+import eu.mcone.coresystem.bukkit.CoreSystem;
 import eu.mcone.skypvp.SkyPvP;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-
 
 public class RandomCMD implements CommandExecutor{
 
