@@ -6,9 +6,11 @@
 package eu.mcone.skypvp.kit;
 
 import eu.mcone.coresystem.bukkit.api.CoinsAPI;
+import eu.mcone.coresystem.bukkit.inventory.CoreInventory;
 import eu.mcone.coresystem.bukkit.util.ItemFactory;
 import eu.mcone.coresystem.lib.mysql.MySQL;
 import eu.mcone.skypvp.SkyPvP;
+import eu.mcone.skypvp.inventory.KitBuyInventory;
 import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.enchantments.Enchantment;
@@ -203,11 +205,16 @@ public class KitManager {
         }
     }
 
-    public void setInvItem(Inventory inv, Player p, Kit kit, int i) {
+    public void setInvItem(CoreInventory inv, Player p, Kit kit, int i) {
         if (hasKit(p, kit)) {
-            inv.setItem(i, ItemFactory.createItem(kit.getItem(), 0, 1, kit.getName(), new ArrayList<>(Arrays.asList("§r", "§2§oDu besitzt dieses Item!", "§8» §f§nRechtsklick§8 | §7§oAktivieren")), true));
+            inv.setItem(i, ItemFactory.createItem(kit.getItem(), 0, 1, kit.getName(), new ArrayList<>(Arrays.asList("§r", "§2§oDu besitzt dieses Item!", "§8» §f§nRechtsklick§8 | §7§oAktivieren")), true), () -> {
+                SkyPvP.getInstance().getKitManager().setKit(p, kit);
+                p.closeInventory();
+            });
         } else {
-            inv.setItem(i, ItemFactory.createItem(kit.getItem(), 0, 1, kit.getName(), new ArrayList<>(Arrays.asList("§r", "§c§oDu besitzt dieses Item nicht!", "§7§oKostet: §f§o" + kit.getCoins() + " Coins")), true));
+            inv.setItem(i, ItemFactory.createItem(kit.getItem(), 0, 1, kit.getName(), new ArrayList<>(Arrays.asList("§r", "§c§oDu besitzt dieses Item nicht!", "§7§oKostet: §f§o" + kit.getCoins() + " Coins")), true), () -> {
+                new KitBuyInventory(p, kit);
+            });
         }
     }
 

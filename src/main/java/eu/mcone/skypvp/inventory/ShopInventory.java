@@ -5,125 +5,155 @@
 
 package eu.mcone.skypvp.inventory;
 
+import eu.mcone.coresystem.bukkit.api.CoinsAPI;
+import eu.mcone.coresystem.bukkit.api.TitleAPI;
+import eu.mcone.coresystem.bukkit.inventory.CoreInventory;
 import eu.mcone.coresystem.bukkit.util.ItemFactory;
-import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
-import org.bukkit.event.inventory.InventoryClickEvent;
-import org.bukkit.inventory.Inventory;
 
-public class ShopInventory {
+public class ShopInventory extends CoreInventory {
 
-    public static void open(Player p) {
-        Inventory inv = Bukkit.createInventory(p, 27, "§9§lSkyPvP §8» §fShop");
+    public ShopInventory(Player p) {
+        super("§9§lSkyPvP §8» §fShop", p, 27, Option.FILL_EMPTY_SLOTS);
 
-        for (int i = 0; i <= 26; i++) {
-            inv.setItem(i, ItemFactory.createItem(Material.STAINED_GLASS_PANE, 7, 1, "§8//§oMCONE§8//", true));
-        }
+        setItem(9, ShopItem.swords.getItem(), () -> new WeaponInventory(p));
+        setItem(11, ShopItem.bows.getItem(), () -> new BowInventory(p));
+        setItem(13, ShopItem.armor.getItem(), () -> new ArmorInventory(p));
+        setItem(15, ShopItem.extras.getItem(), () -> new ExtraInventory(p));
+        setItem(17, ShopItem.special.getItem(), () -> new SpecialInventory(p));
 
-        inv.setItem(9, ShopItem.schwerter.getItem());
-        inv.setItem(11, ShopItem.boegen.getItem());
-        inv.setItem(13, ShopItem.ruestung.getItem());
-        inv.setItem(15, ShopItem.extras.getItem());
-        inv.setItem(17, ShopItem.spezial.getItem());
-
-        p.openInventory(inv);
+        openInventory();
     }
 
-    public static void click(InventoryClickEvent e, Player p) {
-        Inventory waffengui = Bukkit.createInventory(p, 36, "§f§lShop §8- §cWaffen");
-        Inventory boegengui = Bukkit.createInventory(p, 36, "§f§lShop §8- §cBögen");
-        Inventory ruestunggui = Bukkit.createInventory(p, 36, "§f§lShop §8- §cRüstung");
-        Inventory extragui = Bukkit.createInventory(p, 36, "§f§lShop §8- §cExtras");
-        Inventory spezialgui = Bukkit.createInventory(p, 36, "§f§lShop §8- §cSpezial");
+    private void setInvItem(CoreInventory inv, int slot, ShopItem item) {
+        inv.setItem(slot, item.getItem(), () -> buyShopItem(inv.getPlayer(), item));
+    }
 
-        if (e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase("§cSchwerter")) {
-            for (int i = 0; i <= 35; i++) {
-                waffengui.setItem(i, ItemFactory.createItem(Material.STAINED_GLASS_PANE, 7, 1, "§8//§oMCONE§8//", true));
-            }
+    private void buyShopItem(Player p, ShopItem item){
+        int futCoins = CoinsAPI.getCoins(p.getUniqueId()) - item.getCoins();
+        if (futCoins <= -1){
+            p.closeInventory();
+            p.playSound(p.getLocation(), Sound.NOTE_BASS, 1.0F, 1.0F);
+            TitleAPI.sendTitle(p, "§c§l×", "§7Du hast nicht genügend §fCoins§7!", 1, 2, 1);
+        } else {
+            CoinsAPI.removeCoins(p.getUniqueId(), item.getCoins());
+            p.getInventory().addItem(item.getItem());
+            p.closeInventory();
+            p.playSound(p.getLocation(), Sound.LEVEL_UP, 10F, 10F);
+            TitleAPI.sendTitle(p, "§a§l✓", "§7Du hast das Item §f" + item.getItem().getItemMeta().getDisplayName() + " §7gekauft!", 1, 2, 1);
+        }
+    }
+    
+    private class WeaponInventory extends CoreInventory {
+        WeaponInventory(Player p) {
+            super("§f§lShop §8- §cWaffen", p, 36, Option.FILL_EMPTY_SLOTS);
 
-            waffengui.setItem(9, ShopItem.schwert1.getItem());
-            waffengui.setItem(11, ShopItem.schwert2.getItem());
-            waffengui.setItem(13, ShopItem.schwert3.getItem());
-            waffengui.setItem(15, ShopItem.schwert4.getItem());
-            waffengui.setItem(17, ShopItem.schwert5.getItem());
+            setInvItem(this, 9, ShopItem.sword1);
+            setInvItem(this, 11, ShopItem.sword2);
+            setInvItem(this, 13, ShopItem.sword3);
+            setInvItem(this, 15, ShopItem.sword4);
+            setInvItem(this, 17, ShopItem.sword5);
 
-            waffengui.setItem(31, ItemFactory.createItem(Material.IRON_DOOR, 0, 1, "§7§l↩ Zurück", true));
+            setItem(31, ItemFactory.createItem(Material.IRON_DOOR, 0, 1, "§7§l↩ Zurück", true), () -> {
+                p.playSound(p.getLocation(), Sound.NOTE_BASS, 1.0F, 1.0F);
+                new ShopInventory(p);
+            });
 
-            p.openInventory(waffengui);
+            openInventory();
             p.playSound(p.getLocation(), Sound.CHICKEN_EGG_POP, 1, 1);
-        } else if (e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase("§cBögen")) {
-            for (int i = 0; i <= 35; i++) {
-                boegengui.setItem(i, ItemFactory.createItem(Material.STAINED_GLASS_PANE, 7, 1, "§8//§oMCONE§8//", true));
-            }
+        }
+    }
 
-            boegengui.setItem(9, ShopItem.bogen1.getItem());
-            boegengui.setItem(11, ShopItem.bogen2.getItem());
-            boegengui.setItem(13, ShopItem.bogen3.getItem());
-            boegengui.setItem(15, ShopItem.bogen4.getItem());
-            boegengui.setItem(17, ShopItem.bogen5.getItem());
+    private class BowInventory extends CoreInventory {
+        BowInventory(Player p) {
+            super("§f§lShop §8- §cBögen", p, 36, Option.FILL_EMPTY_SLOTS);
 
-            boegengui.setItem(31, ItemFactory.createItem(Material.IRON_DOOR, 0, 1, "§7§l↩ Zurück", true));
+            setInvItem(this, 9, ShopItem.bow1);
+            setInvItem(this, 11, ShopItem.bow2);
+            setInvItem(this, 13, ShopItem.bow3);
+            setInvItem(this, 15, ShopItem.bow4);
+            setInvItem(this, 17, ShopItem.bow5);
 
-            p.openInventory(boegengui);
+            setItem(31, ItemFactory.createItem(Material.IRON_DOOR, 0, 1, "§7§l↩ Zurück", true), () -> {
+                p.playSound(p.getLocation(), Sound.NOTE_BASS, 1.0F, 1.0F);
+                new ShopInventory(p);
+            });
+
+            openInventory();
             p.playSound(p.getLocation(), Sound.CHICKEN_EGG_POP, 1, 1);
-        } else if (e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase("§cRüstung")) {
-            for (int i = 0; i <= 35; i++) {
-                ruestunggui.setItem(i, ItemFactory.createItem(Material.STAINED_GLASS_PANE, 7, 1, "§8//§oMCONE§8//", true));
-            }
+        }
+    }
 
-            ruestunggui.setItem(3, ShopItem.helm1.getItem());
-            ruestunggui.setItem(4, ShopItem.helm2.getItem());
-            ruestunggui.setItem(5, ShopItem.helm3.getItem());
-            ruestunggui.setItem(6, ShopItem.helm4.getItem());
+    private class ArmorInventory extends CoreInventory {
+        ArmorInventory(Player p) {
+            super("§f§lShop §8- §cRüstung", p, 36, Option.FILL_EMPTY_SLOTS);
 
-            ruestunggui.setItem(12, ShopItem.brust1.getItem());
-            ruestunggui.setItem(13, ShopItem.brust2.getItem());
-            ruestunggui.setItem(14, ShopItem.brust3.getItem());
-            ruestunggui.setItem(15, ShopItem.brust4.getItem());
+            setInvItem(this, 3, ShopItem.helm1);
+            setInvItem(this, 4, ShopItem.helm2);
+            setInvItem(this, 5, ShopItem.helm3);
+            setInvItem(this, 6, ShopItem.helm4);
 
-            ruestunggui.setItem(21, ShopItem.hose1.getItem());
-            ruestunggui.setItem(22, ShopItem.hose2.getItem());
-            ruestunggui.setItem(23, ShopItem.hose3.getItem());
-            ruestunggui.setItem(24, ShopItem.hose4.getItem());
+            setInvItem(this, 12, ShopItem.chest1);
+            setInvItem(this, 13, ShopItem.chest2);
+            setInvItem(this, 14, ShopItem.chest3);
+            setInvItem(this, 15, ShopItem.chest4);
 
-            ruestunggui.setItem(30, ShopItem.schuhe1.getItem());
-            ruestunggui.setItem(31, ShopItem.schuhe2.getItem());
-            ruestunggui.setItem(32, ShopItem.schuhe3.getItem());
-            ruestunggui.setItem(33, ShopItem.schuhe4.getItem());
+            setInvItem(this, 21, ShopItem.leggin1);
+            setInvItem(this, 22, ShopItem.leggin2);
+            setInvItem(this, 23, ShopItem.leggin3);
+            setInvItem(this, 24, ShopItem.leggin4);
 
-            ruestunggui.setItem(27, ItemFactory.createItem(Material.IRON_DOOR, 0, 1, "§7§l↩ Zurück", true));
+            setInvItem(this, 30, ShopItem.shoe1);
+            setInvItem(this, 31, ShopItem.shoe2);
+            setInvItem(this, 32, ShopItem.shoe3);
+            setInvItem(this, 33, ShopItem.shoe4);
 
-            p.openInventory(ruestunggui);
+            setItem(27, ItemFactory.createItem(Material.IRON_DOOR, 0, 1, "§7§l↩ Zurück", true), () -> {
+                p.playSound(p.getLocation(), Sound.NOTE_BASS, 1.0F, 1.0F);
+                new ShopInventory(p);
+            });
+
+            openInventory();
             p.playSound(p.getLocation(), Sound.CHICKEN_EGG_POP, 1, 1);
-        } else if (e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase("§cExtras")) {
-            for (int i = 0; i <= 35; i++) {
-                extragui.setItem(i, ItemFactory.createItem(Material.STAINED_GLASS_PANE, 7, 1, "§8//§oMCONE§8//", true));
-            }
+        }
+    }
 
-            extragui.setItem(9, ShopItem.op1.getItem());
-            extragui.setItem(11, ShopItem.op2.getItem());
-            extragui.setItem(13, ShopItem.op3.getItem());
-            extragui.setItem(15, ShopItem.op4.getItem());
-            extragui.setItem(17, ShopItem.op5.getItem());
+    private class ExtraInventory extends CoreInventory {
+        ExtraInventory(Player p) {
+            super("§f§lShop §8- §cExtras", p, 36, Option.FILL_EMPTY_SLOTS);
 
-            extragui.setItem(31, ItemFactory.createItem(Material.IRON_DOOR, 0, 1, "§7§l↩ Zurück", true));
+            setInvItem(this, 9, ShopItem.op1);
+            setInvItem(this, 11, ShopItem.op2);
+            setInvItem(this, 13, ShopItem.op3);
+            setInvItem(this, 15, ShopItem.op4);
+            setInvItem(this, 17, ShopItem.op5);
 
-            p.openInventory(extragui);
+            setItem(31, ItemFactory.createItem(Material.IRON_DOOR, 0, 1, "§7§l↩ Zurück", true), () -> {
+                p.playSound(p.getLocation(), Sound.NOTE_BASS, 1.0F, 1.0F);
+                new ShopInventory(p);
+            });
+
+            openInventory();
             p.playSound(p.getLocation(), Sound.CHICKEN_EGG_POP, 1, 1);
-        } else if (e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase("§cSpezial")) {
-            for (int i = 0; i <= 35; i++) {
-                spezialgui.setItem(i, ItemFactory.createItem(Material.STAINED_GLASS_PANE, 7, 1, "§8//§oMCONE§8//", true));
-            }
+        }
+    }
 
-            spezialgui.setItem(10, ShopItem.axt1.getItem());
-            spezialgui.setItem(13, ShopItem.soup.getItem());
-            spezialgui.setItem(16, ShopItem.axt2.getItem());
+    private class SpecialInventory extends CoreInventory {
+        SpecialInventory(Player p) {
+            super("§f§lShop §8- §cSpezial", p, 36, Option.FILL_EMPTY_SLOTS);
 
-            spezialgui.setItem(31, ItemFactory.createItem(Material.IRON_DOOR, 0, 1, "§7§l↩ Zurück", true));
+            setInvItem(this, 10, ShopItem.axe1);
+            setInvItem(this, 13, ShopItem.soup);
+            setInvItem(this, 16, ShopItem.axe2);
 
-            p.openInventory(spezialgui);
+            setItem(31, ItemFactory.createItem(Material.IRON_DOOR, 0, 1, "§7§l↩ Zurück", true), () -> {
+                p.playSound(p.getLocation(), Sound.NOTE_BASS, 1.0F, 1.0F);
+                new ShopInventory(p);
+            });
+
+            openInventory();
             p.playSound(p.getLocation(), Sound.CHICKEN_EGG_POP, 1, 1);
         }
     }

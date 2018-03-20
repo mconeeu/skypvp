@@ -6,9 +6,11 @@
 package eu.mcone.skypvp;
 
 import eu.mcone.coresystem.bukkit.CoreSystem;
+import eu.mcone.coresystem.bukkit.command.BuildCMD;
 import eu.mcone.coresystem.bukkit.command.NpcCMD;
 import eu.mcone.coresystem.bukkit.npc.NpcManager;
 import eu.mcone.coresystem.bukkit.player.CorePlayer;
+import eu.mcone.coresystem.bukkit.util.BuildSystem;
 import eu.mcone.coresystem.lib.mysql.MySQL_Config;
 import eu.mcone.gameapi.api.StateAPI;
 import eu.mcone.skypvp.kit.KitManager;
@@ -27,8 +29,9 @@ public class SkyPvP extends JavaPlugin{
 
     private static SkyPvP instance;
 	public static MySQL_Config config;
-	public static KitManager kits;
-	public static NpcManager npc;
+	public KitManager kitManager;
+	public NpcManager npcManager;
+    private BuildSystem buildSystem;
 
     private static String MainPrefix = "§8[§9SkyPvP§8] ";
 	public static List<Player> cooldownlist = new ArrayList<>();
@@ -42,11 +45,14 @@ public class SkyPvP extends JavaPlugin{
         registerMySQLConfig();
 
 		Bukkit.getServer().getConsoleSender().sendMessage(MainPrefix + "§aKit Manager wird initiiert...");
-		kits = new KitManager(CoreSystem.mysql1);
-		kits.createMySQLTable();
+		kitManager = new KitManager(CoreSystem.mysql1);
+		kitManager.createMySQLTable();
 
 		Bukkit.getServer().getConsoleSender().sendMessage(MainPrefix + "§aNPC-Manager wird gestartet");
-		npc = new NpcManager(CoreSystem.mysql1, "Skypvp");
+		npcManager = new NpcManager(CoreSystem.mysql1, "Skypvp");
+
+		Bukkit.getServer().getConsoleSender().sendMessage(MainPrefix + "§aBuild-System witd initiiert");
+		buildSystem = new BuildSystem(false, BuildSystem.BuildEvent.BLOCK_BREAK, BuildSystem.BuildEvent.BLOCK_PLACE);
 
         Bukkit.getServer().getConsoleSender().sendMessage(MainPrefix + "§aEvents und Befehle werden registriert...");
         registerCommands();
@@ -56,14 +62,14 @@ public class SkyPvP extends JavaPlugin{
 		StateAPI.setState(StateAPI.State.WAITING);
 
 		for (CorePlayer p : CoreSystem.getOnlineCorePlayers()) {
-		    p.getScoreboard().setNewObjective(new Objective(p));
+		    p.getScoreboard().setNewObjective(new Objective());
         }
     }
 
     public void onDisable(){
         Bukkit.getServer().getConsoleSender().sendMessage(MainPrefix + "§cPlugin wurde deaktiviert!");
-        kits.getAsyncRunnable().cancel();
-		npc.unsetNPCs();
+        kitManager.getAsyncRunnable().cancel();
+		npcManager.unsetNPCs();
     }
 
     private void registerCommands() {
@@ -73,17 +79,12 @@ public class SkyPvP extends JavaPlugin{
     	getCommand("kit").setExecutor(new KitCMD());
     	getCommand("spawn").setExecutor(new SpawnCMD());
     	getCommand("random").setExecutor(new RandomCMD());
-		getCommand("npc").setExecutor(new NpcCMD(npc));
     }
 
     private void registerEvents() {
-		getPluginManager().registerEvents(new BlockBreak(),this);
-		getPluginManager().registerEvents(new BlockPlace(),this);
         getPluginManager().registerEvents(new CoinsChange(), this);
         getPluginManager().registerEvents(new EntityDamage(),this);
         getPluginManager().registerEvents(new EntityDamageByEntity(),this);
-		getPluginManager().registerEvents(new HangingBreakByEntity(),this);
-        getPluginManager().registerEvents(new InventoryClick(),this);
         getPluginManager().registerEvents(new PlayerBedEnter(),this);
         getPluginManager().registerEvents(new PlayerDeath(),this);
         getPluginManager().registerEvents(new PlayerInteractEntity(),this);
@@ -127,4 +128,12 @@ public class SkyPvP extends JavaPlugin{
 	public static SkyPvP getInstance(){
 	return instance;
 	}
+
+    public KitManager getKitManager() {
+        return kitManager;
+    }
+
+    public NpcManager getNpcManager() {
+        return npcManager;
+    }
 }

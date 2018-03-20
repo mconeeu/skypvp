@@ -6,7 +6,6 @@
 package eu.mcone.skypvp.util;
 
 import eu.mcone.coresystem.bukkit.api.CoinsAPI;
-import eu.mcone.coresystem.bukkit.player.CorePlayer;
 import eu.mcone.skypvp.SkyPvP;
 import org.bukkit.scoreboard.DisplaySlot;
 import org.bukkit.scoreboard.Team;
@@ -15,8 +14,8 @@ import static eu.mcone.coresystem.bukkit.CoreSystem.statsSkypvp;
 
 public class Objective extends eu.mcone.coresystem.bukkit.scoreboard.Objective {
 
-    public Objective(CorePlayer p) {
-        super(p, DisplaySlot.SIDEBAR, "SkyPvP", "SkyPvP");
+    public Objective() {
+        super(DisplaySlot.SIDEBAR, "SkyPvP", "SkyPvP");
     }
 
     @Override

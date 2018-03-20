@@ -18,7 +18,6 @@ public class PlayerQuit implements Listener{
 		Player p = e.getPlayer();
 		p.setLevel(0);
 		e.setQuitMessage(SkyPvP.config.getConfigValue("System-Prefix") + SkyPvP.config.getConfigValue("System-Quit").replaceAll("%Player%", p.getName()));
-		SkyPvP.npc.unsetNPCs(p);
 	}
 
 }

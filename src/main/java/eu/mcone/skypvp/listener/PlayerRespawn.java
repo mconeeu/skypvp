@@ -33,8 +33,8 @@ public class PlayerRespawn implements Listener{
 
         Bukkit.getScheduler().scheduleSyncDelayedTask(SkyPvP.getInstance(), () -> {
             p.getInventory().clear();
-            SkyPvP.kits.resetKits(p);
-            SkyPvP.kits.setKit(p, Kit.PLAYER);
+            SkyPvP.getInstance().getKitManager().resetKits(p);
+            SkyPvP.getInstance().getKitManager().setKit(p, Kit.PLAYER);
         });
     }
 

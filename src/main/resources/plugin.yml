@@ -22,9 +22,6 @@ commands:
   random:
     description: Pick random winner
     permission: skypvp.random
-  npc:
-    descirption: Spawnt einen NPC
-    permission: system.bukkit.npc
 
 permissions:
   skypvp:

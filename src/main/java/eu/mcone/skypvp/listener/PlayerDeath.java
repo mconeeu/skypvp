@@ -35,9 +35,9 @@ public class PlayerDeath implements Listener {
 
         if(k != null){
             int coins = CoinsAPI.getCoins(p.getUniqueId());
-            if(coins >= 2){
+            if(coins >= 1){
                 //Coins werden dem Spieler Abgezogen
-                CoinsAPI.removeCoins(p.getUniqueId(), 2);
+                CoinsAPI.removeCoins(p.getUniqueId(), 1);
             }
 
             //Tode werden dem Spieler Hinzugefügt
@@ -54,7 +54,7 @@ public class PlayerDeath implements Listener {
             }
 
             //Coins werden dem Killer Hinzugefügt
-            CoinsAPI.addCoins(k.getUniqueId(), 5);
+            CoinsAPI.addCoins(k.getUniqueId(), 3);
 
             //Kills werden dem Killer Hinzugefügt (1)
             statsSkypvp.addKills(k.getUniqueId(), 1);
@@ -63,8 +63,8 @@ public class PlayerDeath implements Listener {
             double health = k.getHealth();
             health /= 2.0D;
 
-            p.sendMessage(SkyPvP.config.getConfigValue("System-Prefix") + "§7Du wurdest von §6" + k.getDisplayName() + " §8[§c❤"+format.format(health)+"§8] §7getötet §8[§c-2 Coins§8]");
-            k.sendMessage(SkyPvP.config.getConfigValue("System-Prefix") + "§7Du hast §6" + p.getDisplayName() + " §7getötet §8[§a+5 Coins§8]");
+            p.sendMessage(SkyPvP.config.getConfigValue("System-Prefix") + "§7Du wurdest von §6" + k.getDisplayName() + " §8[§c❤"+format.format(health)+"§8] §7getötet §8[§c-1 Coins§8]");
+            k.sendMessage(SkyPvP.config.getConfigValue("System-Prefix") + "§7Du hast §6" + p.getDisplayName() + " §7getötet §8[§a+3 Coins§8]");
 
         } else {
             int coins = CoinsAPI.getCoins(p.getUniqueId());

@@ -17,8 +17,6 @@ import org.bukkit.plugin.Plugin;
 
 public class KitCMD implements CommandExecutor {
 
-	private Plugin plugin;
-
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 		if (sender instanceof Player) {
@@ -27,7 +25,7 @@ public class KitCMD implements CommandExecutor {
 			CoreSystem.getInstance().getCooldownSystem().addPlayer(p.getUniqueId(), this.getClass());
 
 			if (args.length == 0) {
-				KitInventory.open(p);
+				new KitInventory(p);
 				p.playSound(p.getLocation(), Sound.CHICKEN_EGG_POP, 1, 1);
 			} else {
 				p.sendMessage(SkyPvP.config.getConfigValue("System-Prefix") + "§cBitte nutze den Command /kit");

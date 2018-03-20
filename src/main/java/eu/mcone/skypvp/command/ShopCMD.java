@@ -23,7 +23,7 @@ public class ShopCMD implements CommandExecutor {
             if (!CoreSystem.getInstance().getCooldownSystem().canExecute(this.getClass(), p)) return true;
             CoreSystem.getInstance().getCooldownSystem().addPlayer(p.getUniqueId(), this.getClass());
 
-            ShopInventory.open(p);
+            new ShopInventory(p);
             p.playSound(p.getLocation(), Sound.CHICKEN_EGG_POP, 1, 1);
         } else {
             sender.sendMessage(SkyPvP.config.getConfigValue("System-Prefix") + SkyPvP.config.getConfigValue("System-Konsolen-Sender"));
