@@ -6,14 +6,9 @@
 package eu.mcone.skypvp.inventory;
 
 import eu.mcone.coresystem.bukkit.inventory.CoreInventory;
-import eu.mcone.coresystem.bukkit.util.ItemFactory;
 import eu.mcone.skypvp.SkyPvP;
 import eu.mcone.skypvp.kit.Kit;
-import org.bukkit.Bukkit;
-import org.bukkit.Material;
 import org.bukkit.entity.Player;
-import org.bukkit.event.inventory.InventoryClickEvent;
-import org.bukkit.inventory.Inventory;
 
 public class KitInventory extends CoreInventory {
 

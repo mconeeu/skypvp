@@ -5,7 +5,9 @@
 
 package eu.mcone.skypvp.listener;
 
+import eu.mcone.coresystem.bukkit.CoreSystem;
 import eu.mcone.coresystem.bukkit.api.CoinsAPI;
+import eu.mcone.coresystem.lib.gamemode.Gamemode;
 import eu.mcone.gameapi.GameAPI;
 import eu.mcone.skypvp.SkyPvP;
 import org.bukkit.Bukkit;
@@ -16,8 +18,6 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.PlayerDeathEvent;
 
 import java.text.DecimalFormat;
-
-import static eu.mcone.coresystem.bukkit.CoreSystem.statsSkypvp;
 
 public class PlayerDeath implements Listener {
 
@@ -41,7 +41,7 @@ public class PlayerDeath implements Listener {
             }
 
             //Tode werden dem Spieler Hinzugefügt
-            statsSkypvp.addDeaths(p.getUniqueId(), 1);
+            CoreSystem.getInstance().getStatsAPI(Gamemode.SKYPVP).addDeaths(p.getUniqueId(), 1);
 
             int i = k.getLevel();
             k.setLevel(i+1);
@@ -57,7 +57,7 @@ public class PlayerDeath implements Listener {
             CoinsAPI.addCoins(k.getUniqueId(), 3);
 
             //Kills werden dem Killer Hinzugefügt (1)
-            statsSkypvp.addKills(k.getUniqueId(), 1);
+            CoreSystem.getInstance().getStatsAPI(Gamemode.SKYPVP).addKills(k.getUniqueId(), 1);
 
             DecimalFormat format = new DecimalFormat("#.#");
             double health = k.getHealth();
@@ -73,7 +73,7 @@ public class PlayerDeath implements Listener {
                 CoinsAPI.removeCoins(p.getUniqueId(), 3);
             }
             //Tod wird dem Spieler hinzugefügt
-            statsSkypvp.addDeaths(p.getUniqueId(), 1);
+            CoreSystem.getInstance().getStatsAPI(Gamemode.SKYPVP).addDeaths(p.getUniqueId(), 1);
 
             p.sendMessage(SkyPvP.config.getConfigValue("System-Prefix") + "§7Du bist gestorben §8[§c-3 Coins§8]");
         }

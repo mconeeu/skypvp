@@ -5,14 +5,15 @@
 
 package eu.mcone.skypvp.util;
 
+import eu.mcone.coresystem.bukkit.CoreSystem;
 import eu.mcone.coresystem.bukkit.api.CoinsAPI;
+import eu.mcone.coresystem.bukkit.scoreboard.CoreObjective;
+import eu.mcone.coresystem.lib.gamemode.Gamemode;
 import eu.mcone.skypvp.SkyPvP;
 import org.bukkit.scoreboard.DisplaySlot;
 import org.bukkit.scoreboard.Team;
 
-import static eu.mcone.coresystem.bukkit.CoreSystem.statsSkypvp;
-
-public class Objective extends eu.mcone.coresystem.bukkit.scoreboard.Objective {
+public class Objective extends CoreObjective {
 
     public Objective() {
         super(DisplaySlot.SIDEBAR, "SkyPvP", "SkyPvP");
@@ -28,11 +29,11 @@ public class Objective extends eu.mcone.coresystem.bukkit.scoreboard.Objective {
 
         Team kills = scoreboard.registerNewTeam("kills");
         kills.addEntry("§1");
-        kills.setPrefix(SkyPvP.config.getConfigValue("ScoreBoard-3") + statsSkypvp.getKills(player.getUuid()));
+        kills.setPrefix(SkyPvP.config.getConfigValue("ScoreBoard-3") + CoreSystem.getInstance().getStatsAPI(Gamemode.SKYPVP).getKills(player.getUuid()));
 
         Team deaths = scoreboard.registerNewTeam("deaths");
         deaths.addEntry("§3");
-        deaths.setPrefix(SkyPvP.config.getConfigValue("ScoreBoard-5") + statsSkypvp.getDeaths(player.getUuid()));
+        deaths.setPrefix(SkyPvP.config.getConfigValue("ScoreBoard-5") + CoreSystem.getInstance().getStatsAPI(Gamemode.SKYPVP).getDeaths(player.getUuid()));
 
         Team coins = scoreboard.registerNewTeam("coins");
         coins.addEntry("§5");
@@ -60,8 +61,8 @@ public class Objective extends eu.mcone.coresystem.bukkit.scoreboard.Objective {
     public void reload() {
         objective.setDisplayName(SkyPvP.config.getLiveConfigValue("ScoreBoard-1"));
 
-        scoreboard.getTeam("kills").setPrefix(SkyPvP.config.getConfigValue("ScoreBoard-3") + statsSkypvp.getKills(player.getUuid()));
-        scoreboard.getTeam("deaths").setPrefix(SkyPvP.config.getConfigValue("ScoreBoard-5") + statsSkypvp.getDeaths(player.getUuid()));
+        scoreboard.getTeam("kills").setPrefix(SkyPvP.config.getConfigValue("ScoreBoard-3") + CoreSystem.getInstance().getStatsAPI(Gamemode.SKYPVP).getKills(player.getUuid()));
+        scoreboard.getTeam("deaths").setPrefix(SkyPvP.config.getConfigValue("ScoreBoard-5") + CoreSystem.getInstance().getStatsAPI(Gamemode.SKYPVP).getDeaths(player.getUuid()));
         scoreboard.getTeam("coins").setPrefix(SkyPvP.config.getConfigValue("ScoreBoard-7") + CoinsAPI.getCoins(player.getUuid()));
 
         String event = SkyPvP.config.getLiveConfigValue("ScoreBoard-9");

@@ -6,17 +6,17 @@
 package eu.mcone.skypvp;
 
 import eu.mcone.coresystem.bukkit.CoreSystem;
-import eu.mcone.coresystem.bukkit.command.BuildCMD;
-import eu.mcone.coresystem.bukkit.command.NpcCMD;
 import eu.mcone.coresystem.bukkit.npc.NpcManager;
 import eu.mcone.coresystem.bukkit.player.CorePlayer;
 import eu.mcone.coresystem.bukkit.util.BuildSystem;
+import eu.mcone.coresystem.bukkit.util.LocationManager;
 import eu.mcone.coresystem.lib.mysql.MySQL_Config;
 import eu.mcone.gameapi.api.StateAPI;
-import eu.mcone.skypvp.kit.KitManager;
 import eu.mcone.skypvp.command.*;
+import eu.mcone.skypvp.kit.KitManager;
 import eu.mcone.skypvp.listener.*;
 import eu.mcone.skypvp.util.Objective;
+import lombok.Getter;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -27,15 +27,22 @@ import static org.bukkit.Bukkit.getPluginManager;
 
 public class SkyPvP extends JavaPlugin{
 
+	@Getter
     private static SkyPvP instance;
 	public static MySQL_Config config;
-	public KitManager kitManager;
-	public NpcManager npcManager;
-    private BuildSystem buildSystem;
 
     private static String MainPrefix = "§8[§9SkyPvP§8] ";
 	public static List<Player> cooldownlist = new ArrayList<>();
 	public static Map<Player, Map<Long, UUID>> damager = new HashMap<>();
+
+	@Getter
+	private KitManager kitManager;
+	@Getter
+	private NpcManager npcManager;
+	@Getter
+	private BuildSystem buildSystem;
+	@Getter
+	private LocationManager locationManager;
 
     public void onEnable() {
         instance = this;
@@ -53,6 +60,9 @@ public class SkyPvP extends JavaPlugin{
 
 		Bukkit.getServer().getConsoleSender().sendMessage(MainPrefix + "§aBuild-System witd initiiert");
 		buildSystem = new BuildSystem(false, BuildSystem.BuildEvent.BLOCK_BREAK, BuildSystem.BuildEvent.BLOCK_PLACE);
+
+		Bukkit.getServer().getConsoleSender().sendMessage(MainPrefix + "§aLocationManager witd initiiert");
+		locationManager = new LocationManager("Lobby").downloadLocations();
 
         Bukkit.getServer().getConsoleSender().sendMessage(MainPrefix + "§aEvents und Befehle werden registriert...");
         registerCommands();
@@ -124,16 +134,5 @@ public class SkyPvP extends JavaPlugin{
 		//store
 		config.store();
 	}
-      
-	public static SkyPvP getInstance(){
-	return instance;
-	}
 
-    public KitManager getKitManager() {
-        return kitManager;
-    }
-
-    public NpcManager getNpcManager() {
-        return npcManager;
-    }
 }

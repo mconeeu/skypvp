@@ -7,7 +7,7 @@ package eu.mcone.skypvp.kit;
 
 import eu.mcone.coresystem.bukkit.api.CoinsAPI;
 import eu.mcone.coresystem.bukkit.inventory.CoreInventory;
-import eu.mcone.coresystem.bukkit.util.ItemFactory;
+import eu.mcone.coresystem.bukkit.util.ItemBuilder;
 import eu.mcone.coresystem.lib.mysql.MySQL;
 import eu.mcone.skypvp.SkyPvP;
 import eu.mcone.skypvp.inventory.KitBuyInventory;
@@ -15,11 +15,13 @@ import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.Inventory;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import java.sql.SQLException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.UUID;
 
 public class KitManager {
 
@@ -65,129 +67,60 @@ public class KitManager {
             p.sendMessage(SkyPvP.config.getConfigValue("System-Prefix") + "§4Du hast dieses Kit bereits ausgewählt! Du kannst es erst wieder benutzen, nachdem du einmal gestorben bist!");
         } else {
             if (kit.equals(Kit.PLAYER)) {
-                p.getInventory().setItem(0, ItemFactory.createEnchantedItem(Material.STONE_SWORD, new HashMap<Enchantment, Integer>() {{
-                    put(Enchantment.DAMAGE_ALL, 1);
-                    put(Enchantment.DURABILITY, 1);
-                }}, 0, 1, "", false));
-                p.getInventory().setItem(1, ItemFactory.createEnchantedItem(Material.FISHING_ROD, new HashMap<Enchantment, Integer>() {{
-                    put(Enchantment.DURABILITY, 1);
-                }}, 0, 1, "", false));
-                p.getInventory().setItem(2, ItemFactory.createItem(Material.COOKED_CHICKEN, 0, 20, "", false));
-                p.getInventory().setItem(7, ItemFactory.createItem(Material.GOLDEN_APPLE, 0, 1, "", false));
-                p.getInventory().setItem(8, ItemFactory.createItem(Material.ENDER_PEARL, 0, 16, "", false));
+                p.getInventory().setItem(0, new ItemBuilder(Material.STONE_SWORD, 1, 0).create());
+                p.getInventory().setItem(1, new ItemBuilder(Material.FISHING_ROD, 1, 0).create());
+                p.getInventory().setItem(2, new ItemBuilder(Material.COOKED_CHICKEN, 20, 0).create());
+                p.getInventory().setItem(7, new ItemBuilder(Material.GOLDEN_APPLE, 1, 0).create());
+                p.getInventory().setItem(8, new ItemBuilder(Material.ENDER_PEARL, 16, 0).create());
 
-                p.getInventory().setHelmet(ItemFactory.createEnchantedItem(Material.CHAINMAIL_HELMET, new HashMap<Enchantment, Integer>() {{
-                    put(Enchantment.PROTECTION_ENVIRONMENTAL, 1);
-                    put(Enchantment.DURABILITY, 1);
-                }}, 0, 1, "", false));
-                p.getInventory().setChestplate(ItemFactory.createEnchantedItem(Material.CHAINMAIL_CHESTPLATE, new HashMap<Enchantment, Integer>() {{
-                    put(Enchantment.PROTECTION_ENVIRONMENTAL, 1);
-                    put(Enchantment.DURABILITY, 1);
-                }}, 0, 1, "", false));
-                p.getInventory().setLeggings(ItemFactory.createEnchantedItem(Material.CHAINMAIL_LEGGINGS, new HashMap<Enchantment, Integer>() {{
-                    put(Enchantment.PROTECTION_ENVIRONMENTAL, 1);
-                    put(Enchantment.DURABILITY, 1);
-                }}, 0, 1, "", false));
-                p.getInventory().setBoots(ItemFactory.createEnchantedItem(Material.CHAINMAIL_BOOTS, new HashMap<Enchantment, Integer>() {{
-                    put(Enchantment.PROTECTION_ENVIRONMENTAL, 1);
-                    put(Enchantment.DURABILITY, 1);
-                }}, 0, 1, "", false));
+                p.getInventory().setHelmet(new ItemBuilder(Material.CHAINMAIL_HELMET, 1, 0).enchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 1).enchantment(Enchantment.DURABILITY, 1).create());
+                p.getInventory().setChestplate(new ItemBuilder(Material.CHAINMAIL_CHESTPLATE, 1, 0).enchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 1).enchantment(Enchantment.DURABILITY, 1).create());
+                p.getInventory().setLeggings(new ItemBuilder(Material.CHAINMAIL_LEGGINGS, 1, 0).enchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 1).enchantment(Enchantment.DURABILITY, 1).create());
+                p.getInventory().setBoots(new ItemBuilder(Material.CHAINMAIL_BOOTS, 1, 0).enchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 1).enchantment(Enchantment.DURABILITY, 1).create());
             } else if (kit.equals(Kit.IRON)) {
                 if (hasKit(p, Kit.IRON)) {
-                    p.getInventory().setItem(0, ItemFactory.createEnchantedItem(Material.IRON_SWORD, new HashMap<Enchantment, Integer>() {{
-                        put(Enchantment.DAMAGE_ALL, 1);
-                        put(Enchantment.DURABILITY, 1);
-                    }}, 0, 1, "", false));
-                    p.getInventory().setItem(1, ItemFactory.createEnchantedItem(Material.FISHING_ROD, new HashMap<Enchantment, Integer>() {{
-                        put(Enchantment.DURABILITY, 1);
-                    }}, 0, 1, "", false));
-                    p.getInventory().setItem(2, ItemFactory.createItem(Material.COOKED_CHICKEN, 0, 20, "", false));
-                    p.getInventory().setItem(7, ItemFactory.createItem(Material.GOLDEN_APPLE, 0, 5, "", false));
-                    p.getInventory().setItem(8, ItemFactory.createItem(Material.ENDER_PEARL, 0, 16, "", false));
+                    p.getInventory().setItem(0, new ItemBuilder(Material.IRON_SWORD, 1, 0).enchantment(Enchantment.DAMAGE_ALL, 1).enchantment(Enchantment.DURABILITY, 1).create());
+                    p.getInventory().setItem(1, new ItemBuilder(Material.FISHING_ROD, 1, 0).enchantment(Enchantment.DURABILITY, 1).create());
+                    p.getInventory().setItem(2, new ItemBuilder(Material.COOKED_CHICKEN, 20, 0).create());
+                    p.getInventory().setItem(7, new ItemBuilder(Material.GOLDEN_APPLE, 5, 0).create());
+                    p.getInventory().setItem(8, new ItemBuilder(Material.ENDER_PEARL, 16, 0).create());
 
-                    p.getInventory().setHelmet(ItemFactory.createEnchantedItem(Material.IRON_HELMET, new HashMap<Enchantment, Integer>() {{
-                        put(Enchantment.PROTECTION_ENVIRONMENTAL, 1);
-                        put(Enchantment.DURABILITY, 1);
-                    }}, 0, 1, "", false));
-                    p.getInventory().setChestplate(ItemFactory.createEnchantedItem(Material.IRON_CHESTPLATE, new HashMap<Enchantment, Integer>() {{
-                        put(Enchantment.PROTECTION_ENVIRONMENTAL, 1);
-                        put(Enchantment.DURABILITY, 1);
-                    }}, 0, 1, "", false));
-                    p.getInventory().setLeggings(ItemFactory.createEnchantedItem(Material.IRON_LEGGINGS, new HashMap<Enchantment, Integer>() {{
-                        put(Enchantment.PROTECTION_ENVIRONMENTAL, 1);
-                        put(Enchantment.DURABILITY, 1);
-                    }}, 0, 1, "", false));
-                    p.getInventory().setBoots(ItemFactory.createEnchantedItem(Material.IRON_BOOTS, new HashMap<Enchantment, Integer>() {{
-                        put(Enchantment.PROTECTION_ENVIRONMENTAL, 1);
-                        put(Enchantment.DURABILITY, 1);
-                    }}, 0, 1, "", false));
+                    p.getInventory().setHelmet(new ItemBuilder(Material.IRON_HELMET, 1, 0).enchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 1).enchantment(Enchantment.DURABILITY, 1).create());
+                    p.getInventory().setChestplate(new ItemBuilder(Material.IRON_CHESTPLATE, 1, 0).enchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 1).enchantment(Enchantment.DURABILITY, 1).create());
+                    p.getInventory().setLeggings(new ItemBuilder(Material.IRON_LEGGINGS, 1, 0).enchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 1).enchantment(Enchantment.DURABILITY, 1).create());
+                    p.getInventory().setBoots(new ItemBuilder(Material.IRON_BOOTS, 1, 0).enchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 1).enchantment(Enchantment.DURABILITY, 1).create());
                 } else {
                     p.sendMessage(SkyPvP.config.getConfigValue("System-Prefix") + "§4Du besitzt das §cEisen-Kit §4nicht");
                     return;
                 }
             } else if (kit.equals(Kit.DIAMOND)) {
                 if (hasKit(p, Kit.DIAMOND)) {
-                    p.getInventory().setItem(0, ItemFactory.createEnchantedItem(Material.IRON_SWORD, new HashMap<Enchantment, Integer>() {{
-                        put(Enchantment.DAMAGE_ALL, 2);
-                        put(Enchantment.DURABILITY, 1);
-                    }}, 0, 1, "", false));
-                    p.getInventory().setItem(1, ItemFactory.createEnchantedItem(Material.FISHING_ROD, new HashMap<Enchantment, Integer>() {{
-                        put(Enchantment.DAMAGE_ALL, 1);
-                        put(Enchantment.DURABILITY, 1);
-                    }}, 0, 1, "", false));
-                    p.getInventory().setItem(2, ItemFactory.createItem(Material.COOKED_CHICKEN, 0, 20, "", false));
-                    p.getInventory().setItem(7, ItemFactory.createItem(Material.GOLDEN_APPLE, 0, 8, "", false));
-                    p.getInventory().setItem(8, ItemFactory.createItem(Material.ENDER_PEARL, 0, 16, "", false));
+                    p.getInventory().setItem(0, new ItemBuilder(Material.IRON_SWORD, 1, 0).enchantment(Enchantment.DAMAGE_ALL, 2).enchantment(Enchantment.DURABILITY, 1).create());
+                    p.getInventory().setItem(1, new ItemBuilder(Material.FISHING_ROD, 1, 0).enchantment(Enchantment.DAMAGE_ALL, 1).enchantment(Enchantment.DURABILITY, 1).create());
+                    p.getInventory().setItem(2, new ItemBuilder(Material.COOKED_CHICKEN, 20, 0).create());
+                    p.getInventory().setItem(7, new ItemBuilder(Material.GOLDEN_APPLE, 8, 0).create());
+                    p.getInventory().setItem(8, new ItemBuilder(Material.ENDER_PEARL, 16, 0).create());
 
-                    p.getInventory().setHelmet(ItemFactory.createEnchantedItem(Material.IRON_HELMET, new HashMap<Enchantment, Integer>() {{
-                        put(Enchantment.PROTECTION_ENVIRONMENTAL, 3);
-                        put(Enchantment.DURABILITY, 1);
-                    }}, 0, 1, "", false));
-                    p.getInventory().setChestplate(ItemFactory.createEnchantedItem(Material.IRON_CHESTPLATE, new HashMap<Enchantment, Integer>() {{
-                        put(Enchantment.PROTECTION_ENVIRONMENTAL, 3);
-                        put(Enchantment.DURABILITY, 1);
-                    }}, 0, 1, "", false));
-                    p.getInventory().setLeggings(ItemFactory.createEnchantedItem(Material.IRON_LEGGINGS, new HashMap<Enchantment, Integer>() {{
-                        put(Enchantment.PROTECTION_ENVIRONMENTAL, 3);
-                        put(Enchantment.DURABILITY, 1);
-                    }}, 0, 1, "", false));
-                    p.getInventory().setBoots(ItemFactory.createEnchantedItem(Material.IRON_BOOTS, new HashMap<Enchantment, Integer>() {{
-                        put(Enchantment.PROTECTION_ENVIRONMENTAL, 3);
-                        put(Enchantment.DURABILITY, 1);
-                    }}, 0, 1, "", false));
+                    p.getInventory().setHelmet(new ItemBuilder(Material.IRON_HELMET, 1, 0).enchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 3).enchantment(Enchantment.DURABILITY, 1).create());
+                    p.getInventory().setChestplate(new ItemBuilder(Material.IRON_CHESTPLATE, 1, 0).enchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 3).enchantment(Enchantment.DURABILITY, 1).create());
+                    p.getInventory().setLeggings(new ItemBuilder(Material.IRON_LEGGINGS, 1, 0).enchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 3).enchantment(Enchantment.DURABILITY, 1).create());
+                    p.getInventory().setBoots(new ItemBuilder(Material.IRON_BOOTS, 1, 0).enchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 3).enchantment(Enchantment.DURABILITY, 1).create());
                 } else {
                     p.sendMessage(SkyPvP.config.getConfigValue("System-Prefix") + "§4Du besitzt das §cDiamond-Kit §4nicht");
                     return;
                 }
             } else if (kit.equals(Kit.EMERALD)) {
                 if (hasKit(p, Kit.EMERALD)) {
-                    p.getInventory().setItem(0, ItemFactory.createEnchantedItem(Material.DIAMOND_SWORD, new HashMap<Enchantment, Integer>() {{
-                        put(Enchantment.DAMAGE_ALL, 1);
-                        put(Enchantment.DURABILITY, 1);
-                    }}, 0, 1, "", false));
-                    p.getInventory().setItem(1, ItemFactory.createEnchantedItem(Material.FISHING_ROD, new HashMap<Enchantment, Integer>() {{
-                        put(Enchantment.DURABILITY, 1);
-                    }}, 0, 1, "", false));
-                    p.getInventory().setItem(2, ItemFactory.createItem(Material.COOKED_CHICKEN, 0, 20, "", false));
-                    p.getInventory().setItem(7, ItemFactory.createItem(Material.GOLDEN_APPLE, 0, 15, "", false));
-                    p.getInventory().setItem(8, ItemFactory.createItem(Material.ENDER_PEARL, 0, 16, "", false));
+                    p.getInventory().setItem(0, new ItemBuilder(Material.DIAMOND_SWORD, 1, 0).enchantment(Enchantment.DAMAGE_ALL, 1).enchantment(Enchantment.DURABILITY, 1).create());
+                    p.getInventory().setItem(1, new ItemBuilder(Material.FISHING_ROD, 1, 0).enchantment(Enchantment.DURABILITY, 1).create());
+                    p.getInventory().setItem(2, new ItemBuilder(Material.COOKED_CHICKEN, 20, 0).create());
+                    p.getInventory().setItem(7, new ItemBuilder(Material.GOLDEN_APPLE, 15, 0).create());
+                    p.getInventory().setItem(8, new ItemBuilder(Material.ENDER_PEARL, 16, 0).create());
 
-                    p.getInventory().setHelmet(ItemFactory.createEnchantedItem(Material.DIAMOND_HELMET, new HashMap<Enchantment, Integer>() {{
-                        put(Enchantment.PROTECTION_ENVIRONMENTAL, 3);
-                        put(Enchantment.DURABILITY, 1);
-                    }}, 0, 1, "", false));
-                    p.getInventory().setChestplate(ItemFactory.createEnchantedItem(Material.DIAMOND_CHESTPLATE, new HashMap<Enchantment, Integer>() {{
-                        put(Enchantment.PROTECTION_ENVIRONMENTAL, 3);
-                        put(Enchantment.DURABILITY, 1);
-                    }}, 0, 1, "", false));
-                    p.getInventory().setLeggings(ItemFactory.createEnchantedItem(Material.DIAMOND_LEGGINGS, new HashMap<Enchantment, Integer>() {{
-                        put(Enchantment.PROTECTION_ENVIRONMENTAL, 3);
-                        put(Enchantment.DURABILITY, 1);
-                    }}, 0, 1, "", false));
-                    p.getInventory().setBoots(ItemFactory.createEnchantedItem(Material.DIAMOND_BOOTS, new HashMap<Enchantment, Integer>() {{
-                        put(Enchantment.PROTECTION_ENVIRONMENTAL, 3);
-                        put(Enchantment.DURABILITY, 1);
-                    }}, 0, 1, "", false));
+                    p.getInventory().setHelmet(new ItemBuilder(Material.DIAMOND_HELMET, 1, 0).enchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 3).enchantment(Enchantment.DURABILITY, 1).create());
+                    p.getInventory().setChestplate(new ItemBuilder(Material.DIAMOND_CHESTPLATE, 1, 0).enchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 3).enchantment(Enchantment.DURABILITY, 1).create());
+                    p.getInventory().setLeggings(new ItemBuilder(Material.DIAMOND_LEGGINGS, 1, 0).enchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 3).enchantment(Enchantment.DURABILITY, 1).create());
+                    p.getInventory().setBoots(new ItemBuilder(Material.DIAMOND_BOOTS, 1, 0).enchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 3).enchantment(Enchantment.DURABILITY, 1).create());
                 } else {
                     p.sendMessage(SkyPvP.config.getConfigValue("System-Prefix") + "§4Du besitzt das §cEmerald-Kit §4nicht");
                     return;
@@ -207,12 +140,12 @@ public class KitManager {
 
     public void setInvItem(CoreInventory inv, Player p, Kit kit, int i) {
         if (hasKit(p, kit)) {
-            inv.setItem(i, ItemFactory.createItem(kit.getItem(), 0, 1, kit.getName(), new ArrayList<>(Arrays.asList("§r", "§2§oDu besitzt dieses Item!", "§8» §f§nRechtsklick§8 | §7§oAktivieren")), true), () -> {
+            inv.setItem(i, new ItemBuilder(kit.getItem(), 1, 0).displayName(kit.getName()).lore("§r", "§2§oDu besitzt dieses Item!", "§8» §f§nRechtsklick§8 | §7§oAktivieren").create(), () -> {
                 SkyPvP.getInstance().getKitManager().setKit(p, kit);
                 p.closeInventory();
             });
         } else {
-            inv.setItem(i, ItemFactory.createItem(kit.getItem(), 0, 1, kit.getName(), new ArrayList<>(Arrays.asList("§r", "§c§oDu besitzt dieses Item nicht!", "§7§oKostet: §f§o" + kit.getCoins() + " Coins")), true), () -> {
+            inv.setItem(i, new ItemBuilder(kit.getItem(), 1, 0).displayName(kit.getName()).lore("§r", "§c§oDu besitzt dieses Item nicht!", "§7§oKostet: §f§o" + kit.getCoins() + " Coins").create(), () -> {
                 new KitBuyInventory(p, kit);
             });
         }
@@ -241,7 +174,7 @@ public class KitManager {
         }
     }
 
-    public boolean hasKit(Player p, Kit kit) {
+    private boolean hasKit(Player p, Kit kit) {
         return buyedKits.getOrDefault(p.getUniqueId(), new ArrayList<>()).contains(kit) || p.hasPermission(kit.getPermission());
     }
 

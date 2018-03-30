@@ -8,7 +8,7 @@ package eu.mcone.skypvp.inventory;
 import eu.mcone.coresystem.bukkit.api.CoinsAPI;
 import eu.mcone.coresystem.bukkit.api.TitleAPI;
 import eu.mcone.coresystem.bukkit.inventory.CoreInventory;
-import eu.mcone.coresystem.bukkit.util.ItemFactory;
+import eu.mcone.coresystem.bukkit.util.ItemBuilder;
 import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
@@ -56,7 +56,7 @@ public class ShopInventory extends CoreInventory {
             setInvItem(this, 15, ShopItem.sword4);
             setInvItem(this, 17, ShopItem.sword5);
 
-            setItem(31, ItemFactory.createItem(Material.IRON_DOOR, 0, 1, "§7§l↩ Zurück", true), () -> {
+            setItem(31, new ItemBuilder(Material.IRON_DOOR, 1, 0).displayName("§7§l↩ Zurück").create(), () -> {
                 p.playSound(p.getLocation(), Sound.NOTE_BASS, 1.0F, 1.0F);
                 new ShopInventory(p);
             });
@@ -76,7 +76,7 @@ public class ShopInventory extends CoreInventory {
             setInvItem(this, 15, ShopItem.bow4);
             setInvItem(this, 17, ShopItem.bow5);
 
-            setItem(31, ItemFactory.createItem(Material.IRON_DOOR, 0, 1, "§7§l↩ Zurück", true), () -> {
+            setItem(31, new ItemBuilder(Material.IRON_DOOR, 1, 0).displayName("§7§l↩ Zurück").create(), () -> {
                 p.playSound(p.getLocation(), Sound.NOTE_BASS, 1.0F, 1.0F);
                 new ShopInventory(p);
             });
@@ -110,7 +110,7 @@ public class ShopInventory extends CoreInventory {
             setInvItem(this, 32, ShopItem.shoe3);
             setInvItem(this, 33, ShopItem.shoe4);
 
-            setItem(27, ItemFactory.createItem(Material.IRON_DOOR, 0, 1, "§7§l↩ Zurück", true), () -> {
+            setItem(27, new ItemBuilder(Material.IRON_DOOR, 1, 0).displayName("§7§l↩ Zurück").create(), () -> {
                 p.playSound(p.getLocation(), Sound.NOTE_BASS, 1.0F, 1.0F);
                 new ShopInventory(p);
             });
@@ -130,7 +130,7 @@ public class ShopInventory extends CoreInventory {
             setInvItem(this, 15, ShopItem.op4);
             setInvItem(this, 17, ShopItem.op5);
 
-            setItem(31, ItemFactory.createItem(Material.IRON_DOOR, 0, 1, "§7§l↩ Zurück", true), () -> {
+            setItem(31, new ItemBuilder(Material.IRON_DOOR, 1, 0).displayName("§7§l↩ Zurück").create(), () -> {
                 p.playSound(p.getLocation(), Sound.NOTE_BASS, 1.0F, 1.0F);
                 new ShopInventory(p);
             });
@@ -148,7 +148,7 @@ public class ShopInventory extends CoreInventory {
             setInvItem(this, 13, ShopItem.soup);
             setInvItem(this, 16, ShopItem.axe2);
 
-            setItem(31, ItemFactory.createItem(Material.IRON_DOOR, 0, 1, "§7§l↩ Zurück", true), () -> {
+            setItem(31, new ItemBuilder(Material.IRON_DOOR, 1, 0).displayName("§7§l↩ Zurück").create(), () -> {
                 p.playSound(p.getLocation(), Sound.NOTE_BASS, 1.0F, 1.0F);
                 new ShopInventory(p);
             });

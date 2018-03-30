@@ -7,12 +7,10 @@ package eu.mcone.skypvp.listener;
 
 import eu.mcone.coresystem.bukkit.CoreSystem;
 import eu.mcone.coresystem.bukkit.player.CorePlayer;
-import eu.mcone.coresystem.bukkit.util.LocationFactory;
 import eu.mcone.skypvp.SkyPvP;
 import eu.mcone.skypvp.kit.Kit;
 import eu.mcone.skypvp.util.Objective;
 import org.bukkit.Effect;
-import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -27,12 +25,7 @@ public class PlayerJoin implements Listener{
         CorePlayer cp = CoreSystem.getCorePlayer(p);
 
         p.setLevel(0);
-        Location spawn = LocationFactory.getConfigLocation(SkyPvP.config, "Location-Spawn");
-        if (spawn != null) {
-            p.teleport(spawn);
-        } else if(p.hasPermission("group.admin")) {
-            p.sendMessage(SkyPvP.config.getConfigValue("System-Prefix") + "§4Der Spawn wurde noch nicht gesetzt!");
-        }
+        SkyPvP.getInstance().getLocationManager().teleport(p, "spawn");
        
         e.setJoinMessage(SkyPvP.config.getConfigValue("System-Prefix") + SkyPvP.config.getConfigValue("System-Join").replaceAll("%Player%", p.getName()));
 

@@ -6,10 +6,8 @@
 package eu.mcone.skypvp.command;
 
 import eu.mcone.coresystem.bukkit.CoreSystem;
-import eu.mcone.coresystem.bukkit.util.LocationFactory;
 import eu.mcone.skypvp.SkyPvP;
 import org.bukkit.Bukkit;
-import org.bukkit.Location;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -29,14 +27,7 @@ public class SpawnCMD implements CommandExecutor{
 
                 Bukkit.getScheduler().runTaskLaterAsynchronously(SkyPvP.getInstance(), () -> {
                     if (SkyPvP.cooldownlist.contains(p)) {
-                        Location spawn = LocationFactory.getConfigLocation(SkyPvP.config, "Location-Spawn");
-
-                        if (spawn != null) {
-                            p.teleport(spawn);
-                        } else {
-                            p.sendMessage(SkyPvP.config.getConfigValue("System-Prefix") + "§4Du konntest nicht zum Spawn teleportiert werden, da der Spawn noch nicht gesetzt wurde!");
-                        }
-
+                        SkyPvP.getInstance().getLocationManager().teleport(p, "spawn");
                         SkyPvP.cooldownlist.remove(p);
                     }
                 }, 60L);
@@ -44,7 +35,7 @@ public class SpawnCMD implements CommandExecutor{
                 if (p.hasPermission("skypvp.spawn.set")) {
                     if (args.length == 1) {
                         if (p.hasPermission("group.admin") || p.hasPermission("group.developer")) {
-                            LocationFactory.updateConfigLocation(p.getLocation(), SkyPvP.config, "Location-Spawn");
+                            SkyPvP.getInstance().getLocationManager().putLocation("spawn", p.getLocation());
                             p.sendMessage(SkyPvP.config.getConfigValue("System-Prefix") + "§2Der Spawn wurde erfolgreich gesetzt!");
                         } else {
                             p.sendMessage(SkyPvP.config.getConfigValue("System-Prefix") + "§4Du hast keine Berechtigung für diesen Befehl!");
