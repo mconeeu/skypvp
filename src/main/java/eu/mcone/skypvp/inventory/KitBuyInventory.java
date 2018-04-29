@@ -1,12 +1,12 @@
 /*
- * Copyright (c) 2017 -2018 Dominik L., Rufus Maiwald and the MC ONE Minecraftnetwork. All rights reserved
+ * Copyright (c) 2017 -2018 Dominik Lippl, Rufus Maiwald and the MC ONE Minecraftnetwork. All rights reserved
  * You are not allowed to decompile the code
  */
 
 package eu.mcone.skypvp.inventory;
 
-import eu.mcone.coresystem.bukkit.inventory.CoreInventory;
-import eu.mcone.coresystem.bukkit.util.ItemBuilder;
+import eu.mcone.coresystem.api.bukkit.inventory.CoreInventory;
+import eu.mcone.coresystem.api.bukkit.util.ItemBuilder;
 import eu.mcone.skypvp.SkyPvP;
 import eu.mcone.skypvp.kit.Kit;
 import org.bukkit.Material;
@@ -16,7 +16,7 @@ import org.bukkit.entity.Player;
 public class KitBuyInventory extends CoreInventory {
 
     public KitBuyInventory(Player p, Kit kit) {
-        super("§8» §3Kit kaufen", p, 27, Option.FILL_EMPTY_SLOTS);
+        super("§8» §3Kit kaufen", p, 27, CoreInventory.Option.FILL_EMPTY_SLOTS);
 
         setItem(4, new ItemBuilder(kit.getItem(), 1, 0).displayName(kit.getName()).lore("", "§7§oKostet: §f§o" + kit.getCoins() + " Coins").create());
         setItem(21, new ItemBuilder(Material.STAINED_GLASS_PANE, 1, 5).displayName("§a§lKit kaufen").lore("", "§8» §a§nRechtsklick§8 | §7§oKaufen").create(), () -> {

@@ -1,11 +1,11 @@
 /*
- * Copyright (c) 2017 -2018 Dominik L., Rufus Maiwald and the MC ONE Minecraftnetwork. All rights reserved
+ * Copyright (c) 2017 -2018 Dominik Lippl, Rufus Maiwald and the MC ONE Minecraftnetwork. All rights reserved
  * You are not allowed to decompile the code
  */
 
 package eu.mcone.skypvp.inventory;
 
-import eu.mcone.coresystem.bukkit.inventory.CoreInventory;
+import eu.mcone.coresystem.api.bukkit.inventory.CoreInventory;
 import eu.mcone.skypvp.SkyPvP;
 import eu.mcone.skypvp.kit.Kit;
 import org.bukkit.entity.Player;

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2017 -2018 Dominik L., Rufus Maiwald and the MC ONE Minecraftnetwork. All rights reserved
+ * Copyright (c) 2017 -2018 Dominik Lippl, Rufus Maiwald and the MC ONE Minecraftnetwork. All rights reserved
  * You are not allowed to decompile the code
  */
 
@@ -20,7 +20,7 @@ public class PlayerRespawn implements Listener{
         final Player p = e.getPlayer();
         SkyPvP.damager.put(p, null);
 
-        SkyPvP.getInstance().getLocationManager().teleport(p, "spawn");
+        e.setRespawnLocation(SkyPvP.getInstance().getLocationManager().getLocation("spawn"));
 
         p.setFireTicks(0);
 

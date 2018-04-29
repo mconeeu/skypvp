@@ -1,14 +1,13 @@
 /*
- * Copyright (c) 2017 -2018 Dominik L., Rufus Maiwald and the MC ONE Minecraftnetwork. All rights reserved
+ * Copyright (c) 2017 -2018 Dominik Lippl, Rufus Maiwald and the MC ONE Minecraftnetwork. All rights reserved
  * You are not allowed to decompile the code
  */
 
 package eu.mcone.skypvp.listener;
 
-import eu.mcone.coresystem.bukkit.CoreSystem;
-import eu.mcone.coresystem.bukkit.api.CoinsAPI;
-import eu.mcone.coresystem.lib.gamemode.Gamemode;
-import eu.mcone.gameapi.GameAPI;
+import eu.mcone.coresystem.api.bukkit.CoreSystem;
+import eu.mcone.coresystem.api.core.gamemode.Gamemode;
+import eu.mcone.gameapi.api.GameAPI;
 import eu.mcone.skypvp.SkyPvP;
 import org.bukkit.Bukkit;
 import org.bukkit.Sound;
@@ -34,10 +33,10 @@ public class PlayerDeath implements Listener {
         p.playSound(p.getLocation(), Sound.VILLAGER_HIT, 1.0F, 1.0F);
 
         if(k != null){
-            int coins = CoinsAPI.getCoins(p.getUniqueId());
+            int coins = CoreSystem.getInstance().getCoinsAPI().getCoins(p.getUniqueId());
             if(coins >= 1){
                 //Coins werden dem Spieler Abgezogen
-                CoinsAPI.removeCoins(p.getUniqueId(), 1);
+                CoreSystem.getInstance().getCoinsAPI().removeCoins(p.getUniqueId(), 1);
             }
 
             //Tode werden dem Spieler Hinzugefügt
@@ -54,7 +53,7 @@ public class PlayerDeath implements Listener {
             }
 
             //Coins werden dem Killer Hinzugefügt
-            CoinsAPI.addCoins(k.getUniqueId(), 3);
+            CoreSystem.getInstance().getCoinsAPI().addCoins(k.getUniqueId(), 3);
 
             //Kills werden dem Killer Hinzugefügt (1)
             CoreSystem.getInstance().getStatsAPI(Gamemode.SKYPVP).addKills(k.getUniqueId(), 1);
@@ -67,10 +66,10 @@ public class PlayerDeath implements Listener {
             k.sendMessage(SkyPvP.config.getConfigValue("System-Prefix") + "§7Du hast §6" + p.getDisplayName() + " §7getötet §8[§a+3 Coins§8]");
 
         } else {
-            int coins = CoinsAPI.getCoins(p.getUniqueId());
+            int coins = CoreSystem.getInstance().getCoinsAPI().getCoins(p.getUniqueId());
             if(coins >= 3){
                 //Coins werden dem Spieler Abgezogen (3)
-                CoinsAPI.removeCoins(p.getUniqueId(), 3);
+                CoreSystem.getInstance().getCoinsAPI().removeCoins(p.getUniqueId(), 3);
             }
             //Tod wird dem Spieler hinzugefügt
             CoreSystem.getInstance().getStatsAPI(Gamemode.SKYPVP).addDeaths(p.getUniqueId(), 1);

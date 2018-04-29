@@ -1,17 +1,16 @@
 /*
- * Copyright (c) 2017 -2018 Dominik L., Rufus Maiwald and the MC ONE Minecraftnetwork. All rights reserved
+ * Copyright (c) 2017 -2018 Dominik Lippl, Rufus Maiwald and the MC ONE Minecraftnetwork. All rights reserved
  * You are not allowed to decompile the code
  */
 
 package eu.mcone.skypvp;
 
-import eu.mcone.coresystem.bukkit.CoreSystem;
-import eu.mcone.coresystem.bukkit.npc.NpcManager;
-import eu.mcone.coresystem.bukkit.player.CorePlayer;
-import eu.mcone.coresystem.bukkit.util.BuildSystem;
-import eu.mcone.coresystem.bukkit.util.LocationManager;
-import eu.mcone.coresystem.lib.mysql.MySQL_Config;
-import eu.mcone.gameapi.api.StateAPI;
+import eu.mcone.coresystem.api.bukkit.CoreSystem;
+import eu.mcone.coresystem.api.bukkit.npc.NpcManager;
+import eu.mcone.coresystem.api.bukkit.player.BukkitCorePlayer;
+import eu.mcone.coresystem.api.bukkit.world.BuildSystem;
+import eu.mcone.coresystem.api.bukkit.world.LocationManager;
+import eu.mcone.coresystem.api.core.mysql.MySQL_Config;
 import eu.mcone.skypvp.command.*;
 import eu.mcone.skypvp.kit.KitManager;
 import eu.mcone.skypvp.listener.*;
@@ -48,30 +47,29 @@ public class SkyPvP extends JavaPlugin{
         instance = this;
 
         Bukkit.getServer().getConsoleSender().sendMessage(MainPrefix + "§aMySQL Config wird initiiert...");
-        config = new MySQL_Config(CoreSystem.mysql3, "Skypvp", 1000);
+        config = new MySQL_Config(CoreSystem.getInstance().getMySQL(3), "Skypvp", 1000);
         registerMySQLConfig();
 
 		Bukkit.getServer().getConsoleSender().sendMessage(MainPrefix + "§aKit Manager wird initiiert...");
-		kitManager = new KitManager(CoreSystem.mysql1);
+		kitManager = new KitManager(CoreSystem.getInstance().getMySQL(1));
 		kitManager.createMySQLTable();
 
 		Bukkit.getServer().getConsoleSender().sendMessage(MainPrefix + "§aNPC-Manager wird gestartet");
-		npcManager = new NpcManager(CoreSystem.mysql1, "Skypvp");
+		npcManager = CoreSystem.getInstance().initialiseNpcManager("Skypvp");
 
 		Bukkit.getServer().getConsoleSender().sendMessage(MainPrefix + "§aBuild-System witd initiiert");
-		buildSystem = new BuildSystem(false, BuildSystem.BuildEvent.BLOCK_BREAK, BuildSystem.BuildEvent.BLOCK_PLACE);
+		buildSystem = CoreSystem.getInstance().initialiseBuildSystem(false, BuildSystem.BuildEvent.BLOCK_BREAK, BuildSystem.BuildEvent.BLOCK_PLACE);
 
 		Bukkit.getServer().getConsoleSender().sendMessage(MainPrefix + "§aLocationManager witd initiiert");
-		locationManager = new LocationManager("Lobby").downloadLocations();
+		locationManager = CoreSystem.getInstance().initialiseLocationManager("Skypvp").downloadLocations();
 
         Bukkit.getServer().getConsoleSender().sendMessage(MainPrefix + "§aEvents und Befehle werden registriert...");
         registerCommands();
         registerEvents();
 
         Bukkit.getServer().getConsoleSender().sendMessage(MainPrefix + "§aVersion §f" + this.getDescription().getVersion() + "§a wurde aktiviert...");
-		StateAPI.setState(StateAPI.State.WAITING);
 
-		for (CorePlayer p : CoreSystem.getOnlineCorePlayers()) {
+		for (BukkitCorePlayer p : CoreSystem.getInstance().getOnlineCorePlayers()) {
 		    p.getScoreboard().setNewObjective(new Objective());
         }
     }

@@ -1,14 +1,14 @@
 /*
- * Copyright (c) 2017 -2018 Dominik L., Rufus Maiwald and the MC ONE Minecraftnetwork. All rights reserved
+ * Copyright (c) 2017 -2018 Dominik Lippl, Rufus Maiwald and the MC ONE Minecraftnetwork. All rights reserved
  * You are not allowed to decompile the code
  */
 
 package eu.mcone.skypvp.kit;
 
-import eu.mcone.coresystem.bukkit.api.CoinsAPI;
-import eu.mcone.coresystem.bukkit.inventory.CoreInventory;
-import eu.mcone.coresystem.bukkit.util.ItemBuilder;
-import eu.mcone.coresystem.lib.mysql.MySQL;
+import eu.mcone.coresystem.api.bukkit.CoreSystem;
+import eu.mcone.coresystem.api.bukkit.inventory.CoreInventory;
+import eu.mcone.coresystem.api.bukkit.util.ItemBuilder;
+import eu.mcone.coresystem.api.core.mysql.MySQL;
 import eu.mcone.skypvp.SkyPvP;
 import eu.mcone.skypvp.inventory.KitBuyInventory;
 import org.bukkit.Material;
@@ -159,8 +159,8 @@ public class KitManager {
         if ((kits.containsKey(p.getUniqueId()) && kits.get(p.getUniqueId()).contains(kit)) || hasKit(p, kit)) {
             p.sendMessage("§4Du besitzt dieses Kit bereits!");
         } else {
-            if ((CoinsAPI.getCoins(p.getUniqueId()) - kit.getCoins()) >= 0) {
-                CoinsAPI.removeCoins(p.getUniqueId(), kit.getCoins());
+            if ((CoreSystem.getInstance().getCoinsAPI().getCoins(p.getUniqueId()) - kit.getCoins()) >= 0) {
+                CoreSystem.getInstance().getCoinsAPI().removeCoins(p.getUniqueId(), kit.getCoins());
                 mysql.update("INSERT IGNORE INTO `skypvp_kits` (`id`, `uuid`, `kit`, `timestamp`) VALUES (NULL, '" + p.getUniqueId() + "', '" + kit.getID() + "', " + (System.currentTimeMillis() / 1000L) + ");");
                 buyedKits.getOrDefault(p, new ArrayList<>()).add(kit);
 
@@ -179,7 +179,7 @@ public class KitManager {
     }
 
     public void resetKits(Player p) {
-        if (kits.containsKey(p.getUniqueId())) kits.remove(p.getUniqueId());
+        kits.remove(p.getUniqueId());
     }
 
     public BukkitRunnable getAsyncRunnable() {

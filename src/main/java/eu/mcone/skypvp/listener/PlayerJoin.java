@@ -1,12 +1,12 @@
 /*
- * Copyright (c) 2017 -2018 Dominik L., Rufus Maiwald and the MC ONE Minecraftnetwork. All rights reserved
+ * Copyright (c) 2017 -2018 Dominik Lippl, Rufus Maiwald and the MC ONE Minecraftnetwork. All rights reserved
  * You are not allowed to decompile the code
  */
 
 package eu.mcone.skypvp.listener;
 
-import eu.mcone.coresystem.bukkit.CoreSystem;
-import eu.mcone.coresystem.bukkit.player.CorePlayer;
+import eu.mcone.coresystem.api.bukkit.CoreSystem;
+import eu.mcone.coresystem.api.bukkit.player.BukkitCorePlayer;
 import eu.mcone.skypvp.SkyPvP;
 import eu.mcone.skypvp.kit.Kit;
 import eu.mcone.skypvp.util.Objective;
@@ -22,7 +22,7 @@ public class PlayerJoin implements Listener{
 	@EventHandler
     public void on(PlayerJoinEvent e) {
         Player p = e.getPlayer();
-        CorePlayer cp = CoreSystem.getCorePlayer(p);
+        BukkitCorePlayer cp = CoreSystem.getInstance().getCorePlayer(p);
 
         p.setLevel(0);
         SkyPvP.getInstance().getLocationManager().teleport(p, "spawn");

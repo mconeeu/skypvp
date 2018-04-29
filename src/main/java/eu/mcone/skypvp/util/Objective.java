@@ -1,14 +1,13 @@
 /*
- * Copyright (c) 2017 -2018 Dominik L., Rufus Maiwald and the MC ONE Minecraftnetwork. All rights reserved
+ * Copyright (c) 2017 -2018 Dominik Lippl, Rufus Maiwald and the MC ONE Minecraftnetwork. All rights reserved
  * You are not allowed to decompile the code
  */
 
 package eu.mcone.skypvp.util;
 
-import eu.mcone.coresystem.bukkit.CoreSystem;
-import eu.mcone.coresystem.bukkit.api.CoinsAPI;
-import eu.mcone.coresystem.bukkit.scoreboard.CoreObjective;
-import eu.mcone.coresystem.lib.gamemode.Gamemode;
+import eu.mcone.coresystem.api.bukkit.CoreSystem;
+import eu.mcone.coresystem.api.bukkit.scoreboard.CoreObjective;
+import eu.mcone.coresystem.api.core.gamemode.Gamemode;
 import eu.mcone.skypvp.SkyPvP;
 import org.bukkit.scoreboard.DisplaySlot;
 import org.bukkit.scoreboard.Team;
@@ -37,7 +36,7 @@ public class Objective extends CoreObjective {
 
         Team coins = scoreboard.registerNewTeam("coins");
         coins.addEntry("§5");
-        coins.setPrefix(SkyPvP.config.getConfigValue("ScoreBoard-7")+ CoinsAPI.getCoins(player.getUuid()));
+        coins.setPrefix(SkyPvP.config.getConfigValue("ScoreBoard-7")+ CoreSystem.getInstance().getCoinsAPI().getCoins(player.getUuid()));
 
         objective.getScore("§0").setScore(13);
         objective.getScore(SkyPvP.config.getConfigValue("ScoreBoard-2")).setScore(12);
@@ -63,7 +62,7 @@ public class Objective extends CoreObjective {
 
         scoreboard.getTeam("kills").setPrefix(SkyPvP.config.getConfigValue("ScoreBoard-3") + CoreSystem.getInstance().getStatsAPI(Gamemode.SKYPVP).getKills(player.getUuid()));
         scoreboard.getTeam("deaths").setPrefix(SkyPvP.config.getConfigValue("ScoreBoard-5") + CoreSystem.getInstance().getStatsAPI(Gamemode.SKYPVP).getDeaths(player.getUuid()));
-        scoreboard.getTeam("coins").setPrefix(SkyPvP.config.getConfigValue("ScoreBoard-7") + CoinsAPI.getCoins(player.getUuid()));
+        scoreboard.getTeam("coins").setPrefix(SkyPvP.config.getConfigValue("ScoreBoard-7") + CoreSystem.getInstance().getCoinsAPI().getCoins(player.getUuid()));
 
         String event = SkyPvP.config.getLiveConfigValue("ScoreBoard-9");
         scoreboard.resetScores(event);

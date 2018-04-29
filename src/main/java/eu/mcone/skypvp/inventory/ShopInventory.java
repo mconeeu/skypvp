@@ -1,14 +1,14 @@
 /*
- * Copyright (c) 2017 -2018 Dominik L., Rufus Maiwald and the MC ONE Minecraftnetwork. All rights reserved
+ * Copyright (c) 2017 -2018 Dominik Lippl, Rufus Maiwald and the MC ONE Minecraftnetwork. All rights reserved
  * You are not allowed to decompile the code
  */
 
 package eu.mcone.skypvp.inventory;
 
-import eu.mcone.coresystem.bukkit.api.CoinsAPI;
-import eu.mcone.coresystem.bukkit.api.TitleAPI;
-import eu.mcone.coresystem.bukkit.inventory.CoreInventory;
-import eu.mcone.coresystem.bukkit.util.ItemBuilder;
+import eu.mcone.coresystem.api.bukkit.CoreSystem;
+import eu.mcone.coresystem.api.bukkit.inventory.CoreInventory;
+import eu.mcone.coresystem.api.bukkit.util.ItemBuilder;
+import eu.mcone.coresystem.api.bukkit.util.TitleAPI;
 import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
@@ -32,13 +32,13 @@ public class ShopInventory extends CoreInventory {
     }
 
     private void buyShopItem(Player p, ShopItem item){
-        int futCoins = CoinsAPI.getCoins(p.getUniqueId()) - item.getCoins();
+        int futCoins = CoreSystem.getInstance().getCoinsAPI().getCoins(p.getUniqueId()) - item.getCoins();
         if (futCoins <= -1){
             p.closeInventory();
             p.playSound(p.getLocation(), Sound.NOTE_BASS, 1.0F, 1.0F);
             TitleAPI.sendTitle(p, "§c§l×", "§7Du hast nicht genügend §fCoins§7!", 1, 2, 1);
         } else {
-            CoinsAPI.removeCoins(p.getUniqueId(), item.getCoins());
+            CoreSystem.getInstance().getCoinsAPI().removeCoins(p.getUniqueId(), item.getCoins());
             p.getInventory().addItem(item.getItem());
             p.closeInventory();
             p.playSound(p.getLocation(), Sound.LEVEL_UP, 10F, 10F);
