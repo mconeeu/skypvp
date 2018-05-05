@@ -62,9 +62,9 @@ public class KitManager {
 
     public void setKit(Player p, Kit kit) {
         if (!hasKit(p, kit)){
-            p.sendMessage(SkyPvP.config.getConfigValue("System-Prefix") + "§4Du besitzt dieses Kit nicht!");
+            p.sendMessage(CoreSystem.getInstance().getTranslationManager().get("skypvp.prefix") + "§4Du besitzt dieses Kit nicht!");
         } else if (kits.containsKey(p.getUniqueId()) && kits.get(p.getUniqueId()).contains(kit)) {
-            p.sendMessage(SkyPvP.config.getConfigValue("System-Prefix") + "§4Du hast dieses Kit bereits ausgewählt! Du kannst es erst wieder benutzen, nachdem du einmal gestorben bist!");
+            p.sendMessage(CoreSystem.getInstance().getTranslationManager().get("skypvp.prefix") + "§4Du hast dieses Kit bereits ausgewählt! Du kannst es erst wieder benutzen, nachdem du einmal gestorben bist!");
         } else {
             if (kit.equals(Kit.PLAYER)) {
                 p.getInventory().setItem(0, new ItemBuilder(Material.STONE_SWORD, 1, 0).create());
@@ -90,7 +90,7 @@ public class KitManager {
                     p.getInventory().setLeggings(new ItemBuilder(Material.IRON_LEGGINGS, 1, 0).enchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 1).enchantment(Enchantment.DURABILITY, 1).create());
                     p.getInventory().setBoots(new ItemBuilder(Material.IRON_BOOTS, 1, 0).enchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 1).enchantment(Enchantment.DURABILITY, 1).create());
                 } else {
-                    p.sendMessage(SkyPvP.config.getConfigValue("System-Prefix") + "§4Du besitzt das §cEisen-Kit §4nicht");
+                    p.sendMessage(CoreSystem.getInstance().getTranslationManager().get("skypvp.prefix") + "§4Du besitzt das §cEisen-Kit §4nicht");
                     return;
                 }
             } else if (kit.equals(Kit.DIAMOND)) {
@@ -106,7 +106,7 @@ public class KitManager {
                     p.getInventory().setLeggings(new ItemBuilder(Material.IRON_LEGGINGS, 1, 0).enchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 3).enchantment(Enchantment.DURABILITY, 1).create());
                     p.getInventory().setBoots(new ItemBuilder(Material.IRON_BOOTS, 1, 0).enchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 3).enchantment(Enchantment.DURABILITY, 1).create());
                 } else {
-                    p.sendMessage(SkyPvP.config.getConfigValue("System-Prefix") + "§4Du besitzt das §cDiamond-Kit §4nicht");
+                    p.sendMessage(CoreSystem.getInstance().getTranslationManager().get("skypvp.prefix") + "§4Du besitzt das §cDiamond-Kit §4nicht");
                     return;
                 }
             } else if (kit.equals(Kit.EMERALD)) {
@@ -122,7 +122,7 @@ public class KitManager {
                     p.getInventory().setLeggings(new ItemBuilder(Material.DIAMOND_LEGGINGS, 1, 0).enchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 3).enchantment(Enchantment.DURABILITY, 1).create());
                     p.getInventory().setBoots(new ItemBuilder(Material.DIAMOND_BOOTS, 1, 0).enchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 3).enchantment(Enchantment.DURABILITY, 1).create());
                 } else {
-                    p.sendMessage(SkyPvP.config.getConfigValue("System-Prefix") + "§4Du besitzt das §cEmerald-Kit §4nicht");
+                    p.sendMessage(CoreSystem.getInstance().getTranslationManager().get("skypvp.prefix") + "§4Du besitzt das §cEmerald-Kit §4nicht");
                     return;
                 }
             }
@@ -134,7 +134,7 @@ public class KitManager {
             }
 
             p.playSound(p.getLocation(), Sound.LEVEL_UP, 1, 1);
-            p.sendMessage(SkyPvP.config.getConfigValue("System-Prefix") + "§2Du hast das Kit " + kit.getName() + " §2erhalten");
+            p.sendMessage(CoreSystem.getInstance().getTranslationManager().get("skypvp.prefix") + "§2Du hast das Kit " + kit.getName() + " §2erhalten");
         }
     }
 
@@ -165,10 +165,10 @@ public class KitManager {
                 buyedKits.getOrDefault(p, new ArrayList<>()).add(kit);
 
                 setKit(p, kit);
-                p.sendMessage(SkyPvP.config.getConfigValue("System-Prefix") + "§2Du hast erfolgreich das Kit " + kit.getName() + "§2 gekauft!");
+                p.sendMessage(CoreSystem.getInstance().getTranslationManager().get("skypvp.prefix") + "§2Du hast erfolgreich das Kit " + kit.getName() + "§2 gekauft!");
                 p.playSound(p.getLocation(), Sound.LEVEL_UP, 1, 1);
             } else {
-                p.sendMessage(SkyPvP.config.getConfigValue("System-Prefix") + "§4Du hast nicht genügend Coins!");
+                p.sendMessage(CoreSystem.getInstance().getTranslationManager().get("skypvp.prefix") + "§4Du hast nicht genügend Coins!");
                 p.playSound(p.getLocation(), Sound.NOTE_BASS, 1, 1);
             }
         }

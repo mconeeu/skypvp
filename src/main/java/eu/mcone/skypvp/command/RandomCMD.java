@@ -6,7 +6,7 @@
 package eu.mcone.skypvp.command;
 
 import eu.mcone.coresystem.api.bukkit.CoreSystem;
-import eu.mcone.skypvp.SkyPvP;
+import eu.mcone.coresystem.api.bukkit.util.Messager;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -26,10 +26,10 @@ public class RandomCMD implements CommandExecutor{
                 Integer Players = new Random().nextInt(Bukkit.getOnlinePlayers().size());
                 Player randomplayer = (Player) Bukkit.getServer().getOnlinePlayers().toArray()[Players];
 
-                Bukkit.broadcastMessage(SkyPvP.config.getConfigValue("System-Prefix") + "§7Der Spieler §f" + randomplayer.getName() + " §7hat gewonnen!");
+                Bukkit.broadcastMessage(CoreSystem.getInstance().getTranslationManager().get("skypvp.prefix") + "§7Der Spieler §f" + randomplayer.getName() + " §7hat gewonnen!");
             }
         } else {
-            sender.sendMessage(SkyPvP.config.getConfigValue("System-Prefix") + SkyPvP.config.getConfigValue("System-Konsolen-Sender"));
+            Messager.sendTransl(sender, "system.command.consolesender");
         }
 
         return true;

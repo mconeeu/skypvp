@@ -10,7 +10,7 @@ import eu.mcone.coresystem.api.bukkit.npc.NpcManager;
 import eu.mcone.coresystem.api.bukkit.player.BukkitCorePlayer;
 import eu.mcone.coresystem.api.bukkit.world.BuildSystem;
 import eu.mcone.coresystem.api.bukkit.world.LocationManager;
-import eu.mcone.coresystem.api.core.mysql.MySQL_Config;
+import eu.mcone.coresystem.api.core.translation.TranslationField;
 import eu.mcone.skypvp.command.*;
 import eu.mcone.skypvp.kit.KitManager;
 import eu.mcone.skypvp.listener.*;
@@ -28,7 +28,6 @@ public class SkyPvP extends JavaPlugin{
 
 	@Getter
     private static SkyPvP instance;
-	public static MySQL_Config config;
 
     private static String MainPrefix = "§8[§9SkyPvP§8] ";
 	public static List<Player> cooldownlist = new ArrayList<>();
@@ -45,13 +44,10 @@ public class SkyPvP extends JavaPlugin{
 
     public void onEnable() {
         instance = this;
-
-        Bukkit.getServer().getConsoleSender().sendMessage(MainPrefix + "§aMySQL Config wird initiiert...");
-        config = new MySQL_Config(CoreSystem.getInstance().getMySQL(3), "Skypvp", 1000);
-        registerMySQLConfig();
+        registerTranslations();
 
 		Bukkit.getServer().getConsoleSender().sendMessage(MainPrefix + "§aKit Manager wird initiiert...");
-		kitManager = new KitManager(CoreSystem.getInstance().getMySQL(1));
+		kitManager = new KitManager(CoreSystem.getInstance().getMySQL());
 		kitManager.createMySQLTable();
 
 		Bukkit.getServer().getConsoleSender().sendMessage(MainPrefix + "§aNPC-Manager wird gestartet");
@@ -103,34 +99,24 @@ public class SkyPvP extends JavaPlugin{
 		getPluginManager().registerEvents(new StatsChange(),this);
     }
 
-	private void registerMySQLConfig(){
-		//create table
-		config.createTable();
-
-    	//System
-	    config.insertMySQLConfig("System-Prefix", "&8[&7&l!&8] &9SkyPvP &8» ");
-	    config.insertMySQLConfig("System-No-Perm", "&4Du hast keine Berechtigung für diesen Befehl");
-	    config.insertMySQLConfig("System-Konsolen-Sender", "&7Nur ein &cSpieler &7Kann diesen Befehl ausführen!");
-		config.insertMySQLConfig("System-Join", "&f%Player% &7betritt &9SkyPvP§7.");
-		config.insertMySQLConfig("System-Quit", "&f%Player% &7verlässt &9SkyPvP§7.");
-		config.insertMySQLConfig("System-ItemFrame", "&8» &9&lSkyPvP &7Free Items");
-
-        //Locations
-        config.insertMySQLConfig("Location-Spawn", "[\"\",\"\",\"\",\"\",\"\",\"\"]");
-
-		//Scoreboard
-		config.insertMySQLConfig("ScoreBoard-1", "&3&lMCONE.EU");
-	    config.insertMySQLConfig("ScoreBoard-2", "&8» &7Kills:");
-	    config.insertMySQLConfig("ScoreBoard-3", " &9");
-	    config.insertMySQLConfig("ScoreBoard-4", "&8» &7Tode:");
-	    config.insertMySQLConfig("ScoreBoard-5", " &c");
-	    config.insertMySQLConfig("ScoreBoard-6", "&8» &7Coins:");
-	    config.insertMySQLConfig("ScoreBoard-7", " &f");
-	    config.insertMySQLConfig("ScoreBoard-8", "&8» &7Event");
-	    config.insertMySQLConfig("ScoreBoard-9", " &8&oNichts geplant");
-
-		//store
-		config.store();
+	private void registerTranslations(){
+		CoreSystem.getInstance().getTranslationManager().insertIfNotExists(
+				new HashMap<String, TranslationField>(){{
+					put("skypvp.prefix", new TranslationField("&8[&7&l!&8] &9SkyPvP &8» "));
+					put("skypvp.join", new TranslationField("&f%player% &7betritt &9SkyPvP§7."));
+					put("skypvp.quit", new TranslationField("&f%player% &7verlässt &9SkyPvP§7."));
+					put("skypvp.itemframe", new TranslationField("&8» &9&lSkyPvP &7Free Items"));
+					put("skypvp.scoreboard.1", new TranslationField("&3&lMCONE.EU"));
+					put("skypvp.scoreboard.2", new TranslationField("&8» &7Kills:"));
+					put("skypvp.scoreboard.3", new TranslationField(" &9"));
+					put("skypvp.scoreboard.4", new TranslationField("&8» &7Tode:"));
+					put("skypvp.scoreboard.5", new TranslationField(" &c"));
+					put("skypvp.scoreboard.6", new TranslationField("&8» &7Coins:"));
+					put("skypvp.scoreboard.7", new TranslationField(" &f"));
+					put("skypvp.scoreboard.8", new TranslationField("&8» &7Event"));
+					put("skypvp.scoreboard.9", new TranslationField(" &8&oNichts geplant"));
+				}}
+		);
 	}
 
 }

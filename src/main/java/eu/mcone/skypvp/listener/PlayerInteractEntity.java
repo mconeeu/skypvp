@@ -5,7 +5,7 @@
 
 package eu.mcone.skypvp.listener;
 
-import eu.mcone.skypvp.SkyPvP;
+import eu.mcone.coresystem.api.bukkit.CoreSystem;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.entity.Entity;
@@ -42,7 +42,7 @@ public class PlayerInteractEntity implements Listener {
     }
 
     private void openFreeItemsInventory(Player p, ItemStack item){
-        Inventory inv = Bukkit.createInventory(null, 27, SkyPvP.config.getConfigValue("System-ItemFrame"));
+        Inventory inv = Bukkit.createInventory(null, 27, CoreSystem.getInstance().getTranslationManager().get("skypvp.itemframe"));
         if (item.getMaxStackSize() > 1) {
             item.setAmount(10);
         }

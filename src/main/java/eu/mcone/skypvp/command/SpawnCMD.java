@@ -6,6 +6,7 @@
 package eu.mcone.skypvp.command;
 
 import eu.mcone.coresystem.api.bukkit.CoreSystem;
+import eu.mcone.coresystem.api.bukkit.util.Messager;
 import eu.mcone.skypvp.SkyPvP;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
@@ -21,7 +22,7 @@ public class SpawnCMD implements CommandExecutor{
             if (!CoreSystem.getInstance().getCooldownSystem().addAndCheck(CoreSystem.getInstance(), this.getClass(), p.getUniqueId())) return false;
 
             if (args.length == 0) {
-                p.sendMessage(SkyPvP.config.getConfigValue("System-Prefix") + "§7Du wirst in §c3 §7Sekunden Teleportiert... §4Bewege dich nicht!");
+                p.sendMessage(CoreSystem.getInstance().getTranslationManager().get("skypvp.prefix") + "§7Du wirst in §c3 §7Sekunden Teleportiert... §4Bewege dich nicht!");
                 SkyPvP.cooldownlist.add(p);
 
                 Bukkit.getScheduler().runTaskLaterAsynchronously(SkyPvP.getInstance(), () -> {
@@ -35,15 +36,15 @@ public class SpawnCMD implements CommandExecutor{
                     if (args.length == 1) {
                         if (p.hasPermission("group.admin") || p.hasPermission("group.developer")) {
                             SkyPvP.getInstance().getLocationManager().putLocation("spawn", p.getLocation());
-                            p.sendMessage(SkyPvP.config.getConfigValue("System-Prefix") + "§2Der Spawn wurde erfolgreich gesetzt!");
+                            p.sendMessage(CoreSystem.getInstance().getTranslationManager().get("skypvp.prefix") + "§2Der Spawn wurde erfolgreich gesetzt!");
                         } else {
-                            p.sendMessage(SkyPvP.config.getConfigValue("System-Prefix") + "§4Du hast keine Berechtigung für diesen Befehl!");
+                            p.sendMessage(CoreSystem.getInstance().getTranslationManager().get("skypvp.prefix") + "§4Du hast keine Berechtigung für diesen Befehl!");
                         }
                     }
                 }
             }
         } else {
-            sender.sendMessage(SkyPvP.config.getConfigValue("System-Prefix") + SkyPvP.config.getConfigValue("System-Konsolen-Sender"));
+            Messager.sendTransl(sender, "system.command.consolesender");
         }
 
         return true;

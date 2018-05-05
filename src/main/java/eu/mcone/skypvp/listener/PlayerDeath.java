@@ -8,7 +8,6 @@ package eu.mcone.skypvp.listener;
 import eu.mcone.coresystem.api.bukkit.CoreSystem;
 import eu.mcone.coresystem.api.core.gamemode.Gamemode;
 import eu.mcone.gameapi.api.GameAPI;
-import eu.mcone.skypvp.SkyPvP;
 import org.bukkit.Bukkit;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
@@ -47,7 +46,7 @@ public class PlayerDeath implements Listener {
 
             for (int streak : new int[]{3,5,10,15,20,25,30,35,40,50,55,60}) {
                 if (p.getLevel() == streak) {
-                    Bukkit.broadcastMessage(SkyPvP.config.getConfigValue("System-Prefix") + "§f" + p.getName() + " §6hat eine §c"+streak+"er §6Killstreak!");
+                    Bukkit.broadcastMessage(CoreSystem.getInstance().getTranslationManager().get("skypvp.prefix") + "§f" + p.getName() + " §6hat eine §c"+streak+"er §6Killstreak!");
                     break;
                 }
             }
@@ -62,8 +61,8 @@ public class PlayerDeath implements Listener {
             double health = k.getHealth();
             health /= 2.0D;
 
-            p.sendMessage(SkyPvP.config.getConfigValue("System-Prefix") + "§7Du wurdest von §6" + k.getDisplayName() + " §8[§c❤"+format.format(health)+"§8] §7getötet §8[§c-1 Coins§8]");
-            k.sendMessage(SkyPvP.config.getConfigValue("System-Prefix") + "§7Du hast §6" + p.getDisplayName() + " §7getötet §8[§a+3 Coins§8]");
+            p.sendMessage(CoreSystem.getInstance().getTranslationManager().get("skypvp.prefix") + "§7Du wurdest von §6" + k.getDisplayName() + " §8[§c❤"+format.format(health)+"§8] §7getötet §8[§c-1 Coins§8]");
+            k.sendMessage(CoreSystem.getInstance().getTranslationManager().get("skypvp.prefix") + "§7Du hast §6" + p.getDisplayName() + " §7getötet §8[§a+3 Coins§8]");
 
         } else {
             int coins = CoreSystem.getInstance().getCoinsAPI().getCoins(p.getUniqueId());
@@ -74,7 +73,7 @@ public class PlayerDeath implements Listener {
             //Tod wird dem Spieler hinzugefügt
             CoreSystem.getInstance().getStatsAPI(Gamemode.SKYPVP).addDeaths(p.getUniqueId(), 1);
 
-            p.sendMessage(SkyPvP.config.getConfigValue("System-Prefix") + "§7Du bist gestorben §8[§c-3 Coins§8]");
+            p.sendMessage(CoreSystem.getInstance().getTranslationManager().get("skypvp.prefix") + "§7Du bist gestorben §8[§c-3 Coins§8]");
         }
     }
 

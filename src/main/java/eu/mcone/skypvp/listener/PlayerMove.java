@@ -5,6 +5,7 @@
 
 package eu.mcone.skypvp.listener;
 
+import eu.mcone.coresystem.api.bukkit.CoreSystem;
 import eu.mcone.skypvp.SkyPvP;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -19,7 +20,7 @@ public class PlayerMove implements Listener{
 
 	    if (SkyPvP.cooldownlist.contains(p)){
 	    	SkyPvP.cooldownlist.remove(p);
-	        p.sendMessage(SkyPvP.config.getConfigValue("System-Prefix") + "§4Du hast dich bewegt! Teleportation abgebrochen");
+	        p.sendMessage(CoreSystem.getInstance().getTranslationManager().get("skypvp.prefix") + "§4Du hast dich bewegt! Teleportation abgebrochen");
 	    }
 
     }

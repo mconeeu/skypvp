@@ -6,7 +6,7 @@
 package eu.mcone.skypvp.command;
 
 import eu.mcone.coresystem.api.bukkit.CoreSystem;
-import eu.mcone.skypvp.SkyPvP;
+import eu.mcone.coresystem.api.bukkit.util.Messager;
 import eu.mcone.skypvp.inventory.KitInventory;
 import org.bukkit.Sound;
 import org.bukkit.command.Command;
@@ -26,10 +26,10 @@ public class KitCMD implements CommandExecutor {
 				new KitInventory(p);
 				p.playSound(p.getLocation(), Sound.CHICKEN_EGG_POP, 1, 1);
 			} else {
-				p.sendMessage(SkyPvP.config.getConfigValue("System-Prefix") + "§cBitte nutze den Command /kit");
+				p.sendMessage(CoreSystem.getInstance().getTranslationManager().get("skypvp.prefix") + "§cBitte nutze den Command /kit");
 			}
 		} else {
-			sender.sendMessage(SkyPvP.config.getConfigValue("System-Prefix") + SkyPvP.config.getConfigValue("System-Konsolen-Sender"));
+			Messager.sendTransl(sender, "system.command.consolesender");
 		}
 
 		return true;

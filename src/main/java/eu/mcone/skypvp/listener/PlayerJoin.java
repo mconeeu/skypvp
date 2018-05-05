@@ -27,12 +27,12 @@ public class PlayerJoin implements Listener{
         p.setLevel(0);
         SkyPvP.getInstance().getLocationManager().teleport(p, "spawn");
        
-        e.setJoinMessage(SkyPvP.config.getConfigValue("System-Prefix") + SkyPvP.config.getConfigValue("System-Join").replaceAll("%Player%", p.getName()));
+        e.setJoinMessage(CoreSystem.getInstance().getTranslationManager().get("skypvp.prefix") + CoreSystem.getInstance().getTranslationManager().get("skypvp.join").replaceAll("%player%", p.getName()));
 
         cp.getScoreboard().setNewObjective(new Objective());
 
         if (hasEmptyInventory(p)) {
-            p.sendMessage(SkyPvP.config.getConfigValue("System-Prefix") + "§7Du scheinst neu auf SkyPvP zu sein! Du bekommst das Standart-Kit!");
+            p.sendMessage(CoreSystem.getInstance().getTranslationManager().get("skypvp.prefix") + "§7Du scheinst neu auf SkyPvP zu sein! Du bekommst das Standart-Kit!");
             SkyPvP.getInstance().getKitManager().setKit(p, Kit.PLAYER);
         }
 
