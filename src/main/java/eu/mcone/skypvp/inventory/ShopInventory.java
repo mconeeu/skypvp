@@ -8,7 +8,6 @@ package eu.mcone.skypvp.inventory;
 import eu.mcone.coresystem.api.bukkit.CoreSystem;
 import eu.mcone.coresystem.api.bukkit.inventory.CoreInventory;
 import eu.mcone.coresystem.api.bukkit.util.ItemBuilder;
-import eu.mcone.coresystem.api.bukkit.util.TitleAPI;
 import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
@@ -36,13 +35,25 @@ public class ShopInventory extends CoreInventory {
         if (futCoins <= -1){
             p.closeInventory();
             p.playSound(p.getLocation(), Sound.NOTE_BASS, 1.0F, 1.0F);
-            TitleAPI.sendTitle(p, "§c§l×", "§7Du hast nicht genügend §fCoins§7!", 1, 2, 1);
+            CoreSystem.getInstance().createTitle()
+                    .title("§c§l×")
+                    .subTitle("§7Du hast nicht genügend §fCoins§7!")
+                    .fadeIn(1)
+                    .stay(2)
+                    .fadeOut(1)
+                    .send(p);
         } else {
             CoreSystem.getInstance().getCoinsAPI().removeCoins(p.getUniqueId(), item.getCoins());
             p.getInventory().addItem(item.getItem());
             p.closeInventory();
             p.playSound(p.getLocation(), Sound.LEVEL_UP, 10F, 10F);
-            TitleAPI.sendTitle(p, "§a§l✓", "§7Du hast das Item §f" + item.getItem().getItemMeta().getDisplayName() + " §7gekauft!", 1, 2, 1);
+            CoreSystem.getInstance().createTitle()
+                    .title("§a§l✓")
+                    .subTitle("§7Du hast das Item §f" + item.getItem().getItemMeta().getDisplayName() + " §7gekauft!")
+                    .fadeIn(1)
+                    .stay(2)
+                    .fadeOut(1)
+                    .send(p);
         }
     }
     
