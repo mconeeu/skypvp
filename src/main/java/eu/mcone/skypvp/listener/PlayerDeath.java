@@ -7,7 +7,7 @@ package eu.mcone.skypvp.listener;
 
 import eu.mcone.coresystem.api.bukkit.CoreSystem;
 import eu.mcone.coresystem.api.core.gamemode.Gamemode;
-import eu.mcone.gameapi.api.GameAPI;
+import eu.mcone.gamesystem.api.GameSystemAPI;
 import org.bukkit.Bukkit;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
@@ -22,7 +22,7 @@ public class PlayerDeath implements Listener {
     @EventHandler
     public void on(PlayerDeathEvent e) {
         Player p = e.getEntity();
-        Player k = p.getKiller() != null ? p.getKiller() : GameAPI.getInstance().getDamageLogger().getKiller(p);
+        Player k = p.getKiller() != null ? p.getKiller() : GameSystemAPI.getInstance().getDamageLogger().getKiller(p);
 
         e.setDeathMessage(null);
         e.setKeepInventory(false);

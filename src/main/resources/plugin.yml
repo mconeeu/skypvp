@@ -2,7 +2,7 @@ name: MCONE-SkyPvP
 version: 3.0.1
 author: Dominik Lippl
 main: eu.mcone.skypvp.SkyPvP
-depend: [MCONE-BukkitCoreSystem,MCONE-Gameapi]
+depend: [MCONE-BukkitCoreSystem,MCONE-GameSystem]
 
 commands:
   kit:
