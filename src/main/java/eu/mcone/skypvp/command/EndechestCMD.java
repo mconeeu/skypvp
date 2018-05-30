@@ -6,7 +6,7 @@
 package eu.mcone.skypvp.command;
 
 import eu.mcone.coresystem.api.bukkit.CoreSystem;
-import eu.mcone.coresystem.api.bukkit.util.Messager;
+import eu.mcone.skypvp.SkyPvP;
 import org.bukkit.Sound;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -24,7 +24,7 @@ public class EndechestCMD implements CommandExecutor{
 			p.playSound(p.getLocation(), Sound.CHICKEN_EGG_POP, 1, 1);
 			return true;
 		} else {
-			Messager.sendTransl(sender, "system.command.consolesender");
+			SkyPvP.getInstance().getMessager().sendTransl(sender, "system.command.consolesender");
 		}
 		return true;
 	}

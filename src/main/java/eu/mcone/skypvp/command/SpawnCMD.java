@@ -44,7 +44,7 @@ public class SpawnCMD implements CommandExecutor{
                 }
             }
         } else {
-            Messager.sendTransl(sender, "system.command.consolesender");
+            SkyPvP.getInstance().getMessager().sendTransl(sender, "system.command.consolesender");
         }
 
         return true;

@@ -6,7 +6,7 @@
 package eu.mcone.skypvp.command;
 
 import eu.mcone.coresystem.api.bukkit.CoreSystem;
-import eu.mcone.coresystem.api.bukkit.util.Messager;
+import eu.mcone.skypvp.SkyPvP;
 import eu.mcone.skypvp.inventory.ShopInventory;
 import org.bukkit.Sound;
 import org.bukkit.command.Command;
@@ -25,7 +25,7 @@ public class ShopCMD implements CommandExecutor {
             new ShopInventory(p);
             p.playSound(p.getLocation(), Sound.CHICKEN_EGG_POP, 1, 1);
         } else {
-            Messager.sendTransl(sender, "system.command.consolesender");
+            SkyPvP.getInstance().getMessager().sendTransl(sender, "system.command.consolesender");
         }
         return true;
     }

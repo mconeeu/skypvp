@@ -5,6 +5,7 @@
 
 package eu.mcone.skypvp;
 
+import eu.mcone.coresystem.api.bukkit.CorePlugin;
 import eu.mcone.coresystem.api.bukkit.CoreSystem;
 import eu.mcone.coresystem.api.bukkit.npc.NpcManager;
 import eu.mcone.coresystem.api.bukkit.player.BukkitCorePlayer;
@@ -16,20 +17,22 @@ import eu.mcone.skypvp.kit.KitManager;
 import eu.mcone.skypvp.listener.*;
 import eu.mcone.skypvp.util.Objective;
 import lombok.Getter;
-import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
-import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.*;
 
 import static org.bukkit.Bukkit.getPluginManager;
 
-public class SkyPvP extends JavaPlugin{
+public class SkyPvP extends CorePlugin {
+
+	public SkyPvP() {
+		super("Skypvp", ChatColor.BLUE, "skypvp.prefix");
+	}
 
 	@Getter
     private static SkyPvP instance;
 
-    private static String MainPrefix = "§8[§9SkyPvP§8] ";
 	public static List<Player> cooldownlist = new ArrayList<>();
 	public static Map<Player, Map<Long, UUID>> damager = new HashMap<>();
 
@@ -46,24 +49,24 @@ public class SkyPvP extends JavaPlugin{
         instance = this;
         registerTranslations();
 
-		Bukkit.getServer().getConsoleSender().sendMessage(MainPrefix + "§aKit Manager wird initiiert...");
+		sendConsoleMessage("§aKit Manager wird initiiert...");
 		kitManager = new KitManager(CoreSystem.getInstance().getMySQL());
 		kitManager.createMySQLTable();
 
-		Bukkit.getServer().getConsoleSender().sendMessage(MainPrefix + "§aNPC-Manager wird gestartet");
+		sendConsoleMessage("§aNPC-Manager wird gestartet");
 		npcManager = CoreSystem.getInstance().initialiseNpcManager("Skypvp");
 
-		Bukkit.getServer().getConsoleSender().sendMessage(MainPrefix + "§aBuild-System witd initiiert");
+		sendConsoleMessage("§aBuild-System witd initiiert");
 		buildSystem = CoreSystem.getInstance().initialiseBuildSystem(false, BuildSystem.BuildEvent.BLOCK_BREAK, BuildSystem.BuildEvent.BLOCK_PLACE);
 
-		Bukkit.getServer().getConsoleSender().sendMessage(MainPrefix + "§aLocationManager witd initiiert");
+		sendConsoleMessage("§aLocationManager witd initiiert");
 		locationManager = CoreSystem.getInstance().initialiseLocationManager("Skypvp").downloadLocations();
 
-        Bukkit.getServer().getConsoleSender().sendMessage(MainPrefix + "§aEvents und Befehle werden registriert...");
+		sendConsoleMessage("§aEvents und Befehle werden registriert...");
         registerCommands();
         registerEvents();
 
-        Bukkit.getServer().getConsoleSender().sendMessage(MainPrefix + "§aVersion §f" + this.getDescription().getVersion() + "§a wurde aktiviert...");
+		sendConsoleMessage("§aVersion §f" + this.getDescription().getVersion() + "§a wurde aktiviert...");
 
 		for (BukkitCorePlayer p : CoreSystem.getInstance().getOnlineCorePlayers()) {
 		    p.getScoreboard().setNewObjective(new Objective());
@@ -71,7 +74,7 @@ public class SkyPvP extends JavaPlugin{
     }
 
     public void onDisable(){
-        Bukkit.getServer().getConsoleSender().sendMessage(MainPrefix + "§cPlugin wurde deaktiviert!");
+		sendConsoleMessage("§cPlugin wurde deaktiviert!");
         kitManager.getAsyncRunnable().cancel();
 		npcManager.unsetNPCs();
     }
@@ -115,6 +118,7 @@ public class SkyPvP extends JavaPlugin{
 					put("skypvp.scoreboard.7", new TranslationField(" &f"));
 					put("skypvp.scoreboard.8", new TranslationField("&8» &7Event"));
 					put("skypvp.scoreboard.9", new TranslationField(" &8&oNichts geplant"));
+					put("skypvp.scoreboard.10", new TranslationField("&f§lMCONE.EU"));
 				}}
 		);
 	}
