@@ -5,7 +5,7 @@
 
 package eu.mcone.skypvp.listener;
 
-import eu.mcone.coresystem.api.bukkit.CoreSystem;
+import eu.mcone.skypvp.SkyPvP;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -17,7 +17,7 @@ public class PlayerBedEnter implements Listener{
     public void on(PlayerBedEnterEvent e){
     	Player p = e.getPlayer();
     	e.setCancelled(true);
-    	p.sendMessage(CoreSystem.getInstance().getTranslationManager().get("skypvp.prefix") + "§cHier darf man kein Bett benutzen!");
-    		
+    	SkyPvP.getInstance().getMessager().send(p, "§cHier darf man kein Bett benutzen!");
     }
+
 }

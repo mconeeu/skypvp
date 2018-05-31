@@ -5,7 +5,7 @@
 
 package eu.mcone.skypvp.listener;
 
-import eu.mcone.coresystem.api.bukkit.CoreSystem;
+import eu.mcone.skypvp.SkyPvP;
 import org.bukkit.Effect;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
@@ -25,7 +25,7 @@ public class EntityDamageByEntity implements Listener {
             if (ent instanceof Player) {
                 if (ent.getLocation().getY() > 100) {
                     e.setCancelled(true);
-                    byEnt.sendMessage(CoreSystem.getInstance().getTranslationManager().get("skypvp.prefix") + "§4Du darfst am Spawn nicht kämpfen!");
+                    SkyPvP.getInstance().getMessager().send(byEnt, "§4Du darfst am Spawn nicht kämpfen!");
                 } else {
                     ent.getWorld().playEffect(ent.getLocation(), Effect.STEP_SOUND, Material.REDSTONE_BLOCK);
                 }

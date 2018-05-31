@@ -20,7 +20,7 @@ public class PlayerMove implements Listener{
 
 	    if (SkyPvP.cooldownlist.contains(p)){
 	    	SkyPvP.cooldownlist.remove(p);
-	        p.sendMessage(CoreSystem.getInstance().getTranslationManager().get("skypvp.prefix") + "§4Du hast dich bewegt! Teleportation abgebrochen");
+	        SkyPvP.getInstance().getMessager().send(p, "§4Du hast dich bewegt! Teleportation abgebrochen");
 	    }
 
     }

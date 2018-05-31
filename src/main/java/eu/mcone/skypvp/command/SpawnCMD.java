@@ -22,7 +22,7 @@ public class SpawnCMD implements CommandExecutor{
             if (!CoreSystem.getInstance().getCooldownSystem().addAndCheck(CoreSystem.getInstance(), this.getClass(), p.getUniqueId())) return false;
 
             if (args.length == 0) {
-                p.sendMessage(CoreSystem.getInstance().getTranslationManager().get("skypvp.prefix") + "§7Du wirst in §c3 §7Sekunden Teleportiert... §4Bewege dich nicht!");
+                SkyPvP.getInstance().getMessager().send(p, "§7Du wirst in §c3 §7Sekunden Teleportiert... §4Bewege dich nicht!");
                 SkyPvP.cooldownlist.add(p);
 
                 Bukkit.getScheduler().runTaskLaterAsynchronously(SkyPvP.getInstance(), () -> {
@@ -36,9 +36,9 @@ public class SpawnCMD implements CommandExecutor{
                     if (args.length == 1) {
                         if (p.hasPermission("group.admin") || p.hasPermission("group.developer")) {
                             SkyPvP.getInstance().getLocationManager().putLocation("spawn", p.getLocation());
-                            p.sendMessage(CoreSystem.getInstance().getTranslationManager().get("skypvp.prefix") + "§2Der Spawn wurde erfolgreich gesetzt!");
+                            SkyPvP.getInstance().getMessager().send(p, "§2Der Spawn wurde erfolgreich gesetzt!");
                         } else {
-                            p.sendMessage(CoreSystem.getInstance().getTranslationManager().get("skypvp.prefix") + "§4Du hast keine Berechtigung für diesen Befehl!");
+                            SkyPvP.getInstance().getMessager().send(p, "§4Du hast keine Berechtigung für diesen Befehl!");
                         }
                     }
                 }

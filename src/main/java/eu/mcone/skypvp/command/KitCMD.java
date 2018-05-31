@@ -26,7 +26,7 @@ public class KitCMD implements CommandExecutor {
 				new KitInventory(p);
 				p.playSound(p.getLocation(), Sound.CHICKEN_EGG_POP, 1, 1);
 			} else {
-				p.sendMessage(CoreSystem.getInstance().getTranslationManager().get("skypvp.prefix") + "§cBitte nutze den Command /kit");
+				SkyPvP.getInstance().getMessager().send(p, "§cBitte nutze den Command /kit");
 			}
 		} else {
 			SkyPvP.getInstance().getMessager().sendTransl(sender, "system.command.consolesender");

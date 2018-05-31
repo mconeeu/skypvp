@@ -32,7 +32,7 @@ public class PlayerJoin implements Listener{
         cp.getScoreboard().setNewObjective(new Objective());
 
         if (hasEmptyInventory(p)) {
-            p.sendMessage(CoreSystem.getInstance().getTranslationManager().get("skypvp.prefix") + "§7Du scheinst neu auf SkyPvP zu sein! Du bekommst das Standart-Kit!");
+            SkyPvP.getInstance().getMessager().send(p, "§7Du scheinst neu auf SkyPvP zu sein! Du bekommst das Standart-Kit!");
             SkyPvP.getInstance().getKitManager().setKit(p, Kit.PLAYER);
         }
 
