@@ -25,7 +25,7 @@ public class PlayerJoin implements Listener{
         BukkitCorePlayer cp = CoreSystem.getInstance().getCorePlayer(p);
 
         p.setLevel(0);
-        SkyPvP.getInstance().getLocationManager().teleport(p, "spawn");
+        SkyPvP.getInstance().getWorld().teleport(p, "spawn");
        
         e.setJoinMessage(CoreSystem.getInstance().getTranslationManager().get("skypvp.prefix") + CoreSystem.getInstance().getTranslationManager().get("skypvp.join").replaceAll("%player%", p.getName()));
 

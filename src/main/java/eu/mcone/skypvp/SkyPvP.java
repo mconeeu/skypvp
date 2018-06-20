@@ -10,7 +10,7 @@ import eu.mcone.coresystem.api.bukkit.CoreSystem;
 import eu.mcone.coresystem.api.bukkit.npc.NpcManager;
 import eu.mcone.coresystem.api.bukkit.player.BukkitCorePlayer;
 import eu.mcone.coresystem.api.bukkit.world.BuildSystem;
-import eu.mcone.coresystem.api.bukkit.world.LocationManager;
+import eu.mcone.coresystem.api.bukkit.world.CoreWorld;
 import eu.mcone.coresystem.api.core.translation.TranslationField;
 import eu.mcone.skypvp.command.*;
 import eu.mcone.skypvp.kit.KitManager;
@@ -43,10 +43,11 @@ public class SkyPvP extends CorePlugin {
 	@Getter
 	private BuildSystem buildSystem;
 	@Getter
-	private LocationManager locationManager;
+	private CoreWorld world;
 
     public void onEnable() {
         instance = this;
+        world = CoreSystem.getInstance().getWorldManager().getWorld("Skypvp");
         registerTranslations();
 
 		sendConsoleMessage("§aKit Manager wird initiiert...");
@@ -58,9 +59,6 @@ public class SkyPvP extends CorePlugin {
 
 		sendConsoleMessage("§aBuild-System witd initiiert");
 		buildSystem = CoreSystem.getInstance().initialiseBuildSystem(false, BuildSystem.BuildEvent.BLOCK_BREAK, BuildSystem.BuildEvent.BLOCK_PLACE);
-
-		sendConsoleMessage("§aLocationManager witd initiiert");
-		locationManager = CoreSystem.getInstance().initialiseLocationManager("Skypvp").downloadLocations();
 
 		sendConsoleMessage("§aEvents und Befehle werden registriert...");
         registerCommands();

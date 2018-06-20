@@ -6,7 +6,6 @@
 package eu.mcone.skypvp.command;
 
 import eu.mcone.coresystem.api.bukkit.CoreSystem;
-import eu.mcone.coresystem.api.bukkit.util.Messager;
 import eu.mcone.skypvp.SkyPvP;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
@@ -27,21 +26,10 @@ public class SpawnCMD implements CommandExecutor{
 
                 Bukkit.getScheduler().runTaskLaterAsynchronously(SkyPvP.getInstance(), () -> {
                     if (SkyPvP.cooldownlist.contains(p)) {
-                        SkyPvP.getInstance().getLocationManager().teleport(p, "spawn");
+                        SkyPvP.getInstance().getWorld().teleport(p, "spawn");
                         SkyPvP.cooldownlist.remove(p);
                     }
                 }, 60L);
-            } else if (args[0].equals("set")) {
-                if (p.hasPermission("skypvp.spawn.set")) {
-                    if (args.length == 1) {
-                        if (p.hasPermission("group.admin") || p.hasPermission("group.developer")) {
-                            SkyPvP.getInstance().getLocationManager().putLocation("spawn", p.getLocation());
-                            SkyPvP.getInstance().getMessager().send(p, "§2Der Spawn wurde erfolgreich gesetzt!");
-                        } else {
-                            SkyPvP.getInstance().getMessager().send(p, "§4Du hast keine Berechtigung für diesen Befehl!");
-                        }
-                    }
-                }
             }
         } else {
             SkyPvP.getInstance().getMessager().sendTransl(sender, "system.command.consolesender");

@@ -20,7 +20,7 @@ public class PlayerRespawn implements Listener{
         final Player p = e.getPlayer();
         SkyPvP.damager.put(p, null);
 
-        e.setRespawnLocation(SkyPvP.getInstance().getLocationManager().getLocation("spawn"));
+        e.setRespawnLocation(SkyPvP.getInstance().getWorld().getLocation("spawn").bukkit());
 
         p.setFireTicks(0);
 
