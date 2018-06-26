@@ -55,7 +55,7 @@ public class SkyPvP extends CorePlugin {
 		kitManager.createMySQLTable();
 
 		sendConsoleMessage("§aNPC-Manager wird gestartet");
-		npcManager = CoreSystem.getInstance().initialiseNpcManager("Skypvp");
+		npcManager = CoreSystem.getInstance().initialiseNpcManager(this);
 
 		sendConsoleMessage("§aBuild-System witd initiiert");
 		buildSystem = CoreSystem.getInstance().initialiseBuildSystem(false, BuildSystem.BuildEvent.BLOCK_BREAK, BuildSystem.BuildEvent.BLOCK_PLACE);
