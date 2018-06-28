@@ -9,8 +9,10 @@ import eu.mcone.coresystem.api.bukkit.CorePlugin;
 import eu.mcone.coresystem.api.bukkit.CoreSystem;
 import eu.mcone.coresystem.api.bukkit.npc.NpcManager;
 import eu.mcone.coresystem.api.bukkit.player.BukkitCorePlayer;
+import eu.mcone.coresystem.api.bukkit.player.StatsAPI;
 import eu.mcone.coresystem.api.bukkit.world.BuildSystem;
 import eu.mcone.coresystem.api.bukkit.world.CoreWorld;
+import eu.mcone.coresystem.api.core.gamemode.Gamemode;
 import eu.mcone.coresystem.api.core.translation.TranslationField;
 import eu.mcone.skypvp.command.*;
 import eu.mcone.skypvp.kit.KitManager;
@@ -37,6 +39,8 @@ public class SkyPvP extends CorePlugin {
 	public static Map<Player, Map<Long, UUID>> damager = new HashMap<>();
 
 	@Getter
+	private StatsAPI statsAPI;
+	@Getter
 	private KitManager kitManager;
 	@Getter
 	private NpcManager npcManager;
@@ -50,14 +54,17 @@ public class SkyPvP extends CorePlugin {
         world = CoreSystem.getInstance().getWorldManager().getWorld("Skypvp");
         registerTranslations();
 
+		sendConsoleMessage("§aNPC-Manager wird initiiert...");
+		statsAPI = CoreSystem.getInstance().getStatsAPI(Gamemode.SKYPVP);
+        
 		sendConsoleMessage("§aKit Manager wird initiiert...");
 		kitManager = new KitManager(CoreSystem.getInstance().getMySQL());
 		kitManager.createMySQLTable();
 
-		sendConsoleMessage("§aNPC-Manager wird gestartet");
+		sendConsoleMessage("§aNPC-Manager wird gestartet...");
 		npcManager = CoreSystem.getInstance().initialiseNpcManager(this);
 
-		sendConsoleMessage("§aBuild-System witd initiiert");
+		sendConsoleMessage("§aBuild-System witd initiiert...");
 		buildSystem = CoreSystem.getInstance().initialiseBuildSystem(false, BuildSystem.BuildEvent.BLOCK_BREAK, BuildSystem.BuildEvent.BLOCK_PLACE);
 
 		sendConsoleMessage("§aEvents und Befehle werden registriert...");

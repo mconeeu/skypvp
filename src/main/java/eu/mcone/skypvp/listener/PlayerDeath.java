@@ -6,7 +6,6 @@
 package eu.mcone.skypvp.listener;
 
 import eu.mcone.coresystem.api.bukkit.CoreSystem;
-import eu.mcone.coresystem.api.core.gamemode.Gamemode;
 import eu.mcone.gamesystem.api.GameSystemAPI;
 import eu.mcone.skypvp.SkyPvP;
 import org.bukkit.Bukkit;
@@ -40,7 +39,7 @@ public class PlayerDeath implements Listener {
             }
 
             //Tode werden dem Spieler Hinzugefügt
-            CoreSystem.getInstance().getStatsAPI(Gamemode.SKYPVP).addDeaths(p.getUniqueId(), 1);
+            SkyPvP.getInstance().getStatsAPI().addDeaths(p.getUniqueId(), 1);
 
             int i = k.getLevel();
             k.setLevel(i+1);
@@ -56,7 +55,7 @@ public class PlayerDeath implements Listener {
             CoreSystem.getInstance().getCoinsAPI().addCoins(k.getUniqueId(), 3);
 
             //Kills werden dem Killer Hinzugefügt (1)
-            CoreSystem.getInstance().getStatsAPI(Gamemode.SKYPVP).addKills(k.getUniqueId(), 1);
+            SkyPvP.getInstance().getStatsAPI().addKills(k.getUniqueId(), 1);
 
             DecimalFormat format = new DecimalFormat("#.#");
             double health = k.getHealth();
@@ -71,7 +70,7 @@ public class PlayerDeath implements Listener {
                 CoreSystem.getInstance().getCoinsAPI().removeCoins(p.getUniqueId(), 3);
             }
             //Tod wird dem Spieler hinzugefügt
-            CoreSystem.getInstance().getStatsAPI(Gamemode.SKYPVP).addDeaths(p.getUniqueId(), 1);
+            SkyPvP.getInstance().getStatsAPI().addDeaths(p.getUniqueId(), 1);
 
             SkyPvP.getInstance().getMessager().send(p, "§7Du bist gestorben §8[§c-3 Coins§8]");
         }
