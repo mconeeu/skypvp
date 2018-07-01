@@ -5,7 +5,7 @@
 
 package eu.mcone.skypvp.listener;
 
-import eu.mcone.skypvp.SkyPvP;
+import eu.mcone.skypvp.Skypvp;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -20,7 +20,7 @@ public class EntityRegainHealth implements Listener {
             Player p = (Player) e.getEntity();
 
             if (p.getHealth() >= p.getMaxHealth()) {
-                SkyPvP.damager.put(p, null);
+                Skypvp.damager.put(p, null);
             }
         }
     }

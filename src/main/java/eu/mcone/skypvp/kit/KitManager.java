@@ -9,7 +9,7 @@ import eu.mcone.coresystem.api.bukkit.CoreSystem;
 import eu.mcone.coresystem.api.bukkit.inventory.CoreInventory;
 import eu.mcone.coresystem.api.bukkit.util.ItemBuilder;
 import eu.mcone.coresystem.api.core.mysql.MySQL;
-import eu.mcone.skypvp.SkyPvP;
+import eu.mcone.skypvp.Skypvp;
 import eu.mcone.skypvp.inventory.KitBuyInventory;
 import org.bukkit.Material;
 import org.bukkit.Sound;
@@ -57,14 +57,14 @@ public class KitManager {
                 });
             }
         };
-        asyncRunnable.runTaskTimerAsynchronously(SkyPvP.getInstance(), 100L, 100L);
+        asyncRunnable.runTaskTimerAsynchronously(Skypvp.getInstance(), 100L, 100L);
     }
 
     public void setKit(Player p, Kit kit) {
         if (!hasKit(p, kit)){
-            SkyPvP.getInstance().getMessager().send(p, "§4Du besitzt dieses Kit nicht!");
+            Skypvp.getInstance().getMessager().send(p, "§4Du besitzt dieses Kit nicht!");
         } else if (kits.containsKey(p.getUniqueId()) && kits.get(p.getUniqueId()).contains(kit)) {
-            SkyPvP.getInstance().getMessager().send(p, "§4Du hast dieses Kit bereits ausgewählt! Du kannst es erst wieder benutzen, nachdem du einmal gestorben bist!");
+            Skypvp.getInstance().getMessager().send(p, "§4Du hast dieses Kit bereits ausgewählt! Du kannst es erst wieder benutzen, nachdem du einmal gestorben bist!");
         } else {
             if (kit.equals(Kit.PLAYER)) {
                 p.getInventory().setItem(0, new ItemBuilder(Material.STONE_SWORD, 1, 0).create());
@@ -90,7 +90,7 @@ public class KitManager {
                     p.getInventory().setLeggings(new ItemBuilder(Material.IRON_LEGGINGS, 1, 0).enchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 1).enchantment(Enchantment.DURABILITY, 1).create());
                     p.getInventory().setBoots(new ItemBuilder(Material.IRON_BOOTS, 1, 0).enchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 1).enchantment(Enchantment.DURABILITY, 1).create());
                 } else {
-                    SkyPvP.getInstance().getMessager().send(p, "§4Du besitzt das §cEisen-Kit §4nicht");
+                    Skypvp.getInstance().getMessager().send(p, "§4Du besitzt das §cEisen-Kit §4nicht");
                     return;
                 }
             } else if (kit.equals(Kit.DIAMOND)) {
@@ -106,7 +106,7 @@ public class KitManager {
                     p.getInventory().setLeggings(new ItemBuilder(Material.IRON_LEGGINGS, 1, 0).enchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 3).enchantment(Enchantment.DURABILITY, 1).create());
                     p.getInventory().setBoots(new ItemBuilder(Material.IRON_BOOTS, 1, 0).enchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 3).enchantment(Enchantment.DURABILITY, 1).create());
                 } else {
-                    SkyPvP.getInstance().getMessager().send(p, "§4Du besitzt das §cDiamond-Kit §4nicht");
+                    Skypvp.getInstance().getMessager().send(p, "§4Du besitzt das §cDiamond-Kit §4nicht");
                     return;
                 }
             } else if (kit.equals(Kit.EMERALD)) {
@@ -122,7 +122,7 @@ public class KitManager {
                     p.getInventory().setLeggings(new ItemBuilder(Material.DIAMOND_LEGGINGS, 1, 0).enchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 3).enchantment(Enchantment.DURABILITY, 1).create());
                     p.getInventory().setBoots(new ItemBuilder(Material.DIAMOND_BOOTS, 1, 0).enchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 3).enchantment(Enchantment.DURABILITY, 1).create());
                 } else {
-                    SkyPvP.getInstance().getMessager().send(p, "§4Du besitzt das §cEmerald-Kit §4nicht");
+                    Skypvp.getInstance().getMessager().send(p, "§4Du besitzt das §cEmerald-Kit §4nicht");
                     return;
                 }
             }
@@ -134,14 +134,14 @@ public class KitManager {
             }
 
             p.playSound(p.getLocation(), Sound.LEVEL_UP, 1, 1);
-            SkyPvP.getInstance().getMessager().send(p, "§2Du hast das Kit " + kit.getName() + " §2erhalten");
+            Skypvp.getInstance().getMessager().send(p, "§2Du hast das Kit " + kit.getName() + " §2erhalten");
         }
     }
 
     public void setInvItem(CoreInventory inv, Player p, Kit kit, int i) {
         if (hasKit(p, kit)) {
             inv.setItem(i, new ItemBuilder(kit.getItem(), 1, 0).displayName(kit.getName()).lore("§r", "§2§oDu besitzt dieses Item!", "§8» §f§nRechtsklick§8 | §7§oAktivieren").create(), () -> {
-                SkyPvP.getInstance().getKitManager().setKit(p, kit);
+                Skypvp.getInstance().getKitManager().setKit(p, kit);
                 p.closeInventory();
             });
         } else {
@@ -157,7 +157,7 @@ public class KitManager {
 
     public void buyAndSet(Player p, Kit kit) {
         if ((kits.containsKey(p.getUniqueId()) && kits.get(p.getUniqueId()).contains(kit)) || hasKit(p, kit)) {
-            SkyPvP.getInstance().getMessager().send(p, "§4Du besitzt dieses Kit bereits!");
+            Skypvp.getInstance().getMessager().send(p, "§4Du besitzt dieses Kit bereits!");
         } else {
             if ((CoreSystem.getInstance().getCoinsAPI().getCoins(p.getUniqueId()) - kit.getCoins()) >= 0) {
                 CoreSystem.getInstance().getCoinsAPI().removeCoins(p.getUniqueId(), kit.getCoins());
@@ -165,10 +165,10 @@ public class KitManager {
                 buyedKits.getOrDefault(p, new ArrayList<>()).add(kit);
 
                 setKit(p, kit);
-                SkyPvP.getInstance().getMessager().send(p, "§2Du hast erfolgreich das Kit " + kit.getName() + "§2 gekauft!");
+                Skypvp.getInstance().getMessager().send(p, "§2Du hast erfolgreich das Kit " + kit.getName() + "§2 gekauft!");
                 p.playSound(p.getLocation(), Sound.LEVEL_UP, 1, 1);
             } else {
-                SkyPvP.getInstance().getMessager().send(p, "§4Du hast nicht genügend Coins!");
+                Skypvp.getInstance().getMessager().send(p, "§4Du hast nicht genügend Coins!");
                 p.playSound(p.getLocation(), Sound.NOTE_BASS, 1, 1);
             }
         }

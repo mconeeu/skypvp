@@ -26,14 +26,14 @@ import java.util.*;
 
 import static org.bukkit.Bukkit.getPluginManager;
 
-public class SkyPvP extends CorePlugin {
+public class Skypvp extends CorePlugin {
 
-	public SkyPvP() {
+	public Skypvp() {
 		super("Skypvp", ChatColor.BLUE, "skypvp.prefix");
 	}
 
 	@Getter
-    private static SkyPvP instance;
+    private static Skypvp instance;
 
 	public static List<Player> cooldownlist = new ArrayList<>();
 	public static Map<Player, Map<Long, UUID>> damager = new HashMap<>();

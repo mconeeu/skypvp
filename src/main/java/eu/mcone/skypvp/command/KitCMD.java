@@ -6,7 +6,7 @@
 package eu.mcone.skypvp.command;
 
 import eu.mcone.coresystem.api.bukkit.CoreSystem;
-import eu.mcone.skypvp.SkyPvP;
+import eu.mcone.skypvp.Skypvp;
 import eu.mcone.skypvp.inventory.KitInventory;
 import org.bukkit.Sound;
 import org.bukkit.command.Command;
@@ -26,10 +26,10 @@ public class KitCMD implements CommandExecutor {
 				new KitInventory(p);
 				p.playSound(p.getLocation(), Sound.CHICKEN_EGG_POP, 1, 1);
 			} else {
-				SkyPvP.getInstance().getMessager().send(p, "§cBitte nutze den Command /kit");
+				Skypvp.getInstance().getMessager().send(p, "§cBitte nutze den Command /kit");
 			}
 		} else {
-			SkyPvP.getInstance().getMessager().sendTransl(sender, "system.command.consolesender");
+			Skypvp.getInstance().getMessager().sendTransl(sender, "system.command.consolesender");
 		}
 
 		return true;

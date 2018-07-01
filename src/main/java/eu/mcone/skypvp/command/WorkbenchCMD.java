@@ -6,7 +6,7 @@
 package eu.mcone.skypvp.command;
 
 import eu.mcone.coresystem.api.bukkit.CoreSystem;
-import eu.mcone.skypvp.SkyPvP;
+import eu.mcone.skypvp.Skypvp;
 import org.bukkit.Sound;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -23,7 +23,7 @@ public class WorkbenchCMD implements CommandExecutor{
 			p.openWorkbench(null, true);
 			p.playSound(p.getLocation(), Sound.CHICKEN_EGG_POP, 1, 1);
 		} else {
-			SkyPvP.getInstance().getMessager().sendTransl(sender, "system.command.consolesender");
+			Skypvp.getInstance().getMessager().sendTransl(sender, "system.command.consolesender");
 		}
 		return true;
 	}

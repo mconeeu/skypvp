@@ -7,7 +7,7 @@ package eu.mcone.skypvp.listener;
 
 import eu.mcone.coresystem.api.bukkit.CoreSystem;
 import eu.mcone.coresystem.api.bukkit.player.BukkitCorePlayer;
-import eu.mcone.skypvp.SkyPvP;
+import eu.mcone.skypvp.Skypvp;
 import eu.mcone.skypvp.kit.Kit;
 import eu.mcone.skypvp.util.Objective;
 import org.bukkit.Effect;
@@ -25,15 +25,15 @@ public class PlayerJoin implements Listener{
         BukkitCorePlayer cp = CoreSystem.getInstance().getCorePlayer(p);
 
         p.setLevel(0);
-        SkyPvP.getInstance().getWorld().teleport(p, "spawn");
+        Skypvp.getInstance().getWorld().teleport(p, "spawn");
        
         e.setJoinMessage(CoreSystem.getInstance().getTranslationManager().get("skypvp.prefix") + CoreSystem.getInstance().getTranslationManager().get("skypvp.join").replaceAll("%player%", p.getName()));
 
         cp.getScoreboard().setNewObjective(new Objective());
 
         if (hasEmptyInventory(p)) {
-            SkyPvP.getInstance().getMessager().send(p, "§7Du scheinst neu auf SkyPvP zu sein! Du bekommst das Standart-Kit!");
-            SkyPvP.getInstance().getKitManager().setKit(p, Kit.PLAYER);
+            Skypvp.getInstance().getMessager().send(p, "§7Du scheinst neu auf SkyPvP zu sein! Du bekommst das Standart-Kit!");
+            Skypvp.getInstance().getKitManager().setKit(p, Kit.PLAYER);
         }
 
         p.getPlayer().playEffect(p.getPlayer().getLocation(), Effect.ENDER_SIGNAL, 10);

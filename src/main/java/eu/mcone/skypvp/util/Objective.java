@@ -7,7 +7,7 @@ package eu.mcone.skypvp.util;
 
 import eu.mcone.coresystem.api.bukkit.CoreSystem;
 import eu.mcone.coresystem.api.bukkit.scoreboard.CoreObjective;
-import eu.mcone.coresystem.api.core.gamemode.Gamemode;
+import eu.mcone.skypvp.Skypvp;
 import org.bukkit.scoreboard.DisplaySlot;
 import org.bukkit.scoreboard.Team;
 
@@ -27,11 +27,11 @@ public class Objective extends CoreObjective {
 
         Team kills = scoreboard.registerNewTeam("kills");
         kills.addEntry("§1");
-        kills.setPrefix(CoreSystem.getInstance().getTranslationManager().get("skypvp.scoreboard.3") + SkyPvP.getInstance().getStatsAPI().getKills(player.getUuid()));
+        kills.setPrefix(CoreSystem.getInstance().getTranslationManager().get("skypvp.scoreboard.3") + Skypvp.getInstance().getStatsAPI().getKills(player.getUuid()));
 
         Team deaths = scoreboard.registerNewTeam("deaths");
         deaths.addEntry("§3");
-        deaths.setPrefix(CoreSystem.getInstance().getTranslationManager().get("skypvp.scoreboard.5") + SkyPvP.getInstance().getStatsAPI().getDeaths(player.getUuid()));
+        deaths.setPrefix(CoreSystem.getInstance().getTranslationManager().get("skypvp.scoreboard.5") + Skypvp.getInstance().getStatsAPI().getDeaths(player.getUuid()));
 
         Team coins = scoreboard.registerNewTeam("coins");
         coins.addEntry("§5");
@@ -59,8 +59,8 @@ public class Objective extends CoreObjective {
     public void reload() {
         objective.setDisplayName(CoreSystem.getInstance().getTranslationManager().get("skypvp.scoreboard.1"));
 
-        scoreboard.getTeam("kills").setPrefix(CoreSystem.getInstance().getTranslationManager().get("skypvp.scoreboard.3") + SkyPvP.getInstance().getStatsAPI().getKills(player.getUuid()));
-        scoreboard.getTeam("deaths").setPrefix(CoreSystem.getInstance().getTranslationManager().get("skypvp.scoreboard.5") + SkyPvP.getInstance().getStatsAPI().getDeaths(player.getUuid()));
+        scoreboard.getTeam("kills").setPrefix(CoreSystem.getInstance().getTranslationManager().get("skypvp.scoreboard.3") + Skypvp.getInstance().getStatsAPI().getKills(player.getUuid()));
+        scoreboard.getTeam("deaths").setPrefix(CoreSystem.getInstance().getTranslationManager().get("skypvp.scoreboard.5") + Skypvp.getInstance().getStatsAPI().getDeaths(player.getUuid()));
         scoreboard.getTeam("coins").setPrefix(CoreSystem.getInstance().getTranslationManager().get("skypvp.scoreboard.7") + CoreSystem.getInstance().getCoinsAPI().getCoins(player.getUuid()));
 
         String event = CoreSystem.getInstance().getTranslationManager().get("skypvp.scoreboard.9");

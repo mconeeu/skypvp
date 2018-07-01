@@ -5,7 +5,7 @@
 
 package eu.mcone.skypvp.listener;
 
-import eu.mcone.skypvp.SkyPvP;
+import eu.mcone.skypvp.Skypvp;
 import eu.mcone.skypvp.kit.Kit;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -18,16 +18,16 @@ public class PlayerRespawn implements Listener{
     @EventHandler
     public void on(PlayerRespawnEvent e) {
         final Player p = e.getPlayer();
-        SkyPvP.damager.put(p, null);
+        Skypvp.damager.put(p, null);
 
-        e.setRespawnLocation(SkyPvP.getInstance().getWorld().getLocation("spawn").bukkit());
+        e.setRespawnLocation(Skypvp.getInstance().getWorld().getLocation("spawn").bukkit());
 
         p.setFireTicks(0);
 
-        Bukkit.getScheduler().scheduleSyncDelayedTask(SkyPvP.getInstance(), () -> {
+        Bukkit.getScheduler().scheduleSyncDelayedTask(Skypvp.getInstance(), () -> {
             p.getInventory().clear();
-            SkyPvP.getInstance().getKitManager().resetKits(p);
-            SkyPvP.getInstance().getKitManager().setKit(p, Kit.PLAYER);
+            Skypvp.getInstance().getKitManager().resetKits(p);
+            Skypvp.getInstance().getKitManager().setKit(p, Kit.PLAYER);
         });
     }
 

@@ -6,7 +6,7 @@
 package eu.mcone.skypvp.inventory;
 
 import eu.mcone.coresystem.api.bukkit.inventory.CoreInventory;
-import eu.mcone.skypvp.SkyPvP;
+import eu.mcone.skypvp.Skypvp;
 import eu.mcone.skypvp.kit.Kit;
 import org.bukkit.entity.Player;
 
@@ -15,10 +15,10 @@ public class KitInventory extends CoreInventory {
     public KitInventory(Player p) {
         super("§8Wähle dein Kit", p, 27, Option.FILL_EMPTY_SLOTS);
 
-        SkyPvP.getInstance().getKitManager().setInvItem(this, p, Kit.PLAYER, 10);
-        SkyPvP.getInstance().getKitManager().setInvItem(this, p, Kit.IRON, 12);
-        SkyPvP.getInstance().getKitManager().setInvItem(this, p, Kit.DIAMOND, 14);
-        SkyPvP.getInstance().getKitManager().setInvItem(this, p, Kit.EMERALD, 16);
+        Skypvp.getInstance().getKitManager().setInvItem(this, p, Kit.PLAYER, 10);
+        Skypvp.getInstance().getKitManager().setInvItem(this, p, Kit.IRON, 12);
+        Skypvp.getInstance().getKitManager().setInvItem(this, p, Kit.DIAMOND, 14);
+        Skypvp.getInstance().getKitManager().setInvItem(this, p, Kit.EMERALD, 16);
 
         openInventory();
     }
