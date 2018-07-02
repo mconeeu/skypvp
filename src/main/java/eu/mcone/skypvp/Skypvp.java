@@ -65,7 +65,7 @@ public class Skypvp extends CorePlugin {
 		npcManager = CoreSystem.getInstance().initialiseNpcManager(this);
 
 		sendConsoleMessage("§aBuild-System witd initiiert...");
-		buildSystem = CoreSystem.getInstance().initialiseBuildSystem(false, BuildSystem.BuildEvent.BLOCK_BREAK, BuildSystem.BuildEvent.BLOCK_PLACE);
+		buildSystem = CoreSystem.getInstance().initialiseBuildSystem(BuildSystem.BuildEvent.BLOCK_BREAK, BuildSystem.BuildEvent.BLOCK_PLACE);
 
 		sendConsoleMessage("§aEvents und Befehle werden registriert...");
         registerCommands();
