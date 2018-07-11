@@ -7,8 +7,7 @@ package eu.mcone.skypvp;
 
 import eu.mcone.coresystem.api.bukkit.CorePlugin;
 import eu.mcone.coresystem.api.bukkit.CoreSystem;
-import eu.mcone.coresystem.api.bukkit.npc.NpcManager;
-import eu.mcone.coresystem.api.bukkit.player.BukkitCorePlayer;
+import eu.mcone.coresystem.api.bukkit.player.CorePlayer;
 import eu.mcone.coresystem.api.bukkit.player.StatsAPI;
 import eu.mcone.coresystem.api.bukkit.world.BuildSystem;
 import eu.mcone.coresystem.api.bukkit.world.CoreWorld;
@@ -43,8 +42,6 @@ public class Skypvp extends CorePlugin {
 	@Getter
 	private KitManager kitManager;
 	@Getter
-	private NpcManager npcManager;
-	@Getter
 	private BuildSystem buildSystem;
 	@Getter
 	private CoreWorld world;
@@ -61,9 +58,6 @@ public class Skypvp extends CorePlugin {
 		kitManager = new KitManager(CoreSystem.getInstance().getMySQL());
 		kitManager.createMySQLTable();
 
-		sendConsoleMessage("§aNPC-Manager wird gestartet...");
-		npcManager = CoreSystem.getInstance().initialiseNpcManager(this);
-
 		sendConsoleMessage("§aBuild-System witd initiiert...");
 		buildSystem = CoreSystem.getInstance().initialiseBuildSystem(BuildSystem.BuildEvent.BLOCK_BREAK, BuildSystem.BuildEvent.BLOCK_PLACE);
 
@@ -73,7 +67,7 @@ public class Skypvp extends CorePlugin {
 
 		sendConsoleMessage("§aVersion §f" + this.getDescription().getVersion() + "§a wurde aktiviert...");
 
-		for (BukkitCorePlayer p : CoreSystem.getInstance().getOnlineCorePlayers()) {
+		for (CorePlayer p : CoreSystem.getInstance().getOnlineCorePlayers()) {
 		    p.getScoreboard().setNewObjective(new Objective());
         }
     }
@@ -81,7 +75,6 @@ public class Skypvp extends CorePlugin {
     public void onDisable(){
 		sendConsoleMessage("§cPlugin wurde deaktiviert!");
         kitManager.getAsyncRunnable().cancel();
-		npcManager.unsetNPCs();
     }
 
     private void registerCommands() {

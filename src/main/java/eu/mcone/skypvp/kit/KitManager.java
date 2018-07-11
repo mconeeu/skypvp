@@ -7,6 +7,7 @@ package eu.mcone.skypvp.kit;
 
 import eu.mcone.coresystem.api.bukkit.CoreSystem;
 import eu.mcone.coresystem.api.bukkit.inventory.CoreInventory;
+import eu.mcone.coresystem.api.bukkit.player.CorePlayer;
 import eu.mcone.coresystem.api.bukkit.util.ItemBuilder;
 import eu.mcone.coresystem.api.core.mysql.MySQL;
 import eu.mcone.skypvp.Skypvp;
@@ -140,14 +141,13 @@ public class KitManager {
 
     public void setInvItem(CoreInventory inv, Player p, Kit kit, int i) {
         if (hasKit(p, kit)) {
-            inv.setItem(i, new ItemBuilder(kit.getItem(), 1, 0).displayName(kit.getName()).lore("§r", "§2§oDu besitzt dieses Item!", "§8» §f§nRechtsklick§8 | §7§oAktivieren").create(), () -> {
+            inv.setItem(i, new ItemBuilder(kit.getItem(), 1, 0).displayName(kit.getName()).lore("§r", "§2§oDu besitzt dieses Item!", "§8» §f§nRechtsklick§8 | §7§oAktivieren").create(), e -> {
                 Skypvp.getInstance().getKitManager().setKit(p, kit);
                 p.closeInventory();
             });
         } else {
-            inv.setItem(i, new ItemBuilder(kit.getItem(), 1, 0).displayName(kit.getName()).lore("§r", "§c§oDu besitzt dieses Item nicht!", "§7§oKostet: §f§o" + kit.getCoins() + " Coins").create(), () -> {
-                new KitBuyInventory(p, kit);
-            });
+            inv.setItem(i, new ItemBuilder(kit.getItem(), 1, 0).displayName(kit.getName()).lore("§r", "§c§oDu besitzt dieses Item nicht!", "§7§oKostet: §f§o" + kit.getCoins() + " Coins").create(), e ->
+                    new KitBuyInventory(p, kit));
         }
     }
 
@@ -159,8 +159,10 @@ public class KitManager {
         if ((kits.containsKey(p.getUniqueId()) && kits.get(p.getUniqueId()).contains(kit)) || hasKit(p, kit)) {
             Skypvp.getInstance().getMessager().send(p, "§4Du besitzt dieses Kit bereits!");
         } else {
-            if ((CoreSystem.getInstance().getCoinsAPI().getCoins(p.getUniqueId()) - kit.getCoins()) >= 0) {
-                CoreSystem.getInstance().getCoinsAPI().removeCoins(p.getUniqueId(), kit.getCoins());
+            CorePlayer cp = CoreSystem.getInstance().getCorePlayer(p);
+
+            if ((cp.getCoins() - kit.getCoins()) >= 0) {
+                cp.removeCoins(kit.getCoins());
                 mysql.update("INSERT IGNORE INTO `skypvp_kits` (`id`, `uuid`, `kit`, `timestamp`) VALUES (NULL, '" + p.getUniqueId() + "', '" + kit.getID() + "', " + (System.currentTimeMillis() / 1000L) + ");");
                 buyedKits.getOrDefault(p, new ArrayList<>()).add(kit);
 

@@ -19,11 +19,11 @@ public class KitBuyInventory extends CoreInventory {
         super("§8» §3Kit kaufen", p, 27, CoreInventory.Option.FILL_EMPTY_SLOTS);
 
         setItem(4, new ItemBuilder(kit.getItem(), 1, 0).displayName(kit.getName()).lore("", "§7§oKostet: §f§o" + kit.getCoins() + " Coins").create());
-        setItem(21, new ItemBuilder(Material.STAINED_GLASS_PANE, 1, 5).displayName("§a§lKit kaufen").lore("", "§8» §a§nRechtsklick§8 | §7§oKaufen").create(), () -> {
+        setItem(21, new ItemBuilder(Material.STAINED_GLASS_PANE, 1, 5).displayName("§a§lKit kaufen").lore("", "§8» §a§nRechtsklick§8 | §7§oKaufen").create(), e -> {
             Skypvp.getInstance().getKitManager().buyAndSet(p, kit);
             p.closeInventory();
         });
-        setItem(23, new ItemBuilder(Material.STAINED_GLASS_PANE, 1, 14).displayName("§c§lAbbrechen").lore("", "§8» §c§nRechtsklick§8 | §7§oAbbrechen").create(), () -> {
+        setItem(23, new ItemBuilder(Material.STAINED_GLASS_PANE, 1, 14).displayName("§c§lAbbrechen").lore("", "§8» §c§nRechtsklick§8 | §7§oAbbrechen").create(), e -> {
             new KitInventory(p);
             p.playSound(p.getLocation(), Sound.NOTE_BASS, 1, 1);
         });

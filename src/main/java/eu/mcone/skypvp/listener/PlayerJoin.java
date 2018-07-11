@@ -6,7 +6,7 @@
 package eu.mcone.skypvp.listener;
 
 import eu.mcone.coresystem.api.bukkit.CoreSystem;
-import eu.mcone.coresystem.api.bukkit.player.BukkitCorePlayer;
+import eu.mcone.coresystem.api.bukkit.player.CorePlayer;
 import eu.mcone.skypvp.Skypvp;
 import eu.mcone.skypvp.kit.Kit;
 import eu.mcone.skypvp.util.Objective;
@@ -22,7 +22,7 @@ public class PlayerJoin implements Listener{
 	@EventHandler
     public void on(PlayerJoinEvent e) {
         Player p = e.getPlayer();
-        BukkitCorePlayer cp = CoreSystem.getInstance().getCorePlayer(p);
+        CorePlayer cp = CoreSystem.getInstance().getCorePlayer(p);
 
         p.setLevel(0);
         Skypvp.getInstance().getWorld().teleport(p, "spawn");

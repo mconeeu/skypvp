@@ -6,6 +6,7 @@
 package eu.mcone.skypvp.listener;
 
 import eu.mcone.coresystem.api.bukkit.CoreSystem;
+import eu.mcone.coresystem.api.bukkit.player.CorePlayer;
 import eu.mcone.gamesystem.api.GameSystemAPI;
 import eu.mcone.skypvp.Skypvp;
 import org.bukkit.Bukkit;
@@ -22,6 +23,8 @@ public class PlayerDeath implements Listener {
     @EventHandler
     public void on(PlayerDeathEvent e) {
         Player p = e.getEntity();
+        CorePlayer cp = CoreSystem.getInstance().getCorePlayer(p);
+
         Player k = p.getKiller() != null ? p.getKiller() : GameSystemAPI.getInstance().getDamageLogger().getKiller(p);
 
         e.setDeathMessage(null);
@@ -32,10 +35,9 @@ public class PlayerDeath implements Listener {
         p.playSound(p.getLocation(), Sound.VILLAGER_HIT, 1.0F, 1.0F);
 
         if(k != null){
-            int coins = CoreSystem.getInstance().getCoinsAPI().getCoins(p.getUniqueId());
-            if(coins >= 1){
+            if(cp.getCoins() > 0){
                 //Coins werden dem Spieler Abgezogen
-                CoreSystem.getInstance().getCoinsAPI().removeCoins(p.getUniqueId(), 1);
+                cp.removeCoins(1);
             }
 
             //Tode werden dem Spieler Hinzugefügt
@@ -52,7 +54,7 @@ public class PlayerDeath implements Listener {
             }
 
             //Coins werden dem Killer Hinzugefügt
-            CoreSystem.getInstance().getCoinsAPI().addCoins(k.getUniqueId(), 3);
+            CoreSystem.getInstance().getCorePlayer(k).addCoins(3);
 
             //Kills werden dem Killer Hinzugefügt (1)
             Skypvp.getInstance().getStatsAPI().addKills(k.getUniqueId(), 1);
@@ -64,10 +66,9 @@ public class PlayerDeath implements Listener {
             Skypvp.getInstance().getMessager().send(p, "§7Du wurdest von §6" + k.getDisplayName() + " §8[§c❤"+format.format(health)+"§8] §7getötet §8[§c-1 Coins§8]");
             Skypvp.getInstance().getMessager().send(k, "§7Du hast §6" + p.getDisplayName() + " §7getötet §8[§a+3 Coins§8]");
         } else {
-            int coins = CoreSystem.getInstance().getCoinsAPI().getCoins(p.getUniqueId());
-            if(coins >= 3){
+            if(cp.getCoins() >= 3){
                 //Coins werden dem Spieler Abgezogen (3)
-                CoreSystem.getInstance().getCoinsAPI().removeCoins(p.getUniqueId(), 3);
+                cp.removeCoins(3);
             }
             //Tod wird dem Spieler hinzugefügt
             Skypvp.getInstance().getStatsAPI().addDeaths(p.getUniqueId(), 1);
