@@ -9,7 +9,7 @@ import eu.mcone.coresystem.api.bukkit.CoreSystem;
 import eu.mcone.coresystem.api.bukkit.player.CorePlayer;
 import eu.mcone.skypvp.Skypvp;
 import eu.mcone.skypvp.kit.Kit;
-import eu.mcone.skypvp.util.Objective;
+import eu.mcone.skypvp.util.SidebarObjective;
 import org.bukkit.Effect;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -29,7 +29,7 @@ public class PlayerJoin implements Listener{
        
         e.setJoinMessage(CoreSystem.getInstance().getTranslationManager().get("skypvp.prefix") + CoreSystem.getInstance().getTranslationManager().get("skypvp.join").replaceAll("%player%", p.getName()));
 
-        cp.getScoreboard().setNewObjective(new Objective());
+        cp.getScoreboard().setNewObjective(new SidebarObjective());
 
         if (hasEmptyInventory(p)) {
             Skypvp.getInstance().getMessager().send(p, "§7Du scheinst neu auf SkyPvP zu sein! Du bekommst das Standart-Kit!");

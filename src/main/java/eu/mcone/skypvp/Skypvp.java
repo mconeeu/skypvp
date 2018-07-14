@@ -12,11 +12,10 @@ import eu.mcone.coresystem.api.bukkit.player.StatsAPI;
 import eu.mcone.coresystem.api.bukkit.world.BuildSystem;
 import eu.mcone.coresystem.api.bukkit.world.CoreWorld;
 import eu.mcone.coresystem.api.core.gamemode.Gamemode;
-import eu.mcone.coresystem.api.core.translation.TranslationField;
 import eu.mcone.skypvp.command.*;
 import eu.mcone.skypvp.kit.KitManager;
 import eu.mcone.skypvp.listener.*;
-import eu.mcone.skypvp.util.Objective;
+import eu.mcone.skypvp.util.SidebarObjective;
 import lombok.Getter;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
@@ -49,7 +48,7 @@ public class Skypvp extends CorePlugin {
     public void onEnable() {
         instance = this;
         world = CoreSystem.getInstance().getWorldManager().getWorld("Skypvp");
-        registerTranslations();
+        CoreSystem.getInstance().getTranslationManager().loadCategories(this);
 
 		sendConsoleMessage("§aNPC-Manager wird initiiert...");
 		statsAPI = CoreSystem.getInstance().getStatsAPI(Gamemode.SKYPVP);
@@ -68,7 +67,7 @@ public class Skypvp extends CorePlugin {
 		sendConsoleMessage("§aVersion §f" + this.getDescription().getVersion() + "§a wurde aktiviert...");
 
 		for (CorePlayer p : CoreSystem.getInstance().getOnlineCorePlayers()) {
-		    p.getScoreboard().setNewObjective(new Objective());
+		    p.getScoreboard().setNewObjective(new SidebarObjective());
         }
     }
 
@@ -99,26 +98,5 @@ public class Skypvp extends CorePlugin {
         getPluginManager().registerEvents(new PlayerRespawn(),this);
 		getPluginManager().registerEvents(new StatsChange(),this);
     }
-
-	private void registerTranslations(){
-		CoreSystem.getInstance().getTranslationManager().insertIfNotExists(
-				new HashMap<String, TranslationField>(){{
-					put("skypvp.prefix", new TranslationField("&8[&7&l!&8] &9SkyPvP &8» "));
-					put("skypvp.join", new TranslationField("&f%player% &7betritt &9SkyPvP§7."));
-					put("skypvp.quit", new TranslationField("&f%player% &7verlässt &9SkyPvP§7."));
-					put("skypvp.itemframe", new TranslationField("&8» &9&lSkyPvP &7Free Items"));
-					put("skypvp.scoreboard.1", new TranslationField("&3&lMCONE.EU"));
-					put("skypvp.scoreboard.2", new TranslationField("&8» &7Kills:"));
-					put("skypvp.scoreboard.3", new TranslationField(" &9"));
-					put("skypvp.scoreboard.4", new TranslationField("&8» &7Tode:"));
-					put("skypvp.scoreboard.5", new TranslationField(" &c"));
-					put("skypvp.scoreboard.6", new TranslationField("&8» &7Coins:"));
-					put("skypvp.scoreboard.7", new TranslationField(" &f"));
-					put("skypvp.scoreboard.8", new TranslationField("&8» &7Event"));
-					put("skypvp.scoreboard.9", new TranslationField(" &8&oNichts geplant"));
-					put("skypvp.scoreboard.10", new TranslationField("&f§lMCONE.EU"));
-				}}
-		);
-	}
 
 }

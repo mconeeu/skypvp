@@ -15,6 +15,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.PlayerDeathEvent;
+import org.bukkit.scoreboard.DisplaySlot;
 
 import java.text.DecimalFormat;
 
@@ -75,6 +76,12 @@ public class PlayerDeath implements Listener {
 
             Skypvp.getInstance().getMessager().send(p, "§7Du bist gestorben §8[§c-3 Coins§8]");
         }
+
+        Bukkit.getScheduler().runTask(Skypvp.getInstance(), () -> {
+            for (CorePlayer player : CoreSystem.getInstance().getOnlineCorePlayers()) {
+                player.getScoreboard().getObjective(DisplaySlot.BELOW_NAME).reload();
+            }
+        });
     }
 
 }
