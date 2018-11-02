@@ -8,7 +8,7 @@ package eu.mcone.skypvp.inventory;
 import eu.mcone.coresystem.api.bukkit.inventory.CoreInventory;
 import eu.mcone.coresystem.api.bukkit.util.ItemBuilder;
 import eu.mcone.skypvp.Skypvp;
-import eu.mcone.skypvp.kit.Kit;
+import eu.mcone.skypvp.player.Kit;
 import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
@@ -20,7 +20,7 @@ public class KitBuyInventory extends CoreInventory {
 
         setItem(4, new ItemBuilder(kit.getItem(), 1, 0).displayName(kit.getName()).lore("", "§7§oKostet: §f§o" + kit.getCoins() + " Coins").create());
         setItem(21, new ItemBuilder(Material.STAINED_GLASS_PANE, 1, 5).displayName("§a§lKit kaufen").lore("", "§8» §a§nRechtsklick§8 | §7§oKaufen").create(), e -> {
-            Skypvp.getInstance().getKitManager().buyAndSet(p, kit);
+            Skypvp.getInstance().getSkypvpPlayer(p.getUniqueId()).buyAndSet(kit);
             p.closeInventory();
         });
         setItem(23, new ItemBuilder(Material.STAINED_GLASS_PANE, 1, 14).displayName("§c§lAbbrechen").lore("", "§8» §c§nRechtsklick§8 | §7§oAbbrechen").create(), e -> {

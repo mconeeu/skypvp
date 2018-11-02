@@ -8,36 +8,34 @@ package eu.mcone.skypvp;
 import eu.mcone.coresystem.api.bukkit.CorePlugin;
 import eu.mcone.coresystem.api.bukkit.CoreSystem;
 import eu.mcone.coresystem.api.bukkit.player.CorePlayer;
-import eu.mcone.coresystem.api.bukkit.player.StatsAPI;
+import eu.mcone.coresystem.api.bukkit.player.profile.PlayerDataProfile;
 import eu.mcone.coresystem.api.bukkit.world.BuildSystem;
 import eu.mcone.coresystem.api.bukkit.world.CoreWorld;
-import eu.mcone.coresystem.api.core.gamemode.Gamemode;
 import eu.mcone.skypvp.command.*;
-import eu.mcone.skypvp.kit.KitManager;
 import eu.mcone.skypvp.listener.*;
+import eu.mcone.skypvp.player.KitManager;
+import eu.mcone.skypvp.player.SkypvpPlayer;
 import eu.mcone.skypvp.util.SidebarObjective;
 import lombok.Getter;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
-import java.util.*;
-
-import static org.bukkit.Bukkit.getPluginManager;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+import java.util.UUID;
 
 public class Skypvp extends CorePlugin {
 
 	public Skypvp() {
-		super("Skypvp", ChatColor.BLUE, "skypvp.prefix");
+		super("skypvp", ChatColor.BLUE, "skypvp.prefix");
 	}
 
 	@Getter
     private static Skypvp instance;
+    public static List<Player> cooldownlist = new ArrayList<>();
+	private List<SkypvpPlayer> players;
 
-	public static List<Player> cooldownlist = new ArrayList<>();
-	public static Map<Player, Map<Long, UUID>> damager = new HashMap<>();
-
-	@Getter
-	private StatsAPI statsAPI;
 	@Getter
 	private KitManager kitManager;
 	@Getter
@@ -47,15 +45,14 @@ public class Skypvp extends CorePlugin {
 
     public void onEnable() {
         instance = this;
-        world = CoreSystem.getInstance().getWorldManager().getWorld("Skypvp");
-        CoreSystem.getInstance().getTranslationManager().loadCategories(this);
+        players = new ArrayList<>();
 
-		sendConsoleMessage("§aNPC-Manager wird initiiert...");
-		statsAPI = CoreSystem.getInstance().getStatsAPI(Gamemode.SKYPVP);
+        world = CoreSystem.getInstance().getWorldManager().getWorld("Skypvp");
+        PlayerDataProfile.doSetGameProfileWorld(world.bukkit());
+        CoreSystem.getInstance().getTranslationManager().loadCategories(this);
         
 		sendConsoleMessage("§aKit Manager wird initiiert...");
-		kitManager = new KitManager(CoreSystem.getInstance().getMySQL());
-		kitManager.createMySQLTable();
+		kitManager = new KitManager();
 
 		sendConsoleMessage("§aBuild-System witd initiiert...");
 		buildSystem = CoreSystem.getInstance().initialiseBuildSystem(BuildSystem.BuildEvent.BLOCK_BREAK, BuildSystem.BuildEvent.BLOCK_PLACE);
@@ -68,35 +65,73 @@ public class Skypvp extends CorePlugin {
 
 		for (CorePlayer p : CoreSystem.getInstance().getOnlineCorePlayers()) {
 		    p.getScoreboard().setNewObjective(new SidebarObjective());
+		    new SkypvpPlayer(p);
         }
     }
 
     public void onDisable(){
+        for (SkypvpPlayer sp : getSkypvpPlayers()) {
+            sp.saveData();
+        }
+
 		sendConsoleMessage("§cPlugin wurde deaktiviert!");
-        kitManager.getAsyncRunnable().cancel();
     }
 
     private void registerCommands() {
-    	getCommand("ec").setExecutor(new EndechestCMD());
-    	getCommand("shop").setExecutor(new ShopCMD());
-    	getCommand("wb").setExecutor(new WorkbenchCMD());
-    	getCommand("kit").setExecutor(new KitCMD());
-    	getCommand("spawn").setExecutor(new SpawnCMD());
-    	getCommand("random").setExecutor(new RandomCMD());
+    	registerCommands(
+    			new EndechestCMD(),
+				new KitCMD(),
+				new RandomCMD(),
+				new ShopCMD(),
+				new SpawnCMD(),
+				new WorkbenchCMD()
+		);
     }
 
     private void registerEvents() {
-        getPluginManager().registerEvents(new CoinsChange(), this);
-        getPluginManager().registerEvents(new EntityDamage(),this);
-        getPluginManager().registerEvents(new EntityDamageByEntity(),this);
-        getPluginManager().registerEvents(new PlayerBedEnter(),this);
-        getPluginManager().registerEvents(new PlayerDeath(),this);
-        getPluginManager().registerEvents(new PlayerInteractEntity(),this);
-        getPluginManager().registerEvents(new PlayerJoin(),this);
-        getPluginManager().registerEvents(new PlayerMove(),this);
-        getPluginManager().registerEvents(new PlayerQuit(),this);
-        getPluginManager().registerEvents(new PlayerRespawn(),this);
-		getPluginManager().registerEvents(new StatsChange(),this);
+    	registerEvents(
+    			new CoinsChange(),
+				new EntityDamage(),
+				new EntityDamageByEntity(),
+				new PlayerBedEnter(),
+				new PlayerDeath(),
+				new PlayerInteractEntity(),
+				new PlayerJoin(),
+				new PlayerMove(),
+				new PlayerQuit(),
+				new PlayerRespawn(),
+				new StatsChange()
+		);
+    }
+
+	public SkypvpPlayer getSkypvpPlayer(UUID uuid) {
+		for (SkypvpPlayer sp : players) {
+			if (sp.getCorePlayer().getUuid().equals(uuid)) {
+				return sp;
+			}
+		}
+		return null;
+	}
+
+	public SkypvpPlayer getSkypvpPlayer(String name) {
+		for (SkypvpPlayer sp : players) {
+			if (sp.getCorePlayer().getName().equals(name)) {
+				return sp;
+			}
+		}
+		return null;
+	}
+
+	public Collection<SkypvpPlayer> getSkypvpPlayers() {
+		return players;
+	}
+
+	public void registerSkypvpPlayer(SkypvpPlayer sp) {
+		players.add(sp);
+	}
+
+    public void unregisterSkypvpPlayer(SkypvpPlayer sp) {
+        players.remove(sp);
     }
 
 }

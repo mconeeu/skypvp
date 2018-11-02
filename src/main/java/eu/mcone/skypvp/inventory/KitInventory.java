@@ -7,7 +7,7 @@ package eu.mcone.skypvp.inventory;
 
 import eu.mcone.coresystem.api.bukkit.inventory.CoreInventory;
 import eu.mcone.skypvp.Skypvp;
-import eu.mcone.skypvp.kit.Kit;
+import eu.mcone.skypvp.player.Kit;
 import org.bukkit.entity.Player;
 
 public class KitInventory extends CoreInventory {

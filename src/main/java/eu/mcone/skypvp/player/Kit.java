@@ -3,18 +3,23 @@
  * You are not allowed to decompile the code
  */
 
-package eu.mcone.skypvp.kit;
+package eu.mcone.skypvp.player;
 
+import lombok.Getter;
 import org.bukkit.Material;
 
 public enum Kit {
+
     PLAYER(0, "§8Standart-Kit", null, 0, Material.STONE_SWORD),
     IRON(1, "§7Iron-Kit", "skypvp.kit.iron", 500, Material.IRON_SWORD),
     DIAMOND(2, "§bDiamond-Kit", "skypvp.kit.diamond", 1000, Material.DIAMOND_SWORD),
     EMERALD(3, "§aEmerald-Kit", "skypvp.kit.emerald", 10000, Material.EMERALD);
 
+    @Getter
     private int id, coins;
+    @Getter
     private String name, permission;
+    @Getter
     private Material item;
 
     Kit(int id, String name, String permission, int coins, Material item) {
@@ -23,26 +28,6 @@ public enum Kit {
         this.permission = permission;
         this.coins = coins;
         this.item = item;
-    }
-
-    public int getID() {
-        return this.id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public String getPermission() {
-        return permission;
-    }
-
-    public int getCoins() {
-        return coins;
-    }
-
-    public Material getItem() {
-        return item;
     }
 
     public static Kit getKitByName(String name) {
@@ -56,7 +41,7 @@ public enum Kit {
 
     public static Kit getKitByID(int id) {
         for (Kit kit : Kit.values()) {
-            if (kit.getID() == id) {
+            if (kit.getId() == id) {
                 return kit;
             }
         }
