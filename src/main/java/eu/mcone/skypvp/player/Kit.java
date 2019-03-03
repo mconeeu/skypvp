@@ -30,15 +30,6 @@ public enum Kit {
         this.item = item;
     }
 
-    public static Kit getKitByName(String name) {
-        for (Kit kit : Kit.values()) {
-            if (kit.getName().equals(name)) {
-                return kit;
-            }
-        }
-        return null;
-    }
-
     public static Kit getKitByID(int id) {
         for (Kit kit : Kit.values()) {
             if (kit.getId() == id) {

@@ -21,8 +21,8 @@ public class KitManager {
 
         if (!p.hasKit(kit)){
             Skypvp.getInstance().getMessager().send(bp, "§4Du besitzt dieses Kit nicht!");
-        } else if (p.getCurrentKit() != null && p.getCurrentKit().equals(kit)) {
-            Skypvp.getInstance().getMessager().send(bp, "§4Du hast dieses Kit bereits ausgewählt! Du kannst es erst wieder benutzen, nachdem du einmal gestorben bist!");
+        } else if (p.getCurrentKit() != null && !p.getCurrentKit().equals(Kit.PLAYER)) {
+            Skypvp.getInstance().getMessager().send(bp, "§4Du hast bereits ein Kit ausgewählt! Du kannst erst wieder wechseln, nachdem du einmal gestorben bist!");
         } else {
             if (kit.equals(Kit.PLAYER)) {
                 bp.getInventory().setItem(0, new ItemBuilder(Material.STONE_SWORD, 1, 0).create());

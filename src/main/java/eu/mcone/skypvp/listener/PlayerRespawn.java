@@ -7,6 +7,7 @@ package eu.mcone.skypvp.listener;
 
 import eu.mcone.skypvp.Skypvp;
 import eu.mcone.skypvp.player.Kit;
+import eu.mcone.skypvp.player.SkypvpPlayer;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -25,7 +26,10 @@ public class PlayerRespawn implements Listener{
 
         Bukkit.getScheduler().scheduleSyncDelayedTask(Skypvp.getInstance(), () -> {
             p.getInventory().clear();
-            Skypvp.getInstance().getKitManager().setKit(Skypvp.getInstance().getSkypvpPlayer(p.getUniqueId()), Kit.PLAYER);
+
+            SkypvpPlayer sp = Skypvp.getInstance().getSkypvpPlayer(p.getUniqueId());
+            sp.resetCurrentKit();
+            Skypvp.getInstance().getKitManager().setKit(sp, Kit.PLAYER);
         });
     }
 

@@ -52,7 +52,7 @@ public class SkypvpPlayer {
     public void buyAndSet(Kit kit) {
         Player bp = Bukkit.getPlayer(corePlayer.getUuid());
 
-        if ((currentKit != null && !currentKit.equals(kit)) || hasKit(kit)) {
+        if (hasKit(kit)) {
             Skypvp.getInstance().getMessager().send(bp, "§4Du besitzt dieses Kit bereits!");
         } else {
             if ((corePlayer.getCoins() - kit.getCoins()) >= 0) {
@@ -72,6 +72,10 @@ public class SkypvpPlayer {
 
     void setCurrentKit(Kit kit) {
         currentKit = kit;
+    }
+
+    public void resetCurrentKit() {
+        currentKit = null;
     }
 
 }
