@@ -10,19 +10,22 @@ import eu.mcone.coresystem.api.bukkit.player.CorePlayer;
 import eu.mcone.coresystem.api.core.gamemode.Gamemode;
 import eu.mcone.gamesystem.api.GameSystemAPI;
 import eu.mcone.skypvp.Skypvp;
+import eu.mcone.skypvp.player.Kit;
+import eu.mcone.skypvp.player.SkypvpPlayer;
 import org.bukkit.Bukkit;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.PlayerDeathEvent;
+import org.bukkit.event.player.PlayerRespawnEvent;
 
 import java.text.DecimalFormat;
 
-public class PlayerDeath implements Listener {
+public class PlayerDeathListener implements Listener{
 
     @EventHandler
-    public void on(PlayerDeathEvent e) {
+    public void onDeath(PlayerDeathEvent e) {
         Player p = e.getEntity();
         CorePlayer cp = CoreSystem.getInstance().getCorePlayer(p);
 
@@ -64,6 +67,23 @@ public class PlayerDeath implements Listener {
 
             Skypvp.getInstance().getMessager().send(p, "§7Du bist gestorben §8[§c-3 Coins§8]");
         }
+    }
+
+    @EventHandler
+    public void onRespawn(PlayerRespawnEvent e) {
+        final Player p = e.getPlayer();
+
+        e.setRespawnLocation(Skypvp.getInstance().getWorld().getLocation("spawn"));
+
+        p.setFireTicks(0);
+
+        Bukkit.getScheduler().scheduleSyncDelayedTask(Skypvp.getInstance(), () -> {
+            p.getInventory().clear();
+
+            SkypvpPlayer sp = Skypvp.getInstance().getSkypvpPlayer(p.getUniqueId());
+            sp.resetCurrentKit();
+            Skypvp.getInstance().getKitManager().setKit(sp, Kit.PLAYER);
+        });
     }
 
 }

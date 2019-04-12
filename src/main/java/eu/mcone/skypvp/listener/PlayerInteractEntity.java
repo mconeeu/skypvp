@@ -20,7 +20,7 @@ import org.bukkit.inventory.ItemStack;
 public class PlayerInteractEntity implements Listener {
 
     @EventHandler
-    public void on(PlayerInteractEntityEvent e){
+    public void onInteractEntity(PlayerInteractEntityEvent e){
         Player p = e.getPlayer();
         Entity ent = e.getRightClicked();
 
@@ -29,13 +29,6 @@ public class PlayerInteractEntity implements Listener {
                 ItemFrame itemframe = (ItemFrame) ent;
                 e.setCancelled(true);
                 openFreeItemsInventory(p, itemframe.getItem());
-            }
-        } else if (e.getRightClicked() instanceof Player) {
-            Player clicked = (Player) e.getRightClicked();
-            if (clicked.getDisplayName().equals("§8» §c§lShop")) {
-                p.performCommand("shop");
-            } else if (clicked.getDisplayName().equals("§8» §c§lKits")) {
-                p.performCommand("kit");
             }
         }
 

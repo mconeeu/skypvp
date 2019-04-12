@@ -90,17 +90,12 @@ public class Skypvp extends CorePlugin {
 
     private void registerEvents() {
     	registerEvents(
-    			new CoinsChange(),
-				new EntityDamage(),
-				new EntityDamageByEntity(),
-				new PlayerBedEnter(),
-				new PlayerDeath(),
+				new EntityDamageListener(),
+				new GeneralPlayerListener(),
+				new NpcInteract(),
+				new PlayerDeathListener(),
 				new PlayerInteractEntity(),
-				new PlayerJoin(),
-				new PlayerMove(),
-				new PlayerQuit(),
-				new PlayerRespawn(),
-				new StatsChange()
+				new PlayerUpdateListener()
 		);
     }
 
