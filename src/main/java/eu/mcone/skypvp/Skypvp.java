@@ -18,7 +18,6 @@ import eu.mcone.skypvp.player.SkypvpPlayer;
 import eu.mcone.skypvp.util.SidebarObjective;
 import lombok.Getter;
 import org.bukkit.ChatColor;
-import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -33,7 +32,6 @@ public class Skypvp extends CorePlugin {
 
 	@Getter
     private static Skypvp instance;
-    public static List<Player> cooldownlist = new ArrayList<>();
 	private List<SkypvpPlayer> players;
 
 	@Getter
@@ -51,17 +49,17 @@ public class Skypvp extends CorePlugin {
         PlayerDataProfile.doSetGameProfileWorld(world.bukkit());
         CoreSystem.getInstance().getTranslationManager().loadCategories(this);
         
-		sendConsoleMessage("§aKit Manager wird initiiert...");
+		sendConsoleMessage("§aInitializing Kit Manager...");
 		kitManager = new KitManager();
 
-		sendConsoleMessage("§aBuild-System witd initiiert...");
+		sendConsoleMessage("§aInitializing Build-System...");
 		buildSystem = CoreSystem.getInstance().initialiseBuildSystem(BuildSystem.BuildEvent.BLOCK_BREAK, BuildSystem.BuildEvent.BLOCK_PLACE);
 
-		sendConsoleMessage("§aEvents und Befehle werden registriert...");
+		sendConsoleMessage("§aRegistering Events & Commands...");
         registerCommands();
         registerEvents();
 
-		sendConsoleMessage("§aVersion §f" + this.getDescription().getVersion() + "§a wurde aktiviert...");
+		sendConsoleMessage("§aVersion §f" + this.getDescription().getVersion() + "§a enabled...");
 
 		for (CorePlayer p : CoreSystem.getInstance().getOnlineCorePlayers()) {
 		    p.getScoreboard().setNewObjective(new SidebarObjective());
@@ -74,7 +72,7 @@ public class Skypvp extends CorePlugin {
             sp.saveData();
         }
 
-		sendConsoleMessage("§cPlugin wurde deaktiviert!");
+		sendConsoleMessage("§cPlugin disabled!");
     }
 
     private void registerCommands() {
@@ -83,9 +81,9 @@ public class Skypvp extends CorePlugin {
 				new KitCMD(),
 				new RandomCMD(),
 				new ShopCMD(),
-				new SpawnCMD(),
 				new WorkbenchCMD()
 		);
+    	CoreSystem.getInstance().enableSpawnCommand(this, world, 3);
     }
 
     private void registerEvents() {

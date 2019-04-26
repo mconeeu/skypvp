@@ -20,7 +20,6 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerBedEnterEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
-import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.inventory.ItemStack;
 
@@ -61,16 +60,6 @@ public class GeneralPlayerListener implements Listener{
     	e.setCancelled(true);
     	Skypvp.getInstance().getMessager().send(p, "§cHier darf man kein Bett benutzen!");
     }
-
-	@EventHandler
-	public void onMove(PlayerMoveEvent e) {
-		Player p = e.getPlayer();
-
-		if (Skypvp.cooldownlist.contains(p)){
-			Skypvp.cooldownlist.remove(p);
-			Skypvp.getInstance().getMessager().send(p, "§4Du hast dich bewegt! Teleportation abgebrochen");
-		}
-	}
 
 	@EventHandler(priority = EventPriority.LOW)
 	public void on(PlayerQuitEvent e) {
