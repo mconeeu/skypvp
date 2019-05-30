@@ -19,6 +19,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerRespawnEvent;
+import org.bukkit.util.Vector;
 
 import java.text.DecimalFormat;
 
@@ -35,17 +36,15 @@ public class PlayerDeathListener implements Listener{
         e.setKeepInventory(false);
         e.getDrops().clear();
         p.setLevel(0);
+
+        p.setVelocity(new Vector(0, 0, 0));
         p.spigot().respawn();
-        p.playSound(p.getLocation(), Sound.VILLAGER_HIT, 1.0F, 1.0F);
 
         if(k != null){
             CorePlayer ck = CoreSystem.getInstance().getCorePlayer(k);
 
             ck.addCoins(3);
             ck.getStats(Gamemode.SKYPVP).addKills(1);
-
-            cp.getStats(Gamemode.SKYPVP).addDeaths(1);
-            if(cp.getCoins() > 0) cp.removeCoins(1);
             k.setLevel(k.getLevel()+1);
 
             for (int streak : new int[]{3,5,10,15,20,25,30,35,40,50,55,60}) {
@@ -61,12 +60,16 @@ public class PlayerDeathListener implements Listener{
 
             Skypvp.getInstance().getMessager().send(p, "§7Du wurdest von §6" + k.getDisplayName() + " §8[§c❤"+format.format(health)+"§8] §7getötet §8[§c-1 Coins§8]");
             Skypvp.getInstance().getMessager().send(k, "§7Du hast §6" + p.getDisplayName() + " §7getötet §8[§a+3 Coins§8]");
+            if(cp.getCoins() > 0) cp.removeCoins(1);
         } else {
             if(cp.getCoins() >= 3) cp.removeCoins(3);
             cp.getStats(Gamemode.SKYPVP).addDeaths(1);
 
             Skypvp.getInstance().getMessager().send(p, "§7Du bist gestorben §8[§c-3 Coins§8]");
         }
+
+        p.playSound(p.getLocation(), Sound.VILLAGER_HIT, 1.0F, 1.0F);
+        cp.getStats(Gamemode.SKYPVP).addDeaths(1);
     }
 
     @EventHandler
