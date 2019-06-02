@@ -19,6 +19,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerRespawnEvent;
+import org.bukkit.potion.PotionEffectType;
 import org.bukkit.util.Vector;
 
 import java.text.DecimalFormat;
@@ -46,6 +47,7 @@ public class PlayerDeathListener implements Listener{
             ck.addCoins(3);
             ck.getStats(Gamemode.SKYPVP).addKills(1);
             k.setLevel(k.getLevel()+1);
+            k.addPotionEffect(PotionEffectType.REGENERATION.createEffect(20*20, 3));
 
             for (int streak : new int[]{3,5,10,15,20,25,30,35,40,50,55,60}) {
                 if (p.getLevel() == streak) {

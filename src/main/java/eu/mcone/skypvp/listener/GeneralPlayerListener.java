@@ -33,7 +33,6 @@ public class GeneralPlayerListener implements Listener{
 		Player p = e.getPlayer();
 		CorePlayer cp = CoreSystem.getInstance().getCorePlayer(p);
 
-		Skypvp.getInstance().getWorld().teleport(p, "spawn");
 		e.setJoinMessage(CoreSystem.getInstance().getTranslationManager().get("skypvp.prefix") + CoreSystem.getInstance().getTranslationManager().get("skypvp.join").replaceAll("%player%", p.getName()));
 		p.getInventory().clear();
 

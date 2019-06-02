@@ -9,6 +9,8 @@ import eu.mcone.coresystem.api.bukkit.CorePlugin;
 import eu.mcone.coresystem.api.bukkit.CoreSystem;
 import eu.mcone.coresystem.api.bukkit.player.CorePlayer;
 import eu.mcone.coresystem.api.bukkit.player.profile.PlayerDataProfile;
+import eu.mcone.coresystem.api.bukkit.player.profile.interfaces.EnderchestManager;
+import eu.mcone.coresystem.api.bukkit.player.profile.interfaces.EnderchestManagerGetter;
 import eu.mcone.coresystem.api.bukkit.world.BuildSystem;
 import eu.mcone.coresystem.api.bukkit.world.CoreWorld;
 import eu.mcone.skypvp.command.*;
@@ -18,13 +20,14 @@ import eu.mcone.skypvp.player.SkypvpPlayer;
 import eu.mcone.skypvp.util.SidebarObjective;
 import lombok.Getter;
 import org.bukkit.ChatColor;
+import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.UUID;
 
-public class Skypvp extends CorePlugin {
+public class Skypvp extends CorePlugin implements EnderchestManagerGetter {
 
 	public Skypvp() {
 		super("skypvp", ChatColor.BLUE, "skypvp.prefix");
@@ -56,15 +59,31 @@ public class Skypvp extends CorePlugin {
 		buildSystem = CoreSystem.getInstance().initialiseBuildSystem(BuildSystem.BuildEvent.BLOCK_BREAK, BuildSystem.BuildEvent.BLOCK_PLACE);
 
 		sendConsoleMessage("§aRegistering Events & Commands...");
-        registerCommands();
-        registerEvents();
-
-		sendConsoleMessage("§aVersion §f" + this.getDescription().getVersion() + "§a enabled...");
+		registerCommands(
+				new EndechestCMD(),
+				new KitCMD(),
+				new RandomCMD(),
+				new ShopCMD(),
+				new WorkbenchCMD()
+		);
+		registerEvents(
+				new EntityDamageListener(),
+				new GeneralPlayerListener(),
+				new NpcInteract(),
+				new PlayerDeathListener(),
+				new PlayerInteractEntity(),
+				new PlayerUpdateListener()
+		);
+		CoreSystem.getInstance().enableSpawnCommand(this, world, 3);
+		CoreSystem.getInstance().enableTpaSystem(this, 3);
+        CoreSystem.getInstance().enableEnderchestSystem(this);
 
 		for (CorePlayer p : CoreSystem.getInstance().getOnlineCorePlayers()) {
 		    p.getScoreboard().setNewObjective(new SidebarObjective());
 		    new SkypvpPlayer(p);
         }
+
+		sendConsoleMessage("§aVersion §f" + this.getDescription().getVersion() + "§a enabled...");
     }
 
     public void onDisable(){
@@ -73,28 +92,6 @@ public class Skypvp extends CorePlugin {
         }
 
 		sendConsoleMessage("§cPlugin disabled!");
-    }
-
-    private void registerCommands() {
-    	registerCommands(
-    			new EndechestCMD(),
-				new KitCMD(),
-				new RandomCMD(),
-				new ShopCMD(),
-				new WorkbenchCMD()
-		);
-    	CoreSystem.getInstance().enableSpawnCommand(this, world, 3);
-    }
-
-    private void registerEvents() {
-    	registerEvents(
-				new EntityDamageListener(),
-				new GeneralPlayerListener(),
-				new NpcInteract(),
-				new PlayerDeathListener(),
-				new PlayerInteractEntity(),
-				new PlayerUpdateListener()
-		);
     }
 
 	public SkypvpPlayer getSkypvpPlayer(UUID uuid) {
@@ -126,5 +123,10 @@ public class Skypvp extends CorePlugin {
     public void unregisterSkypvpPlayer(SkypvpPlayer sp) {
         players.remove(sp);
     }
+
+	@Override
+	public EnderchestManager getEnderchestManager(Player player) {
+		return getSkypvpPlayer(player.getUniqueId());
+	}
 
 }

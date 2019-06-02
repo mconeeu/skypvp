@@ -6,6 +6,7 @@
 package eu.mcone.skypvp.player;
 
 import eu.mcone.coresystem.api.bukkit.player.CorePlayer;
+import eu.mcone.coresystem.api.bukkit.player.plugin.GamePlayerInventory;
 import eu.mcone.skypvp.Skypvp;
 import lombok.Getter;
 import org.bukkit.Bukkit;
@@ -14,35 +15,34 @@ import org.bukkit.entity.Player;
 
 import java.util.List;
 
-public class SkypvpPlayer {
+public class SkypvpPlayer extends GamePlayerInventory<SkypvpPlayerProfile> {
 
-    @Getter
-    private final CorePlayer corePlayer;
     @Getter
     private List<Kit> kits;
-
     @Getter
     private Kit currentKit;
 
     public SkypvpPlayer(CorePlayer corePlayer) {
-        this.corePlayer = corePlayer;
-        reload();
-    }
-
-    public void reload() {
-        SkypvpPlayerProfile profile = Skypvp.getInstance().loadGameProfile(corePlayer.bukkit(), SkypvpPlayerProfile.class);
-        this.kits = profile.calculateKits();
-        profile.doSetData(bukkit());
-
+        super(corePlayer);
         Skypvp.getInstance().registerSkypvpPlayer(this);
     }
 
-    public void saveData() {
-        Skypvp.getInstance().saveGameProfile(new SkypvpPlayerProfile(corePlayer.bukkit()));
+    @Override
+    public SkypvpPlayerProfile reload() {
+        SkypvpPlayerProfile profile = super.reload();
+        this.kits = profile.getKitList();
+
+        return profile;
     }
 
-    public Player bukkit() {
-        return Bukkit.getPlayer(corePlayer.getUuid());
+    @Override
+    protected SkypvpPlayerProfile loadData() {
+        return Skypvp.getInstance().loadGameProfile(corePlayer.bukkit(), SkypvpPlayerProfile.class);
+    }
+
+    @Override
+    public void saveData() {
+        Skypvp.getInstance().saveGameProfile(new SkypvpPlayerProfile(corePlayer.bukkit(), enderchest));
     }
 
     public boolean hasKit(Kit kit) {

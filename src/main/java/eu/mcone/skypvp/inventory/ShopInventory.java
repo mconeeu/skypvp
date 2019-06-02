@@ -8,6 +8,7 @@ package eu.mcone.skypvp.inventory;
 import eu.mcone.coresystem.api.bukkit.CoreSystem;
 import eu.mcone.coresystem.api.bukkit.inventory.CoreInventory;
 import eu.mcone.coresystem.api.bukkit.util.ItemBuilder;
+import eu.mcone.skypvp.Skypvp;
 import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
@@ -33,7 +34,6 @@ public class ShopInventory extends CoreInventory {
     private void buyShopItem(Player p, ShopItem item){
         int futCoins = CoreSystem.getInstance().getCorePlayer(p).getCoins() - item.getCoins();
         if (futCoins <= -1){
-            p.closeInventory();
             p.playSound(p.getLocation(), Sound.NOTE_BASS, 1.0F, 1.0F);
             CoreSystem.getInstance().createTitle()
                     .title("§c§l×")
@@ -45,8 +45,10 @@ public class ShopInventory extends CoreInventory {
         } else {
             CoreSystem.getInstance().getCorePlayer(p).removeCoins(item.getCoins());
             p.getInventory().addItem(item.getItem());
-            p.closeInventory();
+            new ShopInventory(p);
+
             p.playSound(p.getLocation(), Sound.LEVEL_UP, 10F, 10F);
+            Skypvp.getInstance().getMessager().send(p, "§2Du hast erfolgreich das Item §a" + item.getItem().getItemMeta().getDisplayName() + "§2 gekauft!");
             CoreSystem.getInstance().createTitle()
                     .title("§a§l✓")
                     .subTitle("§7Du hast das Item §f" + item.getItem().getItemMeta().getDisplayName() + " §7gekauft!")
