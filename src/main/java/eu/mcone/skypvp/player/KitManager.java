@@ -6,7 +6,7 @@
 package eu.mcone.skypvp.player;
 
 import eu.mcone.coresystem.api.bukkit.inventory.CoreInventory;
-import eu.mcone.coresystem.api.bukkit.util.ItemBuilder;
+import eu.mcone.coresystem.api.bukkit.item.ItemBuilder;
 import eu.mcone.skypvp.Skypvp;
 import eu.mcone.skypvp.inventory.KitBuyInventory;
 import org.bukkit.Material;

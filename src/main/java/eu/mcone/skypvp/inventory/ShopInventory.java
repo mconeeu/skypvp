@@ -7,7 +7,7 @@ package eu.mcone.skypvp.inventory;
 
 import eu.mcone.coresystem.api.bukkit.CoreSystem;
 import eu.mcone.coresystem.api.bukkit.inventory.CoreInventory;
-import eu.mcone.coresystem.api.bukkit.util.ItemBuilder;
+import eu.mcone.coresystem.api.bukkit.item.ItemBuilder;
 import eu.mcone.skypvp.Skypvp;
 import org.bukkit.Material;
 import org.bukkit.Sound;

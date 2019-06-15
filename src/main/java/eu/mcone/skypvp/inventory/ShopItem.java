@@ -5,7 +5,7 @@
 
 package eu.mcone.skypvp.inventory;
 
-import eu.mcone.coresystem.api.bukkit.util.ItemBuilder;
+import eu.mcone.coresystem.api.bukkit.item.ItemBuilder;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemStack;
