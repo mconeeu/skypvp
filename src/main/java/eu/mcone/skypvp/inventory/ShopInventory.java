@@ -7,6 +7,7 @@ package eu.mcone.skypvp.inventory;
 
 import eu.mcone.coresystem.api.bukkit.CoreSystem;
 import eu.mcone.coresystem.api.bukkit.inventory.CoreInventory;
+import eu.mcone.coresystem.api.bukkit.inventory.InventoryOption;
 import eu.mcone.coresystem.api.bukkit.item.ItemBuilder;
 import eu.mcone.skypvp.Skypvp;
 import org.bukkit.Material;
@@ -16,7 +17,7 @@ import org.bukkit.entity.Player;
 public class ShopInventory extends CoreInventory {
 
     public ShopInventory(Player p) {
-        super("§9§lSkyPvP §8» §fShop", p, 27, Option.FILL_EMPTY_SLOTS);
+        super("§9§lSkyPvP §8» §fShop", p, 27, InventoryOption.FILL_EMPTY_SLOTS);
 
         setItem(9, ShopItem.swords.getItem(), e -> new WeaponInventory(p));
         setItem(11, ShopItem.bows.getItem(), e -> new BowInventory(p));
@@ -61,7 +62,7 @@ public class ShopInventory extends CoreInventory {
     
     private class WeaponInventory extends CoreInventory {
         WeaponInventory(Player p) {
-            super("§f§lShop §8- §cWaffen", p, 36, Option.FILL_EMPTY_SLOTS);
+            super("§f§lShop §8- §cWaffen", p, 36, InventoryOption.FILL_EMPTY_SLOTS);
 
             setInvItem(this, 9, ShopItem.sword1);
             setInvItem(this, 11, ShopItem.sword2);
@@ -81,7 +82,7 @@ public class ShopInventory extends CoreInventory {
 
     private class BowInventory extends CoreInventory {
         BowInventory(Player p) {
-            super("§f§lShop §8- §cBögen", p, 36, Option.FILL_EMPTY_SLOTS);
+            super("§f§lShop §8- §cBögen", p, 36, InventoryOption.FILL_EMPTY_SLOTS);
 
             setInvItem(this, 9, ShopItem.bow1);
             setInvItem(this, 11, ShopItem.bow2);
@@ -101,7 +102,7 @@ public class ShopInventory extends CoreInventory {
 
     private class ArmorInventory extends CoreInventory {
         ArmorInventory(Player p) {
-            super("§f§lShop §8- §cRüstung", p, 36, Option.FILL_EMPTY_SLOTS);
+            super("§f§lShop §8- §cRüstung", p, 36, InventoryOption.FILL_EMPTY_SLOTS);
 
             setInvItem(this, 3, ShopItem.helm1);
             setInvItem(this, 4, ShopItem.helm2);
@@ -135,7 +136,7 @@ public class ShopInventory extends CoreInventory {
 
     private class ExtraInventory extends CoreInventory {
         ExtraInventory(Player p) {
-            super("§f§lShop §8- §cExtras", p, 36, Option.FILL_EMPTY_SLOTS);
+            super("§f§lShop §8- §cExtras", p, 36, InventoryOption.FILL_EMPTY_SLOTS);
 
             setInvItem(this, 9, ShopItem.op1);
             setInvItem(this, 11, ShopItem.op2);
@@ -155,7 +156,7 @@ public class ShopInventory extends CoreInventory {
 
     private class SpecialInventory extends CoreInventory {
         SpecialInventory(Player p) {
-            super("§f§lShop §8- §cSpezial", p, 36, Option.FILL_EMPTY_SLOTS);
+            super("§f§lShop §8- §cSpezial", p, 36, InventoryOption.FILL_EMPTY_SLOTS);
 
             setInvItem(this, 10, ShopItem.axe1);
             setInvItem(this, 13, ShopItem.soup);

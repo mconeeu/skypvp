@@ -22,4 +22,5 @@ public class WorkbenchCMD extends CorePlayerCommand {
 
 		return true;
 	}
+
 }
