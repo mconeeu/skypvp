@@ -38,19 +38,19 @@ public class GeneralPlayerListener implements Listener{
 
 		LOADING_MSG.send(p);
 
-		Bukkit.getScheduler().runTask(Skypvp.getInstance(), () -> {
-			new SkypvpPlayer(cp);
+        Bukkit.getScheduler().runTask(Skypvp.getInstance(), () -> {
+            new SkypvpPlayer(cp);
 
-			cp.getScoreboard().setNewObjective(new SidebarObjective());
+            cp.getScoreboard().setNewObjective(new SidebarObjective());
 
-			if (hasEmptyInventory(p)) {
-				Skypvp.getInstance().getMessager().send(p, "§7Du scheinst neu auf SkyPvP zu sein! Du bekommst das Standart-Kit!");
-				Skypvp.getInstance().getKitManager().setKit(Skypvp.getInstance().getSkypvpPlayer(p.getUniqueId()), Kit.PLAYER);
-			}
+            if (hasEmptyInventory(p)) {
+                Skypvp.getInstance().getMessager().send(p, "§7Du scheinst neu auf SkyPvP zu sein! Du bekommst das Standart-Kit!");
+                Skypvp.getInstance().getKitManager().setKit(Skypvp.getInstance().getSkypvpPlayer(p.getUniqueId()), Kit.PLAYER);
+            }
 
-			p.getPlayer().playEffect(p.getPlayer().getLocation(), Effect.ENDER_SIGNAL, 10);
-			LOADING_SUCCESS_MSG.send(p);
-		});
+            p.getPlayer().playEffect(p.getPlayer().getLocation(), Effect.ENDER_SIGNAL, 10);
+            LOADING_SUCCESS_MSG.send(p);
+        });
 	}
 
 	@EventHandler

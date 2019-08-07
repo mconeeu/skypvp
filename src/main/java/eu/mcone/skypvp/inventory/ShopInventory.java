@@ -32,9 +32,9 @@ public class ShopInventory extends CoreInventory {
         inv.setItem(slot, item.getItem(), e -> buyShopItem(inv.getPlayer(), item));
     }
 
-    private void buyShopItem(Player p, ShopItem item){
+    private void buyShopItem(Player p, ShopItem item) {
         int futCoins = CoreSystem.getInstance().getCorePlayer(p).getCoins() - item.getCoins();
-        if (futCoins <= -1){
+        if (futCoins <= -1) {
             p.playSound(p.getLocation(), Sound.NOTE_BASS, 1.0F, 1.0F);
             CoreSystem.getInstance().createTitle()
                     .title("§c§l×")
@@ -59,7 +59,7 @@ public class ShopInventory extends CoreInventory {
                     .send(p);
         }
     }
-    
+
     private class WeaponInventory extends CoreInventory {
         WeaponInventory(Player p) {
             super("§f§lShop §8- §cWaffen", p, 36, InventoryOption.FILL_EMPTY_SLOTS);
@@ -70,10 +70,7 @@ public class ShopInventory extends CoreInventory {
             setInvItem(this, 15, ShopItem.sword4);
             setInvItem(this, 17, ShopItem.sword5);
 
-            setItem(31, new ItemBuilder(Material.IRON_DOOR, 1, 0).displayName("§7§l↩ Zurück").create(), e -> {
-                p.playSound(p.getLocation(), Sound.NOTE_BASS, 1.0F, 1.0F);
-                new ShopInventory(p);
-            });
+            setReturnItem(p);
 
             openInventory();
             p.playSound(p.getLocation(), Sound.CHICKEN_EGG_POP, 1, 1);
@@ -90,10 +87,7 @@ public class ShopInventory extends CoreInventory {
             setInvItem(this, 15, ShopItem.bow4);
             setInvItem(this, 17, ShopItem.bow5);
 
-            setItem(31, new ItemBuilder(Material.IRON_DOOR, 1, 0).displayName("§7§l↩ Zurück").create(), e -> {
-                p.playSound(p.getLocation(), Sound.NOTE_BASS, 1.0F, 1.0F);
-                new ShopInventory(p);
-            });
+            setReturnItem(p);
 
             openInventory();
             p.playSound(p.getLocation(), Sound.CHICKEN_EGG_POP, 1, 1);
@@ -124,10 +118,7 @@ public class ShopInventory extends CoreInventory {
             setInvItem(this, 32, ShopItem.shoe3);
             setInvItem(this, 33, ShopItem.shoe4);
 
-            setItem(27, new ItemBuilder(Material.IRON_DOOR, 1, 0).displayName("§7§l↩ Zurück").create(), e -> {
-                p.playSound(p.getLocation(), Sound.NOTE_BASS, 1.0F, 1.0F);
-                new ShopInventory(p);
-            });
+            setReturnItem(p);
 
             openInventory();
             p.playSound(p.getLocation(), Sound.CHICKEN_EGG_POP, 1, 1);
@@ -144,10 +135,7 @@ public class ShopInventory extends CoreInventory {
             setInvItem(this, 15, ShopItem.op4);
             setInvItem(this, 17, ShopItem.op5);
 
-            setItem(31, new ItemBuilder(Material.IRON_DOOR, 1, 0).displayName("§7§l↩ Zurück").create(), e -> {
-                p.playSound(p.getLocation(), Sound.NOTE_BASS, 1.0F, 1.0F);
-                new ShopInventory(p);
-            });
+            setReturnItem(p);
 
             openInventory();
             p.playSound(p.getLocation(), Sound.CHICKEN_EGG_POP, 1, 1);
@@ -162,14 +150,18 @@ public class ShopInventory extends CoreInventory {
             setInvItem(this, 13, ShopItem.soup);
             setInvItem(this, 16, ShopItem.axe2);
 
-            setItem(31, new ItemBuilder(Material.IRON_DOOR, 1, 0).displayName("§7§l↩ Zurück").create(), e -> {
-                p.playSound(p.getLocation(), Sound.NOTE_BASS, 1.0F, 1.0F);
-                new ShopInventory(p);
-            });
+            setReturnItem(p);
 
             openInventory();
             p.playSound(p.getLocation(), Sound.CHICKEN_EGG_POP, 1, 1);
         }
+    }
+
+    private void setReturnItem(Player player) {
+        setItem(31, new ItemBuilder(Material.IRON_DOOR, 1, 0).displayName("§7§l↩ Zurück").create(), e -> {
+            player.playSound(player.getLocation(), Sound.NOTE_BASS, 1.0F, 1.0F);
+            new ShopInventory(player);
+        });
     }
 
 }
