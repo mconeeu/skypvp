@@ -17,7 +17,7 @@ import org.bukkit.inventory.ItemFlag;
 
 public class KitManager {
 
-    public void setKit(SkypvpPlayer p, Kit kit) {
+    public static void setKit(SkypvpPlayer p, Kit kit) {
         Player bp = p.bukkit();
 
         if (!p.hasKit(kit)){
@@ -93,12 +93,12 @@ public class KitManager {
         }
     }
 
-    public void setInvItem(CoreInventory inv, Player p, Kit kit, int i) {
+    public static void setInvItem(CoreInventory inv, Player p, Kit kit, int i) {
         SkypvpPlayer sp = Skypvp.getInstance().getSkypvpPlayer(p.getUniqueId());
 
         if (sp.hasKit(kit)) {
             inv.setItem(i, new ItemBuilder(kit.getItem(), 1, 0).displayName(kit.getName()).lore("§r", "§2§oDu besitzt dieses Item!", "§8» §f§nRechtsklick§8 | §7§oAktivieren").create(), e -> {
-                Skypvp.getInstance().getKitManager().setKit(sp, kit);
+                setKit(sp, kit);
                 p.closeInventory();
             });
         } else {

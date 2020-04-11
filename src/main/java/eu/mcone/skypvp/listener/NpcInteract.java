@@ -1,6 +1,6 @@
 package eu.mcone.skypvp.listener;
 
-import eu.mcone.coresystem.api.bukkit.event.NpcInteractEvent;
+import eu.mcone.coresystem.api.bukkit.event.npc.NpcInteractEvent;
 import eu.mcone.coresystem.api.bukkit.npc.entity.PlayerNpc;
 import net.minecraft.server.v1_8_R3.PacketPlayInUseEntity;
 import org.bukkit.entity.EntityType;

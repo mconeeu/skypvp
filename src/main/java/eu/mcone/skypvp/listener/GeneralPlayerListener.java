@@ -10,6 +10,7 @@ import eu.mcone.coresystem.api.bukkit.player.CorePlayer;
 import eu.mcone.coresystem.api.bukkit.util.CoreActionBar;
 import eu.mcone.skypvp.Skypvp;
 import eu.mcone.skypvp.player.Kit;
+import eu.mcone.skypvp.player.KitManager;
 import eu.mcone.skypvp.player.SkypvpPlayer;
 import eu.mcone.skypvp.util.SidebarObjective;
 import org.bukkit.Bukkit;
@@ -45,7 +46,7 @@ public class GeneralPlayerListener implements Listener{
 
             if (hasEmptyInventory(p)) {
                 Skypvp.getInstance().getMessager().send(p, "§7Du scheinst neu auf SkyPvP zu sein! Du bekommst das Standart-Kit!");
-                Skypvp.getInstance().getKitManager().setKit(Skypvp.getInstance().getSkypvpPlayer(p.getUniqueId()), Kit.PLAYER);
+                KitManager.setKit(Skypvp.getInstance().getSkypvpPlayer(p.getUniqueId()), Kit.PLAYER);
             }
 
             p.getPlayer().playEffect(p.getPlayer().getLocation(), Effect.ENDER_SIGNAL, 10);

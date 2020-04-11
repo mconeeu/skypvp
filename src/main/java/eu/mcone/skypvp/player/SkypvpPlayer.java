@@ -60,7 +60,7 @@ public class SkypvpPlayer extends GamePlayerInventory<SkypvpPlayerProfile> {
                 kits.add(kit);
                 Bukkit.getScheduler().runTaskAsynchronously(Skypvp.getInstance(), this::saveData);
 
-                Skypvp.getInstance().getKitManager().setKit(this, kit);
+                KitManager.setKit(this, kit);
                 Skypvp.getInstance().getMessager().send(bp, "§2Du hast erfolgreich das Kit " + kit.getName() + "§2 gekauft!");
                 bp.playSound(bp.getLocation(), Sound.LEVEL_UP, 1, 1);
             } else {
