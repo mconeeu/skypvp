@@ -21,9 +21,9 @@ public class KitManager {
         Player bp = p.bukkit();
 
         if (!p.hasKit(kit)){
-            Skypvp.getInstance().getMessager().send(bp, "§4Du besitzt dieses Kit nicht!");
+            Skypvp.getInstance().getMessenger().send(bp, "§4Du besitzt dieses Kit nicht!");
         } else if (p.getCurrentKit() != null && !p.getCurrentKit().equals(Kit.PLAYER)) {
-            Skypvp.getInstance().getMessager().send(bp, "§4Du hast bereits ein Kit ausgewählt! Du kannst erst wieder wechseln, nachdem du einmal gestorben bist!");
+            Skypvp.getInstance().getMessenger().send(bp, "§4Du hast bereits ein Kit ausgewählt! Du kannst erst wieder wechseln, nachdem du einmal gestorben bist!");
         } else {
             if (kit.equals(Kit.PLAYER)) {
                 bp.getInventory().setItem(0, new ItemBuilder(Material.STONE_SWORD, 1, 0).unbreakable(true).itemFlags(ItemFlag.HIDE_UNBREAKABLE).create());
@@ -49,7 +49,7 @@ public class KitManager {
                     bp.getInventory().setLeggings(new ItemBuilder(Material.IRON_LEGGINGS, 1, 0).enchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 1).unbreakable(true).itemFlags(ItemFlag.HIDE_UNBREAKABLE).create());
                     bp.getInventory().setBoots(new ItemBuilder(Material.IRON_BOOTS, 1, 0).enchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 1).unbreakable(true).itemFlags(ItemFlag.HIDE_UNBREAKABLE).create());
                 } else {
-                    Skypvp.getInstance().getMessager().send(bp, "§4Du besitzt das §cEisen-Kit §4nicht");
+                    Skypvp.getInstance().getMessenger().send(bp, "§4Du besitzt das §cEisen-Kit §4nicht");
                     return;
                 }
             } else if (kit.equals(Kit.DIAMOND)) {
@@ -65,7 +65,7 @@ public class KitManager {
                     bp.getInventory().setLeggings(new ItemBuilder(Material.IRON_LEGGINGS, 1, 0).enchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 3).unbreakable(true).itemFlags(ItemFlag.HIDE_UNBREAKABLE).create());
                     bp.getInventory().setBoots(new ItemBuilder(Material.IRON_BOOTS, 1, 0).enchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 3).unbreakable(true).itemFlags(ItemFlag.HIDE_UNBREAKABLE).create());
                 } else {
-                    Skypvp.getInstance().getMessager().send(bp, "§4Du besitzt das §cDiamond-Kit §4nicht");
+                    Skypvp.getInstance().getMessenger().send(bp, "§4Du besitzt das §cDiamond-Kit §4nicht");
                     return;
                 }
             } else if (kit.equals(Kit.EMERALD)) {
@@ -81,7 +81,7 @@ public class KitManager {
                     bp.getInventory().setLeggings(new ItemBuilder(Material.DIAMOND_LEGGINGS, 1, 0).enchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 3).unbreakable(true).itemFlags(ItemFlag.HIDE_UNBREAKABLE).create());
                     bp.getInventory().setBoots(new ItemBuilder(Material.DIAMOND_BOOTS, 1, 0).enchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 3).unbreakable(true).itemFlags(ItemFlag.HIDE_UNBREAKABLE).create());
                 } else {
-                    Skypvp.getInstance().getMessager().send(bp, "§4Du besitzt das §cEmerald-Kit §4nicht");
+                    Skypvp.getInstance().getMessenger().send(bp, "§4Du besitzt das §cEmerald-Kit §4nicht");
                     return;
                 }
             }
@@ -89,7 +89,7 @@ public class KitManager {
             p.setCurrentKit(kit);
 
             bp.playSound(bp.getLocation(), Sound.LEVEL_UP, 1, 1);
-            Skypvp.getInstance().getMessager().send(bp, "§2Du hast das Kit " + kit.getName() + " §2erhalten");
+            Skypvp.getInstance().getMessenger().send(bp, "§2Du hast das Kit " + kit.getName() + " §2erhalten");
         }
     }
 

@@ -23,7 +23,7 @@ public class KitCMD extends CorePlayerCommand {
 			new KitInventory(p);
 			p.playSound(p.getLocation(), Sound.CHICKEN_EGG_POP, 1, 1);
 		} else {
-			Skypvp.getInstance().getMessager().send(p, "§cBitte nutze den Command /kit");
+			Skypvp.getInstance().getMessenger().send(p, "§cBitte nutze den Command /kit");
 		}
 		return true;
 	}

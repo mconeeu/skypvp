@@ -61,14 +61,14 @@ public class PlayerDeathListener implements Listener{
             double health = k.getHealth();
             health /= 2.0D;
 
-            Skypvp.getInstance().getMessager().send(p, "§7Du wurdest von §6" + k.getDisplayName() + " §8[§c❤"+format.format(health)+"§8] §7getötet §8[§c-1 Coins§8]");
-            Skypvp.getInstance().getMessager().send(k, "§7Du hast §6" + p.getDisplayName() + " §7getötet §8[§a+3 Coins§8]");
+            Skypvp.getInstance().getMessenger().send(p, "§7Du wurdest von §6" + k.getDisplayName() + " §8[§c❤"+format.format(health)+"§8] §7getötet §8[§c-1 Coins§8]");
+            Skypvp.getInstance().getMessenger().send(k, "§7Du hast §6" + p.getDisplayName() + " §7getötet §8[§a+3 Coins§8]");
             if(cp.getCoins() > 0) cp.removeCoins(1);
         } else {
             if(cp.getCoins() >= 3) cp.removeCoins(3);
             cp.getStats(Gamemode.SKYPVP).addDeaths(1);
 
-            Skypvp.getInstance().getMessager().send(p, "§7Du bist gestorben §8[§c-3 Coins§8]");
+            Skypvp.getInstance().getMessenger().send(p, "§7Du bist gestorben §8[§c-3 Coins§8]");
         }
 
         p.playSound(p.getLocation(), Sound.VILLAGER_HIT, 1.0F, 1.0F);

@@ -45,7 +45,7 @@ public class GeneralPlayerListener implements Listener{
             cp.getScoreboard().setNewObjective(new SidebarObjective());
 
             if (hasEmptyInventory(p)) {
-                Skypvp.getInstance().getMessager().send(p, "§7Du scheinst neu auf SkyPvP zu sein! Du bekommst das Standart-Kit!");
+                Skypvp.getInstance().getMessenger().send(p, "§7Du scheinst neu auf SkyPvP zu sein! Du bekommst das Standart-Kit!");
                 KitManager.setKit(Skypvp.getInstance().getSkypvpPlayer(p.getUniqueId()), Kit.PLAYER);
             }
 
@@ -58,7 +58,7 @@ public class GeneralPlayerListener implements Listener{
     public void onBedEnter(PlayerBedEnterEvent e){
     	Player p = e.getPlayer();
     	e.setCancelled(true);
-    	Skypvp.getInstance().getMessager().send(p, "§cHier darf man kein Bett benutzen!");
+    	Skypvp.getInstance().getMessenger().send(p, "§cHier darf man kein Bett benutzen!");
     }
 
 	@EventHandler(priority = EventPriority.LOW)

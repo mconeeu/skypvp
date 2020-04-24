@@ -49,7 +49,7 @@ public class ShopInventory extends CoreInventory {
             new ShopInventory(p);
 
             p.playSound(p.getLocation(), Sound.LEVEL_UP, 10F, 10F);
-            Skypvp.getInstance().getMessager().send(p, "§2Du hast erfolgreich das Item §a" + item.getItem().getItemMeta().getDisplayName() + "§2 gekauft!");
+            Skypvp.getInstance().getMessenger().send(p, "§2Du hast erfolgreich das Item §a" + item.getItem().getItemMeta().getDisplayName() + "§2 gekauft!");
             CoreSystem.getInstance().createTitle()
                     .title("§a§l✓")
                     .subTitle("§7Du hast das Item §f" + item.getItem().getItemMeta().getDisplayName() + " §7gekauft!")

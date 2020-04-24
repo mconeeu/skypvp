@@ -53,7 +53,7 @@ public class SkypvpPlayer extends GamePlayerInventory<SkypvpPlayerProfile> {
         Player bp = Bukkit.getPlayer(corePlayer.getUuid());
 
         if (hasKit(kit)) {
-            Skypvp.getInstance().getMessager().send(bp, "§4Du besitzt dieses Kit bereits!");
+            Skypvp.getInstance().getMessenger().send(bp, "§4Du besitzt dieses Kit bereits!");
         } else {
             if ((corePlayer.getCoins() - kit.getCoins()) >= 0) {
                 corePlayer.removeCoins(kit.getCoins());
@@ -61,10 +61,10 @@ public class SkypvpPlayer extends GamePlayerInventory<SkypvpPlayerProfile> {
                 Bukkit.getScheduler().runTaskAsynchronously(Skypvp.getInstance(), this::saveData);
 
                 KitManager.setKit(this, kit);
-                Skypvp.getInstance().getMessager().send(bp, "§2Du hast erfolgreich das Kit " + kit.getName() + "§2 gekauft!");
+                Skypvp.getInstance().getMessenger().send(bp, "§2Du hast erfolgreich das Kit " + kit.getName() + "§2 gekauft!");
                 bp.playSound(bp.getLocation(), Sound.LEVEL_UP, 1, 1);
             } else {
-                Skypvp.getInstance().getMessager().send(bp, "§4Du hast nicht genügend Coins!");
+                Skypvp.getInstance().getMessenger().send(bp, "§4Du hast nicht genügend Coins!");
                 bp.playSound(bp.getLocation(), Sound.NOTE_BASS, 1, 1);
             }
         }
