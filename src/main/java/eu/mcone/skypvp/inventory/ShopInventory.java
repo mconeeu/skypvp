@@ -158,7 +158,7 @@ public class ShopInventory extends CoreInventory {
     }
 
     private void setReturnItem(Player player) {
-        setItem(31, new ItemBuilder(Material.IRON_DOOR, 1, 0).displayName("§7§l↩ Zurück").create(), e -> {
+        setItem(0, new ItemBuilder(Material.IRON_DOOR, 1, 0).displayName("§7§l↩ Zurück").create(), e -> {
             player.playSound(player.getLocation(), Sound.NOTE_BASS, 1.0F, 1.0F);
             new ShopInventory(player);
         });

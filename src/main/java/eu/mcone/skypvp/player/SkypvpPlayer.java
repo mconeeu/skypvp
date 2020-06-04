@@ -7,6 +7,7 @@ package eu.mcone.skypvp.player;
 
 import eu.mcone.coresystem.api.bukkit.player.CorePlayer;
 import eu.mcone.coresystem.api.bukkit.player.plugin.GamePlayerInventory;
+import eu.mcone.gameapi.api.player.GamePlayer;
 import eu.mcone.skypvp.Skypvp;
 import lombok.Getter;
 import org.bukkit.Bukkit;
@@ -46,29 +47,11 @@ public class SkypvpPlayer extends GamePlayerInventory<SkypvpPlayerProfile> {
     }
 
     public boolean hasKit(Kit kit) {
-        return kits.contains(kit) || corePlayer.hasPermission(kit.getPermission());
+        return kits.contains(kit) || corePlayer.hasPermission("skypvp.kits." + Skypvp.getInstance().getKitManager().getKit(Kit.DIAMOND.getName())) ||
+                corePlayer.hasPermission("skypvp.kits." + Skypvp.getInstance().getKitManager().getKit(Kit.EMERALD.getName()))
+                || corePlayer.hasPermission("skypvp.kits." + Skypvp.getInstance().getKitManager().getKit(Kit.IRON.getName()));
     }
 
-    public void buyAndSet(Kit kit) {
-        Player bp = Bukkit.getPlayer(corePlayer.getUuid());
-
-        if (hasKit(kit)) {
-            Skypvp.getInstance().getMessenger().send(bp, "§4Du besitzt dieses Kit bereits!");
-        } else {
-            if ((corePlayer.getCoins() - kit.getCoins()) >= 0) {
-                corePlayer.removeCoins(kit.getCoins());
-                kits.add(kit);
-                Bukkit.getScheduler().runTaskAsynchronously(Skypvp.getInstance(), this::saveData);
-
-                KitManager.setKit(this, kit);
-                Skypvp.getInstance().getMessenger().send(bp, "§2Du hast erfolgreich das Kit " + kit.getName() + "§2 gekauft!");
-                bp.playSound(bp.getLocation(), Sound.LEVEL_UP, 1, 1);
-            } else {
-                Skypvp.getInstance().getMessenger().send(bp, "§4Du hast nicht genügend Coins!");
-                bp.playSound(bp.getLocation(), Sound.NOTE_BASS, 1, 1);
-            }
-        }
-    }
 
     void setCurrentKit(Kit kit) {
         currentKit = kit;

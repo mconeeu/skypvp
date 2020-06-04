@@ -25,20 +25,10 @@ public class SkypvpPlayerProfile extends PlayerInventoryProfile {
 
     SkypvpPlayerProfile(Player p, Inventory enderchest) {
         super(p, enderchest);
-
-        SkypvpPlayer sp = Skypvp.getInstance().getSkypvpPlayer(p.getUniqueId());
-        kits = new ArrayList<>();
-        for (Kit kit : sp.getKits()) {
-            kits.add(kit.getId());
-        }
     }
 
     @Override
     public void doSetData(Player p) {
         super.doSetData(p);
-
-        for (int id : kits) {
-            kitList.add(Kit.getKitByID(id));
-        }
     }
 }

@@ -2,7 +2,7 @@ name: MCONE-SkyPvP
 version: ${project.version}
 authors: [Dominik Lippl, Rufus Maiwald]
 main: eu.mcone.skypvp.Skypvp
-depend: [MCONE-BukkitCoreSystem,MCONE-GameSystem]
+depend: [MCONE-BukkitCoreSystem, MCONE-GameAPI]
 
 permissions:
   skypvp:

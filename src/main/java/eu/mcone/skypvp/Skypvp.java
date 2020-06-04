@@ -6,6 +6,7 @@
 package eu.mcone.skypvp;
 
 import eu.mcone.coresystem.api.bukkit.CoreSystem;
+import eu.mcone.coresystem.api.bukkit.gamemode.Gamemode;
 import eu.mcone.coresystem.api.bukkit.player.CorePlayer;
 import eu.mcone.coresystem.api.bukkit.player.profile.PlayerDataProfile;
 import eu.mcone.coresystem.api.bukkit.player.profile.interfaces.EnderchestManager;
@@ -13,12 +14,13 @@ import eu.mcone.coresystem.api.bukkit.player.profile.interfaces.EnderchestManage
 import eu.mcone.coresystem.api.bukkit.world.BuildSystem;
 import eu.mcone.coresystem.api.bukkit.world.CoreWorld;
 import eu.mcone.gameapi.api.GamePlugin;
+import eu.mcone.gameapi.api.Option;
 import eu.mcone.skypvp.command.*;
 import eu.mcone.skypvp.listener.*;
+import eu.mcone.skypvp.player.Kit;
 import eu.mcone.skypvp.player.SkypvpPlayer;
 import eu.mcone.skypvp.util.SidebarObjective;
 import lombok.Getter;
-import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
@@ -29,13 +31,12 @@ import java.util.UUID;
 public class Skypvp extends GamePlugin implements EnderchestManagerGetter {
 
     public Skypvp() {
-        super("skypvp", ChatColor.BLUE, "skypvp.prefix");
+        super(Gamemode.SKYPVP, "skypvp.prefix", Option.KIT_MANAGER_APPLY_KITS_ONCE);
     }
 
     @Getter
     private static Skypvp instance;
     private List<SkypvpPlayer> players;
-
     @Getter
     private BuildSystem buildSystem;
     @Getter
@@ -49,6 +50,9 @@ public class Skypvp extends GamePlugin implements EnderchestManagerGetter {
         world = CoreSystem.getInstance().getWorldManager().getWorld("Skypvp");
         PlayerDataProfile.doSetGameProfileWorld(world.bukkit());
 
+        sendConsoleMessage("§aInitializing Kit Manager...");
+        getKitManager().registerKits(Kit.DEFAULT, Kit.IRON, Kit.EMERALD, Kit.DIAMOND);
+
         sendConsoleMessage("§aInitializing Build-System...");
         buildSystem = CoreSystem.getInstance().initialiseBuildSystem(BuildSystem.BuildEvent.BLOCK_BREAK, BuildSystem.BuildEvent.BLOCK_PLACE);
 
@@ -60,7 +64,6 @@ public class Skypvp extends GamePlugin implements EnderchestManagerGetter {
                 new ShopCMD(),
                 new WorkbenchCMD()
         );
-
         registerEvents(
                 new EntityDamageListener(),
                 new GeneralPlayerListener(),

@@ -8,10 +8,10 @@ package eu.mcone.skypvp.listener;
 import eu.mcone.coresystem.api.bukkit.CoreSystem;
 import eu.mcone.coresystem.api.bukkit.gamemode.Gamemode;
 import eu.mcone.coresystem.api.bukkit.player.CorePlayer;
-import eu.mcone.gameapi.api.GamePlugin;
+import eu.mcone.gameapi.api.GameAPI;
+import eu.mcone.gameapi.api.player.GamePlayer;
 import eu.mcone.skypvp.Skypvp;
 import eu.mcone.skypvp.player.Kit;
-import eu.mcone.skypvp.player.KitManager;
 import eu.mcone.skypvp.player.SkypvpPlayer;
 import org.bukkit.Bukkit;
 import org.bukkit.Sound;
@@ -32,7 +32,7 @@ public class PlayerDeathListener implements Listener{
         Player p = e.getEntity();
         CorePlayer cp = CoreSystem.getInstance().getCorePlayer(p);
 
-        Player k = p.getKiller() != null ? p.getKiller() : Skypvp.getInstance().getDamageLogger().getKiller(p);
+        Player k = (p.getKiller() != null ? p.getKiller() : Skypvp.getInstance().getDamageLogger().getKiller(p));
 
         e.setDeathMessage(null);
         e.setKeepInventory(false);
@@ -78,6 +78,7 @@ public class PlayerDeathListener implements Listener{
     @EventHandler
     public void onRespawn(PlayerRespawnEvent e) {
         final Player p = e.getPlayer();
+        GamePlayer gamePlayer = Skypvp.getInstance().getGamePlayer(p);
 
         e.setRespawnLocation(Skypvp.getInstance().getWorld().getLocation("spawn"));
 
@@ -88,7 +89,7 @@ public class PlayerDeathListener implements Listener{
 
             SkypvpPlayer sp = Skypvp.getInstance().getSkypvpPlayer(p.getUniqueId());
             sp.resetCurrentKit();
-            KitManager.setKit(sp, Kit.PLAYER);
+            gamePlayer.setKit(Kit.DEFAULT);
         });
     }
 
