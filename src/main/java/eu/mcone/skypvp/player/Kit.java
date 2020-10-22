@@ -7,7 +7,6 @@ package eu.mcone.skypvp.player;
 
 import eu.mcone.coresystem.api.bukkit.inventory.PlayerInventorySlot;
 import eu.mcone.coresystem.api.bukkit.item.ItemBuilder;
-import lombok.Getter;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemFlag;
@@ -101,7 +100,7 @@ public class Kit {
                             "§8» §616x Enderperlen",
                             "§8» §6Eisen Ausrüstung",
                             "",
-                            "§7Kosten: §f100 Coins"
+                            "§7Kosten: §f20 Coins"
                     )
                     .create(),
             new HashMap<Integer, ItemStack>() {{
@@ -154,7 +153,7 @@ public class Kit {
                 );
 
             }},
-            100
+            20
     );
 
     public static final eu.mcone.gameapi.api.kit.Kit DIAMOND = new eu.mcone.gameapi.api.kit.Kit(
@@ -170,7 +169,7 @@ public class Kit {
                             "§8» §616x Enderperlen",
                             "§8» §6Diamanten Ausrüstung",
                             "",
-                            "§7Kosten: §f1.000 Coins"
+                            "§7Kosten: §f50 Coins"
                     )
                     .create(),
             new HashMap<Integer, ItemStack>() {
@@ -224,7 +223,7 @@ public class Kit {
                     );
                 }
             },
-            1000
+            50
     );
 
     public static final eu.mcone.gameapi.api.kit.Kit EMERALD = new eu.mcone.gameapi.api.kit.Kit(
@@ -241,7 +240,7 @@ public class Kit {
                             "§8» §6Diamanten Ausrüstung",
                             "§6verzaubert",
                             "",
-                            "§7Kosten: §f10.000 Coins"
+                            "§7Kosten: §f100 Coins"
                     )
                     .create(),
             new HashMap<Integer, ItemStack>() {
@@ -299,6 +298,6 @@ public class Kit {
                     );
                 }
             },
-            10000
+            100
     );
 }

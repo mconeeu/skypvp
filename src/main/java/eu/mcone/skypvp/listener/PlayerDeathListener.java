@@ -6,13 +6,10 @@
 package eu.mcone.skypvp.listener;
 
 import eu.mcone.coresystem.api.bukkit.CoreSystem;
-import eu.mcone.coresystem.api.bukkit.gamemode.Gamemode;
 import eu.mcone.coresystem.api.bukkit.player.CorePlayer;
 import eu.mcone.gameapi.api.GameAPI;
 import eu.mcone.gameapi.api.player.GamePlayer;
 import eu.mcone.skypvp.Skypvp;
-import eu.mcone.skypvp.player.Kit;
-import eu.mcone.skypvp.player.SkypvpPlayer;
 import org.bukkit.Bukkit;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
@@ -30,7 +27,8 @@ public class PlayerDeathListener implements Listener{
     @EventHandler
     public void onDeath(PlayerDeathEvent e) {
         Player p = e.getEntity();
-        CorePlayer cp = CoreSystem.getInstance().getCorePlayer(p);
+        GamePlayer gp = GameAPI.getInstance().getGamePlayer(p);
+        CorePlayer cp = gp.getCorePlayer();
 
         Player k = (p.getKiller() != null ? p.getKiller() : Skypvp.getInstance().getDamageLogger().getKiller(p));
 
@@ -44,9 +42,10 @@ public class PlayerDeathListener implements Listener{
 
         if(k != null){
             CorePlayer ck = CoreSystem.getInstance().getCorePlayer(k);
+            GamePlayer gk = GameAPI.getInstance().getGamePlayer(k);
 
             ck.addCoins(3);
-            ck.getStats(Gamemode.SKYPVP).addKills(1);
+            gk.addKills(1);
             k.setLevel(k.getLevel()+1);
             k.addPotionEffect(PotionEffectType.REGENERATION.createEffect(20*20, 3));
 
@@ -66,13 +65,11 @@ public class PlayerDeathListener implements Listener{
             if(cp.getCoins() > 0) cp.removeCoins(1);
         } else {
             if(cp.getCoins() >= 3) cp.removeCoins(3);
-            cp.getStats(Gamemode.SKYPVP).addDeaths(1);
-
             Skypvp.getInstance().getMessenger().send(p, "§7Du bist gestorben §8[§c-3 Coins§8]");
         }
 
         p.playSound(p.getLocation(), Sound.VILLAGER_HIT, 1.0F, 1.0F);
-        cp.getStats(Gamemode.SKYPVP).addDeaths(1);
+        gp.addDeaths(1);
     }
 
     @EventHandler
@@ -85,11 +82,11 @@ public class PlayerDeathListener implements Listener{
         p.setFireTicks(0);
 
         Bukkit.getScheduler().scheduleSyncDelayedTask(Skypvp.getInstance(), () -> {
-            p.getInventory().clear();
+            /*p.getInventory().clear();
 
             SkypvpPlayer sp = Skypvp.getInstance().getSkypvpPlayer(p.getUniqueId());
             sp.resetCurrentKit();
-            gamePlayer.setKit(Kit.DEFAULT);
+            gamePlayer.setKit(Kit.DEFAULT);*/
         });
     }
 

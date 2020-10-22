@@ -46,7 +46,7 @@ public class EntityDamageListener implements Listener {
             if (ent instanceof Player) {
                 if (ent.getLocation().getY() > 100) {
                     e.setCancelled(true);
-                    Skypvp.getInstance().getMessenger().send(byEnt, "§4Du darfst am Spawn nicht kämpfen!");
+                    Skypvp.getInstance().getMessenger().sendError((Player) byEnt, "Du darfst am Spawn nicht kämpfen!");
                 } else {
                     ent.getWorld().playEffect(ent.getLocation(), Effect.STEP_SOUND, Material.REDSTONE_BLOCK);
                 }
