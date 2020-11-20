@@ -23,8 +23,6 @@ import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.event.weather.WeatherChangeEvent;
 import org.bukkit.inventory.ItemStack;
 
-import static com.mongodb.client.model.Filters.eq;
-
 public class GeneralPlayerListener implements Listener {
 
     @EventHandler
@@ -44,10 +42,6 @@ public class GeneralPlayerListener implements Listener {
 
         new SkypvpPlayer(cp);
         cp.getScoreboard().setNewObjective(new SidebarObjective());
-
-        if (CoreSystem.getInstance().getMongoDB().getCollection("skypvp_profile").find(eq("uuid", p.getUniqueId().toString())).first() == null) {
-            Skypvp.getInstance().getMessenger().send(p, "§7Du scheinst neu auf SkyPvP zu sein! Du bekommst das Standart-Kit!");
-        }
 
         p.getPlayer().playEffect(p.getPlayer().getLocation(), Effect.ENDER_SIGNAL, 10);
     }
