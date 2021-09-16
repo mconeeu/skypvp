@@ -7,10 +7,11 @@ package eu.mcone.skypvp.player;
 
 import eu.mcone.coresystem.api.bukkit.player.CorePlayer;
 import eu.mcone.coresystem.api.bukkit.player.plugin.GamePlayerInventory;
-import eu.mcone.coresystem.api.bukkit.player.profile.PlayerInventoryProfile;
 import eu.mcone.skypvp.Skypvp;
 
-public class SkypvpPlayer extends GamePlayerInventory<PlayerInventoryProfile> {
+public class SkypvpPlayer extends GamePlayerInventory<SkypvpPlayerProfile> {
+
+    private int crates;
 
     public SkypvpPlayer(CorePlayer corePlayer) {
         super(corePlayer);
@@ -18,13 +19,21 @@ public class SkypvpPlayer extends GamePlayerInventory<PlayerInventoryProfile> {
     }
 
     @Override
-    protected PlayerInventoryProfile loadData() {
-        return Skypvp.getInstance().loadGameProfile(corePlayer.bukkit(), PlayerInventoryProfile.class);
+    public SkypvpPlayerProfile reload() {
+        SkypvpPlayerProfile profile = super.reload();
+        crates = profile.getCrates();
+
+        return profile;
+    }
+
+    @Override
+    protected SkypvpPlayerProfile loadData() {
+        return Skypvp.getInstance().loadGameProfile(corePlayer.bukkit(), SkypvpPlayerProfile.class);
     }
 
     @Override
     public void saveData() {
-        Skypvp.getInstance().saveGameProfile(new PlayerInventoryProfile(corePlayer.bukkit(), enderchest));
+        Skypvp.getInstance().saveGameProfile(new SkypvpPlayerProfile(corePlayer.bukkit(), enderchest, crates));
     }
 
 }
